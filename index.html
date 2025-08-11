@@ -124,16 +124,6 @@
             text-align: center;
         }
         
-        .card-activity {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: #555;
-            margin-bottom: 20px;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 4px solid #667eea;
-        }
         
         .card-quote {
             font-style: italic;
@@ -518,6 +508,7 @@
                 <button class="btn btn-primary" onclick="drawRandomCard()">Draw a Card</button>
             </div>
             
+            
             <div class="journey-tracker">
                 <h3>Your Learning Journey</h3>
                 <div class="journey-stats">
@@ -638,6 +629,17 @@
             }, 1000);
         }
         
+        // Get the correct image filename for a card using the new naming pattern
+        function getCorrectImageName(card) {
+            // Convert concept to filename format (lowercase, hyphens for spaces/punctuation)
+            const conceptName = card.concept.toLowerCase()
+                .replace(/\s+/g, '-')           // spaces to hyphens
+                .replace(/[^\w\-]/g, '');       // remove punctuation except hyphens
+            
+            const cardNumber = card.number.toString().padStart(2, '0');
+            return `${conceptName}-${cardNumber}.png`;
+        }
+        
         // Global variable to store current card
         let currentDisplayedCard = null;
 
@@ -681,6 +683,8 @@
         function displayCard(card) {
             const cardDisplay = document.getElementById('cardDisplay');
             
+            // Card successfully displayed with correct image mapping
+            
             // Store current card globally for chat
             currentDisplayedCard = card;
             
@@ -689,10 +693,9 @@
             updateStats();
             saveProgress();
             
-            // Format card number for image filename (add 3 to skip cover and instruction pages, pad with zero if needed)
-            // Images 04-53 are the actual learning cards (50 total), but we only have 47 in data
-            const imageNumber = (card.number + 3).toString().padStart(2, '0');
-            const imagePath = `card images/Analog+Inspiration+[PDF] (1)-${imageNumber}.png`;
+            // Get the correct image filename using the new naming pattern
+            const imageFileName = getCorrectImageName(card);
+            const imagePath = `card images/${imageFileName}`;
             
             cardDisplay.innerHTML = `
                 <div class="card-number">Card #${card.number}</div>
@@ -702,10 +705,6 @@
                          onerror="this.style.display='none'">
                 </div>
                 <div class="card-concept">${card.concept}</div>
-                <div class="card-activity">
-                    <strong>Background:</strong><br>
-                    ${currentRole === 'student' ? makeStudentFriendly(card.activity) : card.activity}
-                </div>
                 ${card.quote ? `<div class="card-quote">\"${card.quote}\"</div>` : ''}
                 
                 ${card.interactionType ? generateInteractionSection(card) : ''}
@@ -720,15 +719,6 @@
             cardDisplay.classList.add('show');
         }
         
-        // Make activity text more student-friendly
-        function makeStudentFriendly(activity) {
-            return activity
-                .replace(/Ask AI to/g, '💡 Try asking AI to')
-                .replace(/students/g, 'you')
-                .replace(/Ask students to/g, 'You can')
-                .replace(/Invite students to/g, 'Try to')
-                .replace(/your students/g, 'you');
-        }
         
         // Mark activity as tried
         function markAsTried() {
@@ -784,8 +774,7 @@
             
             // Set context
             contextDiv.innerHTML = `
-                <strong>📚 Current Topic:</strong> ${concept}<br>
-                <strong>💡 Activity:</strong> ${makeStudentFriendly(activity).substring(0, 150)}...
+                <strong>📚 Current Topic:</strong> ${concept}
             `;
             
             // Reset messages
@@ -983,10 +972,10 @@
         document.addEventListener('DOMContentLoaded', function() {
             loadProgress();
             
-            // Debug check
-            console.log('Cards data loaded:', !!cardsData, cardsData?.length);
+            // Verify cards data is loaded
             if (!cardsData || cardsData.length === 0) {
                 console.error('Cards data not properly loaded!');
+                return;
             }
         });
     </script>
