@@ -172,7 +172,13 @@ Member 3: What about...", type: "textarea" }
         number: 14,
         concept: "Curiosity",
         activity: "What's Next? How? Why? What could be? Create spaces where students want to know more. Choose a topic you're about to teach and ask AI: \"What are five wild, surprising, or little-known questions that will spark curiosity around this topic?\" Pick one and use it to open your next class session.",
-        quote: ""
+        quote: "",
+        interactionType: "curiosity_sparking",
+        aiPrompt: "You are a curiosity expert who makes learning irresistibly interesting. Based on the topic provided, generate 5 wild, surprising, or little-known questions that would make students say 'I never thought about that!' Focus on mysteries, contradictions, or unexpected connections that spark genuine wonder.",
+        inputFields: [
+            { label: "What topic are you studying or learning about?", placeholder: "e.g., The Civil War, Genetic engineering, Shakespeare's sonnets...", type: "text" }
+        ],
+        buttonText: "🤔 Generate Curiosity-Sparking Questions"
     },
     {
         number: 15,
@@ -190,7 +196,14 @@ Member 3: What about...", type: "textarea" }
         number: 17,
         concept: "Ethics",
         activity: "Ask student groups to critically engage with AI and course concepts to design complex, discipline-specific ethical dilemmas for their peers. After swapping dilemmas, groups can then practice ethical decision-making in their field by analyzing the dilemma, gathering missing information, considering various stakeholders, and making an action plan or recommendation along with a justification.",
-        quote: ""
+        quote: "",
+        interactionType: "ethical_dilemma",
+        aiPrompt: "You are an ethics expert who creates thought-provoking dilemmas. Based on the field of study provided, design a realistic, complex ethical scenario that has no easy answers. Include multiple stakeholders with competing interests. Then guide the student through systematic ethical analysis: identifying stakeholders, weighing consequences, considering principles, and developing a thoughtful response.",
+        inputFields: [
+            { label: "What field or discipline are you studying?", placeholder: "e.g., Medicine, Business, Engineering, Psychology...", type: "text" },
+            { label: "What ethical issues in your field are you curious about?", placeholder: "e.g., Patient privacy, corporate responsibility, AI bias...", type: "text" }
+        ],
+        buttonText: "⚖️ Explore Ethical Dilemmas"
     },
     {
         number: 18,
@@ -208,7 +221,14 @@ Member 3: What about...", type: "textarea" }
         number: 20,
         concept: "Growth Mindset",
         activity: "After a quiz or assignment, ask students to choose one question or section they struggled with. Invite them to use AI to explore what they misunderstood and how to improve it. Students can then write a brief reflection and resubmit it along with the revised work for credit, normalizing the idea that mistakes, evaluation, and iteration are essential parts of learning.",
-        quote: ""
+        quote: "",
+        interactionType: "learning_from_mistakes",
+        aiPrompt: "You are a growth mindset coach helping a student learn from their mistakes. Analyze what went wrong, explain the underlying concepts they missed, and provide a clear path for improvement. Focus on turning this struggle into deeper understanding. Be encouraging and emphasize that making mistakes is how learning happens.",
+        inputFields: [
+            { label: "What question or concept did you struggle with?", placeholder: "Copy the question or describe the concept you found difficult...", type: "textarea" },
+            { label: "What was your original answer or approach?", placeholder: "Share what you tried, even if it was wrong...", type: "textarea" }
+        ],
+        buttonText: "🌱 Turn Mistakes Into Learning"
     },
     {
         number: 21,
@@ -233,7 +253,14 @@ Member 3: What about...", type: "textarea" }
         number: 23,
         concept: "Imagination",
         activity: "Ask students to imagine their field of study 10 or 50 years from now—what will it discover, change, or create? How will AI impact their field? Then, prompt AI to generate its own vision. Ask students to compare: What do these futures reflect about their values, hopes, and concerns? Open a conversation about who shapes the future—and who should.",
-        quote: "Imagination is our human power to transcend the immediate boundaries of senses and knowledge, to navigate across time and spaces, and to transcend present conditions (Popenici 2023)."
+        quote: "Imagination is our human power to transcend the immediate boundaries of senses and knowledge, to navigate across time and spaces, and to transcend present conditions (Popenici 2023).",
+        interactionType: "future_visioning",
+        aiPrompt: "You are a futurist helping students imagine their field's future. First, create a detailed vision of how their field might evolve in 10-50 years, including new discoveries, technologies, and societal impacts. Then help them compare this with their own vision to explore what values and assumptions shape different future predictions.",
+        inputFields: [
+            { label: "What field or major are you studying?", placeholder: "e.g., Environmental Science, Computer Science, Education, Art...", type: "text" },
+            { label: "What's your vision for this field in 10-50 years?", placeholder: "What discoveries, changes, or creations do you imagine?", type: "textarea" }
+        ],
+        buttonText: "🔭 Explore Future Possibilities"
     },
     {
         number: 24,
@@ -264,7 +291,13 @@ Member 3: What about...", type: "textarea" }
         number: 27,
         concept: "Insight",
         activity: "Ask students to create something—a draft, sketch, design, or idea—without AI. Then, invite them to share that something with AI and Prompt: \"Write me a prompt that would generate This exactly.\" Students then use that prompt to regenerate the piece. Ask students to Compare: What was lost in translation? What decisions or experiences shaped my version that AI couldn't recover? How does my unique insight show up in the original? What did I learn about myself through this comparison, and how might those insights shape my future work?",
-        quote: ""
+        quote: "",
+        interactionType: "insight_discovery",
+        aiPrompt: "You are helping a student discover their unique creative insights. After they share their original work, write a prompt that would generate something similar. Then help them analyze the differences: What personal experiences, perspectives, or decisions shaped their original that can't be replicated? What makes their insight uniquely human?",
+        inputFields: [
+            { label: "Share something you created (text, idea, description of visual work)", placeholder: "Paste your original writing, describe your artwork, share your idea...", type: "textarea" }
+        ],
+        buttonText: "💡 Discover Your Unique Insights"
     },
     {
         number: 28,
