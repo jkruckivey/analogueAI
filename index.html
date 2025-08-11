@@ -689,7 +689,8 @@
             updateStats();
             saveProgress();
             
-            // Format card number for image filename (add 3 to skip title/direction pages, pad with zero if needed)
+            // Format card number for image filename (add 3 to skip cover and instruction pages, pad with zero if needed)
+            // Images 04-53 are the actual learning cards (50 total), but we only have 47 in data
             const imageNumber = (card.number + 3).toString().padStart(2, '0');
             const imagePath = `card images/Analog+Inspiration+[PDF] (1)-${imageNumber}.png`;
             

@@ -579,5 +579,47 @@ const cardsData = [
             { label: "What course concept or topic are you studying?", placeholder: "e.g., Chemical reactions, historical patterns, literary themes, physics principles...", type: "text" }
         ],
         buttonText: "✨ Discover Wonder Connections"
+    },
+    {
+        number: 48,
+        concept: "Connections",
+        activity: "Help students see the web of relationships between ideas, disciplines, and experiences. Encourage them to map connections between course concepts and their personal lives, other subjects they're studying, or current events. Use AI to explore unexpected links and broaden their understanding of how knowledge interconnects.",
+        quote: "",
+        interactionType: "knowledge_mapping",
+        aiPrompt: "You are a connection specialist who helps students discover unexpected relationships between ideas. Based on the concept they provide, help them map out surprising connections to other disciplines, personal experiences, current events, and broader life themes. Make the web of connections rich and meaningful.",
+        inputFields: [
+            { label: "What concept are you studying?", placeholder: "e.g., Photosynthesis, Renaissance art, supply and demand, genetic inheritance...", type: "text" },
+            { label: "What other subjects or interests do you have?", placeholder: "e.g., Music, sports, cooking, social media, family history...", type: "text" },
+            { label: "What's happening in your life or the world that you're curious about?", placeholder: "e.g., Climate change, social movements, technology trends, personal challenges...", type: "textarea" }
+        ],
+        buttonText: "🕸️ Map Knowledge Connections"
+    },
+    {
+        number: 49,
+        concept: "Joy",
+        activity: "Rediscover the joy in learning by connecting with what genuinely excites and energizes you. Use AI to explore the delightful, surprising, or beautiful aspects of any subject. Celebrate moments of discovery, breakthrough understanding, and the pure pleasure of learning something new.",
+        quote: "",
+        interactionType: "joy_discovery",
+        aiPrompt: "You are a joy catalyst who helps students rediscover the pure delight of learning. Based on their topic, share what's genuinely exciting, beautiful, or surprisingly wonderful about it. Help them see the subject through fresh eyes and find reasons to smile while learning. Focus on wonder, discovery, and the intrinsic rewards of understanding.",
+        inputFields: [
+            { label: "What subject or topic do you want to find more joy in?", placeholder: "e.g., Mathematics, history, chemistry, literature, coding...", type: "text" },
+            { label: "What originally drew you to learning or what subjects have you loved?", placeholder: "What has sparked your curiosity or brought you joy in the past?", type: "textarea" },
+            { label: "What would make this subject feel more joyful for you?", placeholder: "e.g., Hands-on activities, real-world applications, creative projects, social connections...", type: "text" }
+        ],
+        buttonText: "😊 Rediscover Learning Joy"
+    },
+    {
+        number: 50,
+        concept: "Interpretation",
+        activity: "Develop skills in analyzing, interpreting, and making meaning from complex information. Use AI to practice examining data, texts, images, or situations from multiple perspectives. Learn to support interpretations with evidence while remaining open to alternative viewpoints and deeper understanding.",
+        quote: "",
+        interactionType: "meaning_making",
+        aiPrompt: "You are an interpretation coach who helps students develop critical analysis skills. Guide them through examining their material from multiple angles, questioning assumptions, looking for patterns, and supporting interpretations with evidence. Help them understand that good interpretation involves both careful observation and creative insight.",
+        inputFields: [
+            { label: "What are you trying to interpret or analyze?", placeholder: "e.g., A poem, dataset, historical event, artwork, scientific results, social phenomenon...", type: "text" },
+            { label: "Share the material you're analyzing", placeholder: "Paste text, describe the data, share the image description, or explain the situation...", type: "textarea" },
+            { label: "What questions or aspects are you most curious about?", placeholder: "e.g., What patterns do you see? What's the deeper meaning? What might others think?", type: "textarea" }
+        ],
+        buttonText: "🔍 Deepen Your Interpretation"
     }
 ];
