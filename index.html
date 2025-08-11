@@ -571,9 +571,15 @@
             }, 1000);
         }
         
+        // Global variable to store current card
+        let currentDisplayedCard = null;
+
         // Display a card
         function displayCard(card) {
             const cardDisplay = document.getElementById('cardDisplay');
+            
+            // Store current card globally for chat
+            currentDisplayedCard = card;
             
             exploredCards.add(card.number);
             learnedConcepts.add(card.concept);
@@ -599,7 +605,7 @@
                 ${card.quote ? `<div class="card-quote">"${card.quote}"</div>` : ''}
                 <div class="student-actions">
                     <button class="student-btn" onclick="markAsTried()">✓ I tried this!</button>
-                    <button class="student-btn" onclick="openAIChat('${card.concept}', \`${card.activity.replace(/`/g, '\\`').replace(/'/g, "\\'")}\`)">🤖 Chat with AI</button>
+                    <button class="student-btn" onclick="openAIChat()">🤖 Chat with AI</button>
                     <button class="student-btn" onclick="drawRandomCard()">🔄 Get another idea</button>
                     <button class="student-btn" onclick="findSimilar('${card.concept}')">🔗 Find similar</button>
                 </div>
@@ -713,7 +719,13 @@
         // Chat functionality
         let currentCardContext = null;
 
-        function openAIChat(concept, activity) {
+        function openAIChat() {
+            if (!currentDisplayedCard) {
+                alert('Please draw a card first!');
+                return;
+            }
+
+            const { concept, activity } = currentDisplayedCard;
             currentCardContext = { concept, activity };
             
             const modal = document.getElementById('chatModal');
