@@ -655,8 +655,23 @@
             cardDisplay.classList.remove('show');
             
             setTimeout(() => {
-                const randomCard = cardsData[Math.floor(Math.random() * cardsData.length)];
-                displayCard(randomCard);
+                try {
+                    if (!cardsData || cardsData.length === 0) {
+                        throw new Error('Cards data not loaded');
+                    }
+                    const randomCard = cardsData[Math.floor(Math.random() * cardsData.length)];
+                    displayCard(randomCard);
+                } catch (error) {
+                    console.error('Error drawing card:', error);
+                    cardDisplay.innerHTML = `
+                        <div style="text-align: center; padding: 20px; color: #ff6b6b;">
+                            <h3>Oops! Something went wrong</h3>
+                            <p>Unable to load the inspiration cards. Please refresh the page and try again.</p>
+                            <button class="btn" onclick="location.reload()">Refresh Page</button>
+                        </div>
+                    `;
+                    cardDisplay.classList.add('show');
+                }
                 loading.style.display = 'none';
             }, 1000);
         }
@@ -666,29 +681,38 @@
 
         // Generate custom interaction section for cards
         function generateInteractionSection(card) {
-            if (!card.inputFields) return '';
-            
-            const inputsHtml = card.inputFields.map((field, index) => {
-                const inputId = `input-${card.number}-${index}`;
+            try {
+                if (!card.inputFields || !Array.isArray(card.inputFields)) return '';
+                
+                const inputsHtml = card.inputFields.map((field, index) => {
+                    const inputId = `input-${card.number}-${index}`;
+                    const safeLabel = field.label || 'Input';
+                    const safePlaceholder = field.placeholder || '';
+                    const safeType = field.type || 'text';
+                    
+                    return `
+                        <div class="interaction-field">
+                            <label for="${inputId}">${safeLabel}</label>
+                            ${safeType === 'textarea' ? 
+                                `<textarea id="${inputId}" placeholder="${safePlaceholder}" rows="3"></textarea>` :
+                                `<input type="text" id="${inputId}" placeholder="${safePlaceholder}">`
+                            }
+                        </div>
+                    `;
+                }).join('');
+
                 return `
-                    <div class="interaction-field">
-                        <label for="${inputId}">${field.label}</label>
-                        ${field.type === 'textarea' ? 
-                            `<textarea id="${inputId}" placeholder="${field.placeholder}" rows="3"></textarea>` :
-                            `<input type="text" id="${inputId}" placeholder="${field.placeholder}">`
-                        }
+                    <div class="card-interaction">
+                        <h4>💡 Try It Now:</h4>
+                        ${inputsHtml}
+                        <button class="interaction-btn" onclick="executeCardInteraction(${card.number})">${card.buttonText || 'Try It'}</button>
+                        <div class="interaction-result" id="result-${card.number}" style="display: none;"></div>
                     </div>
                 `;
-            }).join('');
-
-            return `
-                <div class="card-interaction">
-                    <h4>💡 Try It Now:</h4>
-                    ${inputsHtml}
-                    <button class="interaction-btn" onclick="executeCardInteraction(${card.number})">${card.buttonText}</button>
-                    <div class="interaction-result" id="result-${card.number}" style="display: none;"></div>
-                </div>
-            `;
+            } catch (error) {
+                console.error('Error generating interaction section:', error, card);
+                return '';
+            }
         }
 
         // Display a card
@@ -1051,6 +1075,12 @@
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
             loadProgress();
+            
+            // Debug check
+            console.log('Cards data loaded:', !!cardsData, cardsData?.length);
+            if (!cardsData || cardsData.length === 0) {
+                console.error('Cards data not properly loaded!');
+            }
         });
     </script>
 </body>
