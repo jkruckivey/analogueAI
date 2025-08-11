@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Learning Inspiration - Student Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            padding: 40px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-width: 180px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+        }
+        
+        .btn-secondary:hover {
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+        }
+        
+        .card-display {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            display: none;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .card-display.show {
+            display: block;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .card-number {
+            display: inline-block;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .card-concept {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .card-activity {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .card-quote {
+            font-style: italic;
+            color: #666;
+            background: #e8f4fd;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #4ecdc4;
+        }
+        
+        .student-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .student-btn {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .student-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .assignment-helper {
+            background: #f0f8ff;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            display: none;
+        }
+        
+        .assignment-helper.show {
+            display: block;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .assignment-input {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            resize: vertical;
+            margin-bottom: 15px;
+        }
+        
+        .assignment-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .journey-tracker {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .journey-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Chat Modal Styles */
+        .chat-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .chat-modal-content {
+            background: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        
+        .chat-header {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chat-header h3 {
+            margin: 0;
+            font-size: 1.3rem;
+        }
+        
+        .close-chat {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+        
+        .close-chat:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .chat-context {
+            background: #f8f9fa;
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            max-height: 400px;
+        }
+        
+        .user-message, .ai-message {
+            margin-bottom: 15px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            line-height: 1.4;
+            animation: messageSlide 0.3s ease-out;
+        }
+        
+        .user-message {
+            background: #667eea;
+            color: white;
+            margin-left: 20%;
+            margin-right: 0;
+        }
+        
+        .ai-message {
+            background: #f0f2f5;
+            color: #333;
+            margin-right: 20%;
+            margin-left: 0;
+        }
+        
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .chat-input-container {
+            padding: 20px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            gap: 10px;
+        }
+        
+        #chatInput {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        #chatInput:focus {
+            border-color: #667eea;
+        }
+        
+        #sendButton {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        #sendButton:hover {
+            background: #5a67d8;
+            transform: translateY(-1px);
+        }
+        
+        #sendButton:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .chat-loading {
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .spinner-small {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                min-width: 250px;
+            }
+            
+            .chat-modal-content {
+                width: 95%;
+                max-height: 90vh;
+            }
+            
+            .user-message {
+                margin-left: 10%;
+            }
+            
+            .ai-message {
+                margin-right: 10%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 AI Learning Inspiration</h1>
+            <p>Discover new ways to enhance your learning with AI</p>
+        </div>
+        
+        <div class="main-content">
+            <div class="action-buttons">
+                <button class="btn" onclick="drawRandomCard()">✨ Get Inspired</button>
+                <button class="btn btn-secondary" onclick="toggleAssignmentHelper()">📝 Assignment Helper</button>
+            </div>
+            
+            <div class="journey-tracker">
+                <h3>Your Learning Journey</h3>
+                <div class="journey-stats">
+                    <div class="stat">
+                        <div class="stat-number" id="cardsExplored">0</div>
+                        <div class="stat-label">Cards Explored</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="conceptsLearned">0</div>
+                        <div class="stat-label">Concepts Learned</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" id="activitiesTried">0</div>
+                        <div class="stat-label">Activities Tried</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="assignment-helper" id="assignmentHelper">
+                <h3>📝 Assignment Helper</h3>
+                <p>Paste your assignment description below, and we'll suggest relevant AI learning strategies:</p>
+                <textarea class="assignment-input" id="assignmentText" placeholder="Paste your assignment prompt or describe what you're working on..."></textarea>
+                <button class="btn" onclick="findRelevantCards()">Find Helpful Strategies</button>
+                <div id="assignmentResults"></div>
+            </div>
+            
+            <div class="card-display" id="cardDisplay">
+                <!-- Card content will be inserted here -->
+            </div>
+            
+            <div class="loading" id="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Finding inspiration...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Chat Modal -->
+    <div class="chat-modal" id="chatModal" style="display: none;">
+        <div class="chat-modal-content">
+            <div class="chat-header">
+                <h3>💬 Chat with AI</h3>
+                <button class="close-chat" onclick="closeChatModal()">&times;</button>
+            </div>
+            <div class="chat-context" id="chatContext"></div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="ai-message">
+                    Hi! I'm here to help you explore this learning concept. What questions do you have, or would you like to discuss how to apply this idea?
+                </div>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" id="chatInput" placeholder="Type your message..." onkeypress="handleChatKeyPress(event)">
+                <button id="sendButton" onclick="sendChatMessage()">Send</button>
+            </div>
+            <div class="chat-loading" id="chatLoading" style="display: none;">
+                <div class="spinner-small"></div>
+                <span>AI is thinking...</span>
+            </div>
+        </div>
+    </div>
+    
+    <script src="cards-data.js"></script>
+    <script>
+        let exploredCards = new Set();
+        let learnedConcepts = new Set();
+        let activitiesTried = 0;
+        let currentRole = 'student'; // Define the current role
+        
+        // Load progress from localStorage
+        function loadProgress() {
+            const saved = localStorage.getItem('aiLearningProgress');
+            if (saved) {
+                const progress = JSON.parse(saved);
+                exploredCards = new Set(progress.exploredCards || []);
+                learnedConcepts = new Set(progress.learnedConcepts || []);
+                activitiesTried = progress.activitiesTried || 0;
+                updateStats();
+            }
+        }
+        
+        // Save progress to localStorage
+        function saveProgress() {
+            const progress = {
+                exploredCards: Array.from(exploredCards),
+                learnedConcepts: Array.from(learnedConcepts),
+                activitiesTried: activitiesTried
+            };
+            localStorage.setItem('aiLearningProgress', JSON.stringify(progress));
+        }
+        
+        // Update statistics display
+        function updateStats() {
+            document.getElementById('cardsExplored').textContent = exploredCards.size;
+            document.getElementById('conceptsLearned').textContent = learnedConcepts.size;
+            document.getElementById('activitiesTried').textContent = activitiesTried;
+        }
+        
+        // Draw a random card
+        function drawRandomCard() {
+            const loading = document.getElementById('loading');
+            const cardDisplay = document.getElementById('cardDisplay');
+            
+            loading.style.display = 'block';
+            cardDisplay.classList.remove('show');
+            
+            setTimeout(() => {
+                const randomCard = cardsData[Math.floor(Math.random() * cardsData.length)];
+                displayCard(randomCard);
+                loading.style.display = 'none';
+            }, 1000);
+        }
+        
+        // Display a card
+        function displayCard(card) {
+            const cardDisplay = document.getElementById('cardDisplay');
+            
+            exploredCards.add(card.number);
+            learnedConcepts.add(card.concept);
+            updateStats();
+            saveProgress();
+            
+            // Format card number for image filename (pad with zero if needed)
+            const imageNumber = card.number.toString().padStart(2, '0');
+            const imagePath = `card images/Analog+Inspiration+[PDF] (1)-${imageNumber}.png`;
+            
+            cardDisplay.innerHTML = `
+                <div class="card-number">Card #${card.number}</div>
+                <div class="card-image-container" style="text-align: center; margin: 20px 0;">
+                    <img src="${imagePath}" alt="Card ${card.number} - ${card.concept}" 
+                         style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);"
+                         onerror="this.style.display='none'">
+                </div>
+                <div class="card-concept">${card.concept}</div>
+                <div class="card-activity">
+                    <strong>Try This:</strong><br>
+                    ${currentRole === 'student' ? makeStudentFriendly(card.activity) : card.activity}
+                </div>
+                ${card.quote ? `<div class="card-quote">"${card.quote}"</div>` : ''}
+                <div class="student-actions">
+                    <button class="student-btn" onclick="markAsTried()">✓ I tried this!</button>
+                    <button class="student-btn" onclick="openAIChat('${card.concept}', \`${card.activity.replace(/`/g, '\\`').replace(/'/g, "\\'")}\`)">🤖 Chat with AI</button>
+                    <button class="student-btn" onclick="drawRandomCard()">🔄 Get another idea</button>
+                    <button class="student-btn" onclick="findSimilar('${card.concept}')">🔗 Find similar</button>
+                </div>
+            `;
+            
+            cardDisplay.classList.add('show');
+        }
+        
+        // Make activity text more student-friendly
+        function makeStudentFriendly(activity) {
+            return activity
+                .replace(/Ask AI to/g, '💡 Try asking AI to')
+                .replace(/students/g, 'you')
+                .replace(/Ask students to/g, 'You can')
+                .replace(/Invite students to/g, 'Try to')
+                .replace(/your students/g, 'you');
+        }
+        
+        // Mark activity as tried
+        function markAsTried() {
+            activitiesTried++;
+            updateStats();
+            saveProgress();
+            
+            // Show encouraging message
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = '🎉 Awesome!';
+            btn.style.background = '#4ecdc4';
+            
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = '';
+            }, 2000);
+        }
+        
+        // Toggle assignment helper
+        function toggleAssignmentHelper() {
+            const helper = document.getElementById('assignmentHelper');
+            helper.classList.toggle('show');
+        }
+        
+        // Find relevant cards for assignment
+        function findRelevantCards() {
+            const assignmentText = document.getElementById('assignmentText').value.toLowerCase();
+            const resultsDiv = document.getElementById('assignmentResults');
+            
+            if (!assignmentText.trim()) {
+                resultsDiv.innerHTML = '<p style="color: #ff6b6b; margin-top: 15px;">Please enter your assignment details first!</p>';
+                return;
+            }
+            
+            // Simple keyword matching for demo
+            const relevantCards = cardsData.filter(card => {
+                const cardText = (card.concept + ' ' + card.activity).toLowerCase();
+                return assignmentText.includes('research') && cardText.includes('research') ||
+                       assignmentText.includes('write') && cardText.includes('writing') ||
+                       assignmentText.includes('present') && cardText.includes('presentation') ||
+                       assignmentText.includes('group') && cardText.includes('collaboration') ||
+                       assignmentText.includes('creative') && cardText.includes('creativity') ||
+                       assignmentText.includes('analysis') && cardText.includes('critical');
+            });
+            
+            if (relevantCards.length === 0) {
+                // Show a few popular cards if no matches
+                const popularCards = [cardsData[10], cardsData[25], cardsData[12]]; // Critical-Thinking, Inquiry, Creativity
+                resultsDiv.innerHTML = `
+                    <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 10px;">
+                        <h4>Here are some popular learning strategies to try:</h4>
+                        ${popularCards.map(card => `
+                            <div style="margin: 10px 0; padding: 10px; border-left: 3px solid #4ecdc4;">
+                                <strong>${card.concept}:</strong> ${makeStudentFriendly(card.activity.substring(0, 150))}...
+                                <button class="student-btn" style="margin-left: 10px;" onclick="displayCard(cardsData.find(c => c.number === ${card.number}))">Try This</button>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            } else {
+                resultsDiv.innerHTML = `
+                    <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 10px;">
+                        <h4>Great matches for your assignment:</h4>
+                        ${relevantCards.slice(0, 3).map(card => `
+                            <div style="margin: 10px 0; padding: 10px; border-left: 3px solid #667eea;">
+                                <strong>${card.concept}:</strong> ${makeStudentFriendly(card.activity.substring(0, 150))}...
+                                <button class="student-btn" style="margin-left: 10px;" onclick="displayCard(cardsData.find(c => c.number === ${card.number}))">Try This</button>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+        }
+        
+        // Find similar concepts
+        function findSimilar(concept) {
+            const similar = cardsData.filter(card => card.concept !== concept).slice(0, 3);
+            const cardDisplay = document.getElementById('cardDisplay');
+            
+            cardDisplay.innerHTML += `
+                <div style="margin-top: 25px; padding: 20px; background: #f0f8ff; border-radius: 10px;">
+                    <h4>💡 You might also like:</h4>
+                    ${similar.map(card => `
+                        <div style="margin: 10px 0; padding: 10px; background: white; border-radius: 5px;">
+                            <strong>${card.concept}:</strong> ${card.activity.substring(0, 100)}...
+                            <button class="student-btn" style="margin-left: 10px;" onclick="displayCard(cardsData.find(c => c.number === ${card.number}))">Explore</button>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        // Chat functionality
+        let currentCardContext = null;
+
+        function openAIChat(concept, activity) {
+            currentCardContext = { concept, activity };
+            
+            const modal = document.getElementById('chatModal');
+            const contextDiv = document.getElementById('chatContext');
+            const messagesDiv = document.getElementById('chatMessages');
+            
+            // Set context
+            contextDiv.innerHTML = `
+                <strong>📚 Current Topic:</strong> ${concept}<br>
+                <strong>💡 Activity:</strong> ${makeStudentFriendly(activity).substring(0, 150)}...
+            `;
+            
+            // Reset messages
+            messagesDiv.innerHTML = `
+                <div class="ai-message">
+                    Hi! I'm here to help you explore <strong>${concept}</strong>. What questions do you have, or would you like to discuss how to apply this idea?
+                </div>
+            `;
+            
+            modal.style.display = 'flex';
+            document.getElementById('chatInput').focus();
+        }
+
+        function closeChatModal() {
+            document.getElementById('chatModal').style.display = 'none';
+            currentCardContext = null;
+        }
+
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendChatMessage();
+            }
+        }
+
+        async function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            const messagesDiv = document.getElementById('chatMessages');
+            const loadingDiv = document.getElementById('chatLoading');
+            const sendButton = document.getElementById('sendButton');
+            
+            // Add user message
+            messagesDiv.innerHTML += `<div class="user-message">${message}</div>`;
+            input.value = '';
+            
+            // Scroll to bottom
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            
+            // Show loading and disable input
+            loadingDiv.style.display = 'flex';
+            sendButton.disabled = true;
+            input.disabled = true;
+            
+            try {
+                // Send request to backend
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        cardContext: currentCardContext,
+                        instructions: 'Help the student engage deeply with this learning concept through thoughtful questions and guidance.'
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                
+                const data = await response.json();
+                
+                // Add AI response
+                messagesDiv.innerHTML += `<div class="ai-message">${data.response}</div>`;
+                
+            } catch (error) {
+                console.error('Chat error:', error);
+                messagesDiv.innerHTML += `
+                    <div class="ai-message" style="background: #fee2e2; color: #991b1b;">
+                        Sorry, I'm having trouble connecting right now. Please try again later.
+                    </div>
+                `;
+            } finally {
+                // Hide loading and re-enable input
+                loadingDiv.style.display = 'none';
+                sendButton.disabled = false;
+                input.disabled = false;
+                input.focus();
+                
+                // Scroll to bottom
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(event) {
+            const modal = document.getElementById('chatModal');
+            if (event.target === modal) {
+                closeChatModal();
+            }
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProgress();
+        });
+    </script>
+</body>
+</html>
