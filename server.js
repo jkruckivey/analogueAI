@@ -32,8 +32,8 @@ app.post('/api/chat', async (req, res) => {
             return res.status(400).json({ error: 'Message is required' });
         }
 
-        if (!process.env.OPENAI_API_KEY) {
-            console.log('Error: OpenAI API key not found');
+        if (!process.env.ANTHROPIC_API_KEY) {
+            console.log('Error: Anthropic API key not found');
             return res.status(500).json({ error: 'API key not configured' });
         }
 
@@ -50,32 +50,34 @@ app.post('/api/chat', async (req, res) => {
         
         systemPrompt += `Be encouraging, ask thoughtful questions, and help the student think critically. Keep responses concise but meaningful.`;
 
-        // Make request to OpenAI API
-        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        // Make request to Anthropic API
+        const response = await fetch('https://api.anthropic.com/v1/messages', {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
-                'Content-Type': 'application/json'
+                'x-api-key': process.env.ANTHROPIC_API_KEY,
+                'Content-Type': 'application/json',
+                'anthropic-version': '2023-06-01'
             },
             body: JSON.stringify({
-                model: 'gpt-3.5-turbo',
-                messages: [
-                    { role: 'system', content: systemPrompt },
-                    { role: 'user', content: message }
-                ],
+                model: 'claude-3-haiku-20240307',
                 max_tokens: 500,
-                temperature: 0.7
+                messages: [
+                    { 
+                        role: 'user', 
+                        content: `${systemPrompt}\n\nUser: ${message}` 
+                    }
+                ]
             })
         });
 
         if (!response.ok) {
             const errorData = await response.json();
-            console.error('OpenAI API Error:', errorData);
+            console.error('Anthropic API Error:', errorData);
             return res.status(500).json({ error: 'AI service temporarily unavailable' });
         }
 
         const data = await response.json();
-        const aiResponse = data.choices[0]?.message?.content || 'Sorry, I couldn\'t generate a response.';
+        const aiResponse = data.content[0]?.text || 'Sorry, I couldn\'t generate a response.';
 
         res.json({ response: aiResponse });
 
@@ -90,8 +92,8 @@ app.get('/api/health', (req, res) => {
     res.json({ 
         status: 'OK', 
         timestamp: new Date().toISOString(),
-        hasApiKey: !!process.env.OPENAI_API_KEY,
-        apiKeyPrefix: process.env.OPENAI_API_KEY ? process.env.OPENAI_API_KEY.substring(0, 7) + '...' : 'none'
+        hasApiKey: !!process.env.ANTHROPIC_API_KEY,
+        apiKeyPrefix: process.env.ANTHROPIC_API_KEY ? process.env.ANTHROPIC_API_KEY.substring(0, 7) + '...' : 'none'
     });
 });
 
