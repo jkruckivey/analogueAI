@@ -13,7 +13,15 @@ app.use(cors({
     allowedHeaders: ['Content-Type']
 }));
 app.use(express.json({ limit: '10mb' }));
-app.use(express.static('.'));
+
+// Serve static files with explicit content types
+app.use(express.static('.', {
+    setHeaders: (res, path) => {
+        if (path.endsWith('.js')) {
+            res.setHeader('Content-Type', 'application/javascript');
+        }
+    }
+}));
 
 // Serve static files
 app.get('/', (req, res) => {
