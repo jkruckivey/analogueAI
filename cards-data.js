@@ -394,49 +394,109 @@ Member 3: What about...", type: "textarea" }
         number: 31,
         concept: "Motivation",
         activity: "Ask students to provide AI with 2-3 paragraphs about the things in life that really spark their curiosity and give them excitement, along with potential careers or things that they would like to pursue. Then, invite students to upload your syllabus or an upcoming assignment prompt and ask AI: \"Why should I care about this assignment? What skills or knowledge might I gain? How do these align with what I hope to be or do?\"",
-        quote: ""
+        quote: "",
+        interactionType: "personal_relevance",
+        aiPrompt: "You are a motivation coach helping students connect their assignments to their personal interests and future goals. Based on their passions and the assignment, show them why this work matters for their dreams and how the skills they'll gain are valuable for their future.",
+        inputFields: [
+            { label: "What really sparks your curiosity and excitement in life?", placeholder: "Share your interests, hobbies, things you love thinking about...", type: "textarea" },
+            { label: "What careers or future paths interest you?", placeholder: "Jobs, roles, or ways you might want to contribute to the world...", type: "text" },
+            { label: "What assignment are you working on?", placeholder: "Copy/paste the assignment description...", type: "textarea" }
+        ],
+        buttonText: "🚀 Find Your Why"
     },
     {
         number: 32,
         concept: "Mystery",
         activity: "As pre-work, invite students to enter a tailored version of the following prompt into an AI tool: \"Create an engaging short mystery or puzzle involving [insert topic or concept], where something unusual happens and I have to figure out what caused it. Include clues I can follow, but don't give away the answer right away.\" During class, ask students to share their scenarios, investigations, and findings with each other in a small group discussion.",
-        quote: ""
+        quote: "",
+        interactionType: "mystery_creation",
+        aiPrompt: "You are a mystery writer and educator. Create an engaging, short mystery or puzzle involving the concept provided. Present an unusual situation with clear clues to follow, but don't reveal the solution immediately. Make it intriguing and educational.",
+        inputFields: [
+            { label: "What concept or topic should the mystery involve?", placeholder: "e.g., Chemical reactions, historical events, mathematical principles...", type: "text" },
+            { label: "What level of difficulty do you want?", placeholder: "e.g., Beginner, intermediate, challenging...", type: "text" }
+        ],
+        buttonText: "🕵️ Create Learning Mystery"
     },
     {
         number: 33,
         concept: "Perseverance",
         activity: "Choose one assessment and ask AI: \"How might I better reward student perseverance—through revision or re-attmempts—while keeping my grading load sustainable?\" Could one stage be ungraded? Could students earn full credit for revision? Let your policies reflect the belief that learning happens when we try again.",
-        quote: ""
+        quote: "",
+        interactionType: "perseverance_planning",
+        aiPrompt: "You are a resilience coach helping students develop a perseverance strategy for challenging work. Based on what they're struggling with, create a step-by-step plan for pushing through difficulties, including specific techniques for staying motivated and learning from setbacks.",
+        inputFields: [
+            { label: "What challenging task or subject are you working on?", placeholder: "e.g., Calculus problem set, research paper, coding project...", type: "text" },
+            { label: "Where are you getting stuck or feeling discouraged?", placeholder: "What specific obstacles are you facing?", type: "textarea" },
+            { label: "What has helped you persevere through challenges before?", placeholder: "Past strategies, mindsets, or support systems that worked...", type: "textarea" }
+        ],
+        buttonText: "💪 Build Perseverance Strategy"
     },
     {
         number: 34,
         concept: "Perspective",
         activity: "Ask students to share their working thesis, hypothesis, or project pitch with AI and ask it to point out stakeholders, variables, counter-arguments, or other things they've overlooked. Students can then revise their work to address these gaps, reflecting on how these perspectives have impacted their own.",
-        quote: ""
+        quote: "",
+        interactionType: "perspective_expansion",
+        aiPrompt: "You are a perspective analyst helping students see their work from multiple angles. Based on their thesis or idea, identify overlooked stakeholders, counter-arguments, alternative viewpoints, and blind spots. Help them understand how different perspectives would view their work.",
+        inputFields: [
+            { label: "Share your working thesis, hypothesis, or main argument", placeholder: "What's your main idea or position?", type: "textarea" },
+            { label: "What context or field is this for?", placeholder: "e.g., History paper, business proposal, scientific research...", type: "text" }
+        ],
+        buttonText: "🔍 Expand Your Perspective"
     },
     {
         number: 35,
         concept: "Play",
         activity: "Host an AI-supported \"sandbox\" session where students work in teams to creatively build something using course concepts. This could be anything... a speculative design, prototype, business plan, simulation, game, app, or even a comic or theme park ride. Encourage openness, connections, and creative risk-taking! Save time for students to share what they made, explain how they used course concepts, and reflect... Why did you choose to make this? Who is your audience? What did you learn through open play?",
-        quote: ""
+        quote: "",
+        interactionType: "playful_creation",
+        aiPrompt: "You are a play-based learning facilitator. Based on the course concept provided, brainstorm 4-5 playful, creative ways to explore it - like games, simulations, art projects, or imaginative scenarios. Focus on fun, hands-on approaches that make learning feel like play.",
+        inputFields: [
+            { label: "What course concept do you want to play with?", placeholder: "e.g., Ecosystems, market forces, character development, chemical bonds...", type: "text" },
+            { label: "What kind of creative projects appeal to you?", placeholder: "e.g., Games, art, stories, simulations, inventions...", type: "text" }
+        ],
+        buttonText: "🎲 Design Playful Learning"
     },
     {
         number: 36,
         concept: "Process",
         activity: "When assigning projects or portfolios, ask students to document their learning process through timelines, maps, infographics, or written reflections. These can include annotated AI chats, challenges faced, errors made, major breakthroughs, and takeaways. Center process over output. Cultivate your students' metacognition and guide them to understand that learning is a messy process.",
-        quote: ""
+        quote: "",
+        interactionType: "process_reflection",
+        aiPrompt: "You are a metacognition coach helping students reflect on their learning process. Guide them to document their journey, identify patterns in how they learn, recognize growth moments, and understand that the messy process of learning is often more valuable than perfect outcomes.",
+        inputFields: [
+            { label: "What project or learning experience do you want to reflect on?", placeholder: "e.g., Research paper, coding project, art piece, problem set...", type: "text" },
+            { label: "Describe your process - the steps, struggles, breakthroughs", placeholder: "What did your learning journey actually look like?", type: "textarea" },
+            { label: "What surprised you about how you learned?", placeholder: "Any unexpected challenges, discoveries, or insights?", type: "textarea" }
+        ],
+        buttonText: "🛤️ Map Your Learning Process"
     },
     {
         number: 37,
         concept: "Reflection",
         activity: "Collect anonymized student feedback and ask AI: \"What themes emerge from this feedback about my teaching or student experiences?\" Pair these insights with a reflection on your own experience teaching the course. What are you most proud of? What might you do differently next term? What can you change tomorrow?",
-        quote: "Teaching holds a mirror to the soul. If I am willing to look in that mirror, and not run from what I see, I have a chance to gain self-knowledge–and knowing myself is as crucial to good teaching as knowing my students and my subject (Palmer 2007)."
+        quote: "Teaching holds a mirror to the soul. If I am willing to look in that mirror, and not run from what I see, I have a chance to gain self-knowledge–and knowing myself is as crucial to good teaching as knowing my students and my subject (Palmer 2007).",
+        interactionType: "deep_reflection",
+        aiPrompt: "You are a reflective learning coach helping students gain deeper self-awareness about their learning experiences. Guide them through thoughtful reflection on what they've learned, how they've grown, and what they want to change or improve going forward.",
+        inputFields: [
+            { label: "What learning experience do you want to reflect on?", placeholder: "e.g., This semester, a challenging project, a new skill you learned...", type: "text" },
+            { label: "What are you most proud of in your learning journey?", placeholder: "Achievements, breakthroughs, growth you've experienced...", type: "textarea" },
+            { label: "What would you do differently or want to improve?", placeholder: "Areas for growth, habits to change, new approaches to try...", type: "textarea" }
+        ],
+        buttonText: "🪞 Deepen Your Self-Reflection"
     },
     {
         number: 38,
         concept: "Relationships",
         activity: "Share any course element with AI and ask: \"How might I adjust this to strengthen student relationships with each other, with me, or with the broader community?\" If you decide to implement a suggested change, tell students why you made the change: to cultivate the kinds of connections that enrich our learning and our lives.",
-        quote: "Human connection is the basis upon which learning takes place (Bass, quoted in Felten & Lambert 2020)."
+        quote: "Human connection is the basis upon which learning takes place (Bass, quoted in Felten & Lambert 2020).",
+        interactionType: "relationship_building",
+        aiPrompt: "You are a relationship and community building expert. Based on the learning situation provided, suggest specific ways to strengthen connections between students, with instructors, and with the broader community. Focus on meaningful interactions that enhance learning through relationships.",
+        inputFields: [
+            { label: "What learning situation do you want to improve?", placeholder: "e.g., Online class, group project, study group, large lecture...", type: "text" },
+            { label: "What relationship challenges are you experiencing?", placeholder: "e.g., Students don't know each other, feel disconnected, shy to participate...", type: "textarea" }
+        ],
+        buttonText: "🤝 Build Learning Relationships"
     },
     {
         number: 39,
@@ -448,7 +508,15 @@ Member 3: What about...", type: "textarea" }
         number: 40,
         concept: "Risk-Taking",
         activity: "Midway through a semester project, ask students to share their current work with AI and ask: \"What's a more daring, bold, unconventional, or risky way I could approach this work moving forward—something that could lead me in a new, unexplored direction?\" Invite students to submit a reflection about how AI's output helped to shift or solidify their original approach moving forward.",
-        quote: ""
+        quote: "",
+        interactionType: "bold_exploration",
+        aiPrompt: "You are a creative risk-taking coach who pushes students beyond their comfort zones. Based on their current work, suggest 3-4 daring, unconventional approaches that could lead them in exciting new directions. Encourage bold thinking while helping them manage the risks.",
+        inputFields: [
+            { label: "What project are you working on?", placeholder: "Describe your current project, assignment, or creative work...", type: "textarea" },
+            { label: "What approach are you taking so far?", placeholder: "How are you currently approaching this work?", type: "text" },
+            { label: "What would taking a risk mean for you in this context?", placeholder: "What feels scary but potentially exciting?", type: "textarea" }
+        ],
+        buttonText: "🎆 Explore Bold New Directions"
     },
     {
         number: 41,
@@ -460,7 +528,14 @@ Member 3: What about...", type: "textarea" }
         number: 42,
         concept: "Storytelling",
         activity: "When reviewing a complex idea, ask student groups to prompt AI: \"Turn this concept into an interactive story that shows it unfolding in the real world. Include challenges, consequences, and key decisions. Provide moments where my input will impact what happens next in order to deepen my learning.\" Invite groups to experience, extend, or re-write these stories together, drawing on their own interests and experiences.",
-        quote: "Storytelling is culturally universal—it is likely the oldest form of teaching, allowing generations of humans to share cultural knowledge to be remembered over time (Landrum, Brakke, & McCarthy 2019)."
+        quote: "Storytelling is culturally universal—it is likely the oldest form of teaching, allowing generations of humans to share cultural knowledge to be remembered over time (Landrum, Brakke, & McCarthy 2019).",
+        interactionType: "story_learning",
+        aiPrompt: "You are a master storyteller who makes complex concepts memorable through narrative. Based on the concept provided, create an engaging story that shows it unfolding in the real world, with characters facing challenges and making decisions that illustrate the concept's importance.",
+        inputFields: [
+            { label: "What concept do you want to turn into a story?", placeholder: "e.g., Supply and demand, photosynthesis, social justice, algorithms...", type: "text" },
+            { label: "What setting or context would make this interesting?", placeholder: "e.g., A small town, futuristic city, historical period, workplace...", type: "text" }
+        ],
+        buttonText: "📚 Create Learning Story"
     },
     {
         number: 43,
@@ -472,7 +547,15 @@ Member 3: What about...", type: "textarea" }
         number: 44,
         concept: "Trust",
         activity: "During the first week of class, co-create AI-Use Agreements with your students. Here are a few you might try. (Note that you as an instructor are also agreeing to these norms). I agree to be intentional about using AI to support—not bypass—my learning. I agree to critically engage AI to stay curious about this course. I agree to cite the tools, people, and ideas that help me learn. I agree to consider AI's social, cultural, and environmental impacts. I agree to document my thinking process, not just answers. I agree to ask when I'm not sure about AI use. I agree to reflect on my own contributions, strengths, and skills when working with AI. Throughout the term, ask students to reflect on how they are upholding these agreements and revise if necessary.",
-        quote: ""
+        quote: "",
+        interactionType: "trust_agreement",
+        aiPrompt: "You are a learning ethics facilitator helping students create personal AI-use agreements. Based on their learning context and values, help them develop specific, meaningful commitments about how they'll use AI tools responsibly to support (not bypass) their learning.",
+        inputFields: [
+            { label: "What course or learning context is this for?", placeholder: "e.g., Writing class, computer science, research project...", type: "text" },
+            { label: "What are your personal learning values and goals?", placeholder: "What's important to you in how you learn and grow?", type: "textarea" },
+            { label: "What AI usage concerns do you have?", placeholder: "What do you want to make sure you don't lose by using AI?", type: "textarea" }
+        ],
+        buttonText: "🤝 Create Your AI Learning Agreement"
     },
     {
         number: 45,
@@ -490,6 +573,12 @@ Member 3: What about...", type: "textarea" }
         number: 47,
         concept: "Wonder",
         activity: "Push your course concepts outside of the classroom. Ask students to prompt AI to randomly select a place on earth—a museum, city, landmark, national park, glacier, or ancient city. Their task: find a meaningful or surprising connection between that place and a core concept from your course. Students can share their findings as discussion posts, a shared course map, or a 5-minute presentation each week. Let randomness spark their discovery—you'll learn a lot along the way, too.",
-        quote: ""
+        quote: "",
+        interactionType: "wonder_connections",
+        aiPrompt: "You are a wonder-sparking educator who helps students discover amazing connections. First, randomly select an interesting place on Earth for them. Then help them find surprising, meaningful connections between that place and their learning topic. Make the connections unexpected and awe-inspiring.",
+        inputFields: [
+            { label: "What course concept or topic are you studying?", placeholder: "e.g., Chemical reactions, historical patterns, literary themes, physics principles...", type: "text" }
+        ],
+        buttonText: "✨ Discover Wonder Connections"
     }
 ];
