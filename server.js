@@ -1,10 +1,75 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const fs = require('fs');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Simple file-based storage for community examples
+const EXAMPLES_FILE = './community-examples.json';
+
+// Initialize examples file if it doesn't exist
+if (!fs.existsSync(EXAMPLES_FILE)) {
+    fs.writeFileSync(EXAMPLES_FILE, JSON.stringify([]));
+}
+
+// Helper functions for community examples
+function loadExamples() {
+    try {
+        const data = fs.readFileSync(EXAMPLES_FILE, 'utf8');
+        return JSON.parse(data);
+    } catch (error) {
+        console.error('Error loading examples:', error);
+        return [];
+    }
+}
+
+function saveExample(cardNumber, concept, userInputs, aiResponse) {
+    try {
+        const examples = loadExamples();
+        const newExample = {
+            id: Date.now() + Math.random().toString(36).substr(2, 9),
+            timestamp: new Date().toISOString(),
+            cardNumber: cardNumber,
+            concept: concept,
+            userInputs: userInputs,
+            aiResponsePreview: aiResponse ? aiResponse.substring(0, 100) + '...' : '',
+            approved: true // For now, auto-approve. Later could add moderation
+        };
+        
+        examples.push(newExample);
+        
+        // Keep only the latest 1000 examples to prevent file from growing too large
+        if (examples.length > 1000) {
+            examples.splice(0, examples.length - 1000);
+        }
+        
+        fs.writeFileSync(EXAMPLES_FILE, JSON.stringify(examples, null, 2));
+        console.log('Saved community example for card', cardNumber);
+    } catch (error) {
+        console.error('Error saving example:', error);
+    }
+}
+
+function getExamplesForCard(cardNumber, limit = 5) {
+    try {
+        const examples = loadExamples();
+        const cardExamples = examples
+            .filter(ex => ex.cardNumber === cardNumber && ex.approved)
+            .sort(() => Math.random() - 0.5) // Random shuffle
+            .slice(0, limit);
+        
+        // Return only the user inputs (no responses or metadata)
+        return cardExamples.map(ex => ({
+            inputs: ex.userInputs
+        }));
+    } catch (error) {
+        console.error('Error getting examples:', error);
+        return [];
+    }
+}
 
 // Middleware
 app.use(cors({
@@ -95,10 +160,36 @@ app.post('/api/chat', async (req, res) => {
         const data = await response.json();
         const aiResponse = data.content[0]?.text || 'Sorry, I couldn\'t generate a response.';
 
+        // Save this interaction as a community example (if it was successful)
+        if (req.body.customPrompt && req.body.cardContext) {
+            saveExample(
+                req.body.cardContext.cardNumber, 
+                req.body.cardContext.concept,
+                req.body.userInputs || {},
+                aiResponse
+            );
+        }
+
         res.json({ response: aiResponse });
 
     } catch (error) {
         console.error('Chat endpoint error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Get community examples for a specific card
+app.get('/api/examples/:cardNumber', (req, res) => {
+    try {
+        const cardNumber = parseInt(req.params.cardNumber);
+        if (!cardNumber || cardNumber < 1 || cardNumber > 50) {
+            return res.status(400).json({ error: 'Invalid card number' });
+        }
+        
+        const examples = getExamplesForCard(cardNumber);
+        res.json({ examples: examples });
+    } catch (error) {
+        console.error('Examples endpoint error:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });

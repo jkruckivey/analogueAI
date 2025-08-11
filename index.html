@@ -463,6 +463,59 @@
             color: #444;
         }
 
+        /* Community Inspiration Styles */
+        .community-inspiration {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .examples-btn {
+            background: #f8f9fa;
+            color: #667eea;
+            border: 1px solid #e2e8f0;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .examples-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .examples-display {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            border: 1px solid #e2e8f0;
+            text-align: left;
+        }
+
+        .example-item {
+            background: #f8f9fa;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border-left: 3px solid #667eea;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .example-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .examples-header {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
         @media (max-width: 600px) {
             .header h1 {
                 font-size: 2rem;
@@ -668,6 +721,12 @@
                 return `
                     <div class="card-interaction">
                         <h4>💡 Try It Now:</h4>
+                        <div class="community-inspiration">
+                            <button class="examples-btn" onclick="showCommunityExamples(${card.number})" type="button">
+                                💭 See how others approached this
+                            </button>
+                            <div class="examples-display" id="examples-${card.number}" style="display: none;"></div>
+                        </div>
                         ${inputsHtml}
                         <button class="interaction-btn" onclick="executeCardInteraction(${card.number})">${card.buttonText || 'Try It'}</button>
                         <div class="interaction-result" id="result-${card.number}" style="display: none;"></div>
@@ -865,6 +924,59 @@
             }
         }
 
+        // Show community examples for a card
+        async function showCommunityExamples(cardNumber) {
+            const examplesDisplay = document.getElementById(`examples-${cardNumber}`);
+            const button = event.target;
+            
+            if (examplesDisplay.style.display === 'block') {
+                examplesDisplay.style.display = 'none';
+                button.textContent = '💭 See how others approached this';
+                return;
+            }
+            
+            button.textContent = 'Loading examples...';
+            button.disabled = true;
+            
+            try {
+                const response = await fetch(`/api/examples/${cardNumber}`);
+                const data = await response.json();
+                
+                if (data.examples && data.examples.length > 0) {
+                    const examplesHtml = data.examples.map(example => {
+                        const inputTexts = Object.values(example.inputs).filter(input => input && input.trim());
+                        return `<div class="example-item">${inputTexts.join(' → ')}</div>`;
+                    }).join('');
+                    
+                    examplesDisplay.innerHTML = `
+                        <div class="examples-header">💭 How others approached this:</div>
+                        ${examplesHtml}
+                        <div style="text-align: center; margin-top: 10px; font-size: 0.8rem; color: #666;">
+                            ✨ Now try your own approach!
+                        </div>
+                    `;
+                } else {
+                    examplesDisplay.innerHTML = `
+                        <div class="examples-header">💭 Be the first to try this!</div>
+                        <div class="example-item">No examples yet - your response will help inspire others!</div>
+                    `;
+                }
+                
+                examplesDisplay.style.display = 'block';
+                button.textContent = '👆 Hide examples';
+                
+            } catch (error) {
+                console.error('Error loading examples:', error);
+                examplesDisplay.innerHTML = `
+                    <div class="example-item">Unable to load examples right now. Try again later!</div>
+                `;
+                examplesDisplay.style.display = 'block';
+                button.textContent = '💭 See how others approached this';
+            } finally {
+                button.disabled = false;
+            }
+        }
+
         // Execute card-specific interaction
         async function executeCardInteraction(cardNumber) {
             const card = cardsData.find(c => c.number === cardNumber);
@@ -904,8 +1016,13 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         message: userMessage,
-                        cardContext: { concept: card.concept, activity: card.activity },
-                        customPrompt: card.aiPrompt
+                        cardContext: { 
+                            concept: card.concept, 
+                            activity: card.activity,
+                            cardNumber: card.number
+                        },
+                        customPrompt: card.aiPrompt,
+                        userInputs: inputs
                     })
                 });
 

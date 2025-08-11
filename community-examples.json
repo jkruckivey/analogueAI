@@ -1,0 +1,62 @@
+[
+  {
+    "id": "sample1",
+    "timestamp": "2025-08-11T18:18:24.263Z",
+    "cardNumber": 35,
+    "concept": "Play",
+    "userInputs": {
+      "input0": "Organic Chemistry reactions",
+      "input1": "Games, simulations, building molecular models"
+    },
+    "aiResponsePreview": "Here are 4 playful ways to explore organic chemistry reactions...",
+    "approved": true
+  },
+  {
+    "id": "sample2",
+    "timestamp": "2025-08-11T18:18:24.264Z",
+    "cardNumber": 35,
+    "concept": "Play",
+    "userInputs": {
+      "input0": "Statistics and data analysis",
+      "input1": "Sports predictions, interactive dashboards, data storytelling"
+    },
+    "aiResponsePreview": "Let's gamify statistics learning with these creative approaches...",
+    "approved": true
+  },
+  {
+    "id": "sample3",
+    "timestamp": "2025-08-11T18:18:24.264Z",
+    "cardNumber": 35,
+    "concept": "Play",
+    "userInputs": {
+      "input0": "American Civil War history",
+      "input1": "Role-playing, debate simulations, strategy games"
+    },
+    "aiResponsePreview": "Transform Civil War learning into engaging interactive experiences...",
+    "approved": true
+  },
+  {
+    "id": "sample4",
+    "timestamp": "2025-08-11T18:18:24.264Z",
+    "cardNumber": 1,
+    "concept": "Accessibility",
+    "userInputs": {
+      "input0": "Biology 101",
+      "input1": "Visual processing difficulties, note-taking challenges"
+    },
+    "aiResponsePreview": "Here are 5 ways AI can make Biology 101 more accessible...",
+    "approved": true
+  },
+  {
+    "id": "sample5",
+    "timestamp": "2025-08-11T18:18:24.264Z",
+    "cardNumber": 1,
+    "concept": "Accessibility",
+    "userInputs": {
+      "input0": "Computer Science Programming",
+      "input1": "English as second language, complex syntax understanding"
+    },
+    "aiResponsePreview": "AI accessibility tools for programming students include...",
+    "approved": true
+  }
+]
