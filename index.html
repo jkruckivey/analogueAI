@@ -457,6 +457,7 @@
             <div class="action-buttons">
                 <button class="btn" onclick="drawRandomCard()">✨ Get Inspired</button>
                 <button class="btn btn-secondary" onclick="toggleAssignmentHelper()">📝 Assignment Helper</button>
+                <button class="btn" onclick="testConnection()" style="background: #ff6b6b;">🔧 Test API</button>
             </div>
             
             <div class="journey-tracker">
@@ -823,6 +824,33 @@
                 
                 // Scroll to bottom
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }
+        }
+
+        // Test API connection
+        async function testConnection() {
+            try {
+                console.log('Testing API connection...');
+                
+                // Test health endpoint
+                const healthResponse = await fetch('/api/health');
+                const healthData = await healthResponse.json();
+                console.log('Health check:', healthData);
+                
+                // Test simple endpoint
+                const testResponse = await fetch('/api/test', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ test: 'Hello from frontend' })
+                });
+                const testData = await testResponse.json();
+                console.log('Test endpoint:', testData);
+                
+                alert(`API Test Results:\nHealth: ${healthData.status}\nAPI Key: ${healthData.hasApiKey ? 'Present' : 'Missing'}\nTest: ${testData.message}`);
+                
+            } catch (error) {
+                console.error('API test failed:', error);
+                alert(`API Test Failed: ${error.message}`);
             }
         }
 

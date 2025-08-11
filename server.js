@@ -87,7 +87,18 @@ app.post('/api/chat', async (req, res) => {
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
-    res.json({ status: 'OK', timestamp: new Date().toISOString() });
+    res.json({ 
+        status: 'OK', 
+        timestamp: new Date().toISOString(),
+        hasApiKey: !!process.env.OPENAI_API_KEY,
+        apiKeyPrefix: process.env.OPENAI_API_KEY ? process.env.OPENAI_API_KEY.substring(0, 7) + '...' : 'none'
+    });
+});
+
+// Simple test endpoint
+app.post('/api/test', (req, res) => {
+    console.log('Test endpoint hit:', req.body);
+    res.json({ message: 'Test successful', received: req.body });
 });
 
 app.listen(PORT, () => {
