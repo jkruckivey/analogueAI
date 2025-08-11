@@ -7,8 +7,12 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors());
-app.use(express.json());
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type']
+}));
+app.use(express.json({ limit: '10mb' }));
 app.use(express.static('.'));
 
 // Serve static files
@@ -18,11 +22,19 @@ app.get('/', (req, res) => {
 
 // AI Chat endpoint
 app.post('/api/chat', async (req, res) => {
+    console.log('Chat request received:', req.body);
+    
     try {
         const { message, cardContext, instructions } = req.body;
         
         if (!message) {
+            console.log('Error: No message provided');
             return res.status(400).json({ error: 'Message is required' });
+        }
+
+        if (!process.env.OPENAI_API_KEY) {
+            console.log('Error: OpenAI API key not found');
+            return res.status(500).json({ error: 'API key not configured' });
         }
 
         // Build the system prompt based on context
