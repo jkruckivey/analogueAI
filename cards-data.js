@@ -69,7 +69,14 @@ const cardsData = [
         number: 12,
         concept: "Critical-Thinking",
         activity: "Pose a thought-provoking, open-ended question from your lesson. Give students a few minutes to write down their initial thoughts. Then, have them ask the same question to AI and compare their responses: What's similar? What's missing? Invite students to pair up and discuss their human and AI responses. Debrief as a class to highlight student insights and gaps in AI's logic, reframing AI not as an answer machine but as a collaborator with ideas, insights, errors, and limitations.",
-        quote: ""
+        quote: "",
+        interactionType: "question_analysis",
+        aiPrompt: "You are helping a student develop critical thinking skills. They will share a question they're exploring and their initial thoughts. Your job is to: 1) Provide your own perspective on the question, 2) Point out what might be missing from their analysis, 3) Ask follow-up questions that deepen their thinking, 4) Highlight any assumptions or biases. Be encouraging but intellectually rigorous.",
+        inputFields: [
+            { label: "What thought-provoking question are you exploring?", placeholder: "e.g., Should AI replace human teachers?", type: "textarea" },
+            { label: "What are your initial thoughts on this question?", placeholder: "Share your perspective and reasoning...", type: "textarea" }
+        ],
+        buttonText: "🧠 Deepen My Thinking"
     },
     {
         number: 13,
@@ -129,7 +136,14 @@ const cardsData = [
         number: 22,
         concept: "Humor",
         activity: "Ask AI to generate funny analogies or memes for a tough concept or topic in your course. Invite students to critique them, build on them, and share their own memes with each other.",
-        quote: ""
+        quote: "",
+        interactionType: "content_generation",
+        aiPrompt: "You are a creative AI helping students learn through humor. Generate 3-4 funny analogies, jokes, or meme concepts for the topic they provide. Make sure the humor actually helps explain or remember the concept - not just random jokes. Be clever and educational at the same time. After the humor, briefly explain why each one works as a learning tool.",
+        inputFields: [
+            { label: "What tough concept or topic do you want funny analogies for?", placeholder: "e.g., Photosynthesis, Supply and Demand, Shakespeare's themes...", type: "text" },
+            { label: "What specific aspect is confusing or hard to remember?", placeholder: "e.g., The chemical equation, how price affects demand...", type: "text" }
+        ],
+        buttonText: "😂 Generate Funny Learning Tools"
     },
     {
         number: 23,
@@ -147,7 +161,14 @@ const cardsData = [
         number: 25,
         concept: "Inquiry",
         activity: "Ask students to use AI to explore a course topic—but their task is not to find answers; instead, their task is to refine and improve their questions. Ask them to draft a basic question, input it into AI, analyze the response, and then iterate: What follow-up question would deepen this? What assumptions are being made? What do I still not know? Ask students to write a short reflection that details how their questions evolved, and how these questions deepened their learning.",
-        quote: "Asking the right question will continue to be the most valuable human skill (Watson & Bowen 2024)."
+        quote: "Asking the right question will continue to be the most valuable human skill (Watson & Bowen 2024).",
+        interactionType: "question_refinement",
+        aiPrompt: "You are an expert at helping students ask better questions. Your role is NOT to answer their question, but to help them refine it into something deeper and more meaningful. Analyze their initial question and: 1) Point out assumptions it makes, 2) Suggest 3-4 follow-up questions that would deepen their inquiry, 3) Identify what they still don't know, 4) Help them see new angles or perspectives they haven't considered. Focus on making them a better question-asker, not giving them answers.",
+        inputFields: [
+            { label: "What's your initial question about the topic?", placeholder: "e.g., Why is climate change happening?", type: "text" },
+            { label: "What course topic or subject area is this related to?", placeholder: "e.g., Environmental Science, Economics, History...", type: "text" }
+        ],
+        buttonText: "🔍 Refine My Question"
     },
     {
         number: 26,

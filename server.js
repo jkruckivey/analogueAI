@@ -25,7 +25,7 @@ app.post('/api/chat', async (req, res) => {
     console.log('Chat request received:', req.body);
     
     try {
-        const { message, cardContext, instructions } = req.body;
+        const { message, cardContext, instructions, customPrompt } = req.body;
         
         if (!message) {
             console.log('Error: No message provided');
@@ -38,17 +38,25 @@ app.post('/api/chat', async (req, res) => {
         }
 
         // Build the system prompt based on context
-        let systemPrompt = `You are an AI learning assistant helping students engage with educational concepts. `;
+        let systemPrompt;
         
-        if (cardContext) {
-            systemPrompt += `The student is currently exploring the concept "${cardContext.concept}". The learning activity is: "${cardContext.activity}". `;
+        if (customPrompt) {
+            // Use card-specific prompt for guided interactions
+            systemPrompt = customPrompt;
+        } else {
+            // Default generic chat prompt
+            systemPrompt = `You are an AI learning assistant helping students engage with educational concepts. `;
+            
+            if (cardContext) {
+                systemPrompt += `The student is currently exploring the concept "${cardContext.concept}". The learning activity is: "${cardContext.activity}". `;
+            }
+            
+            if (instructions) {
+                systemPrompt += `Additional context: ${instructions}. `;
+            }
+            
+            systemPrompt += `Be encouraging, ask thoughtful questions, and help the student think critically. Keep responses concise but meaningful.`;
         }
-        
-        if (instructions) {
-            systemPrompt += `Additional context: ${instructions}. `;
-        }
-        
-        systemPrompt += `Be encouraging, ask thoughtful questions, and help the student think critically. Keep responses concise but meaningful.`;
 
         // Make request to Anthropic API
         const response = await fetch('https://api.anthropic.com/v1/messages', {

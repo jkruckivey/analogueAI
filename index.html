@@ -413,6 +413,96 @@
             animation: spin 1s linear infinite;
         }
 
+        /* Card Interaction Styles */
+        .card-interaction {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .card-interaction h4 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .interaction-field {
+            margin-bottom: 15px;
+        }
+
+        .interaction-field label {
+            display: block;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .interaction-field input,
+        .interaction-field textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .interaction-field input:focus,
+        .interaction-field textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .interaction-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .interaction-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .interaction-btn:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .interaction-result {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            border: 1px solid #e2e8f0;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .interaction-result h5 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .interaction-result p {
+            margin-bottom: 8px;
+            line-height: 1.5;
+            color: #444;
+        }
+
         @media (max-width: 600px) {
             .header h1 {
                 font-size: 2rem;
@@ -575,6 +665,33 @@
         // Global variable to store current card
         let currentDisplayedCard = null;
 
+        // Generate custom interaction section for cards
+        function generateInteractionSection(card) {
+            if (!card.inputFields) return '';
+            
+            const inputsHtml = card.inputFields.map((field, index) => {
+                const inputId = `input-${card.number}-${index}`;
+                return `
+                    <div class="interaction-field">
+                        <label for="${inputId}">${field.label}</label>
+                        ${field.type === 'textarea' ? 
+                            `<textarea id="${inputId}" placeholder="${field.placeholder}" rows="3"></textarea>` :
+                            `<input type="text" id="${inputId}" placeholder="${field.placeholder}">`
+                        }
+                    </div>
+                `;
+            }).join('');
+
+            return `
+                <div class="card-interaction">
+                    <h4>💡 Try It Now:</h4>
+                    ${inputsHtml}
+                    <button class="interaction-btn" onclick="executeCardInteraction(${card.number})">${card.buttonText}</button>
+                    <div class="interaction-result" id="result-${card.number}" style="display: none;"></div>
+                </div>
+            `;
+        }
+
         // Display a card
         function displayCard(card) {
             const cardDisplay = document.getElementById('cardDisplay');
@@ -600,13 +717,15 @@
                 </div>
                 <div class="card-concept">${card.concept}</div>
                 <div class="card-activity">
-                    <strong>Try This:</strong><br>
+                    <strong>Background:</strong><br>
                     ${currentRole === 'student' ? makeStudentFriendly(card.activity) : card.activity}
                 </div>
                 ${card.quote ? `<div class="card-quote">"${card.quote}"</div>` : ''}
+                
+                ${card.interactionType ? generateInteractionSection(card) : ''}
+                
                 <div class="student-actions">
                     <button class="student-btn" onclick="markAsTried()">✓ I tried this!</button>
-                    <button class="student-btn" onclick="openAIChat()">🤖 Chat with AI</button>
                     <button class="student-btn" onclick="drawRandomCard()">🔄 Get another idea</button>
                     <button class="student-btn" onclick="findSimilar('${card.concept}')">🔗 Find similar</button>
                 </div>
@@ -824,6 +943,74 @@
                 
                 // Scroll to bottom
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }
+        }
+
+        // Execute card-specific interaction
+        async function executeCardInteraction(cardNumber) {
+            const card = cardsData.find(c => c.number === cardNumber);
+            if (!card || !card.inputFields) return;
+
+            // Collect input values
+            const inputs = {};
+            let allFilled = true;
+            
+            card.inputFields.forEach((field, index) => {
+                const inputId = `input-${cardNumber}-${index}`;
+                const value = document.getElementById(inputId).value.trim();
+                if (!value) allFilled = false;
+                inputs[`input${index}`] = value;
+            });
+
+            if (!allFilled) {
+                alert('Please fill in all fields before proceeding.');
+                return;
+            }
+
+            const button = document.querySelector(`button[onclick="executeCardInteraction(${cardNumber})"]`);
+            const resultDiv = document.getElementById(`result-${cardNumber}`);
+            
+            // Show loading state
+            button.disabled = true;
+            button.textContent = 'Thinking...';
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<div class="spinner" style="width: 20px; height: 20px; margin: 10px auto;"></div>';
+
+            try {
+                // Build the prompt with user inputs
+                let userMessage = Object.values(inputs).join('\n\n');
+                
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: userMessage,
+                        cardContext: { concept: card.concept, activity: card.activity },
+                        customPrompt: card.aiPrompt
+                    })
+                });
+
+                if (!response.ok) throw new Error('Network response was not ok');
+                
+                const data = await response.json();
+                
+                // Display result
+                resultDiv.innerHTML = `
+                    <h5>🎯 AI Response:</h5>
+                    <div>${data.response.replace(/\n/g, '<br>')}</div>
+                `;
+
+            } catch (error) {
+                console.error('Interaction error:', error);
+                resultDiv.innerHTML = `
+                    <div style="background: #fee2e2; color: #991b1b; padding: 10px; border-radius: 5px;">
+                        Sorry, I'm having trouble connecting right now. Please try again later.
+                    </div>
+                `;
+            } finally {
+                // Reset button
+                button.disabled = false;
+                button.textContent = card.buttonText;
             }
         }
 
