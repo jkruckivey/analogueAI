@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Learning Inspiration - Student Hub</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
         * {
             margin: 0;
@@ -13,10 +12,11 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+            font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: white;
+            color: #2d3748;
+            padding: 0;
+            margin: 0;
         }
         
         .container {
@@ -29,9 +29,10 @@
         }
         
         .header {
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            background: #2d3748;
             color: white;
-            padding: 30px;
+            padding: 24px 0;
+            border-bottom: 1px solid #e2e8f0;
             text-align: center;
         }
         
@@ -58,29 +59,27 @@
         }
         
         .btn {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            padding: 10px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            min-width: 180px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+            text-decoration: none;
+            display: inline-block;
         }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+
+        .btn-primary {
+            background: #2d3748;
+            color: white;
+            border-color: #2d3748;
         }
-        
-        .btn-secondary {
-            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
-        }
-        
-        .btn-secondary:hover {
-            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+
+        .btn-primary:hover {
+            background: white;
+            color: #2d3748;
+            border-color: #2d3748;
         }
         
         .card-display {
@@ -168,35 +167,6 @@
             background: #667eea;
             color: white;
             transform: translateY(-2px);
-        }
-        
-        .assignment-helper {
-            background: #f0f8ff;
-            border-radius: 15px;
-            padding: 25px;
-            margin: 30px 0;
-            display: none;
-        }
-        
-        .assignment-helper.show {
-            display: block;
-            animation: fadeInUp 0.6s ease-out;
-        }
-        
-        .assignment-input {
-            width: 100%;
-            min-height: 120px;
-            padding: 15px;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            font-size: 1rem;
-            resize: vertical;
-            margin-bottom: 15px;
-        }
-        
-        .assignment-input:focus {
-            outline: none;
-            border-color: #667eea;
         }
         
         .journey-tracker {
@@ -545,8 +515,7 @@
         
         <div class="main-content">
             <div class="action-buttons">
-                <button class="btn" onclick="drawRandomCard()">✨ Get Inspired</button>
-                <button class="btn btn-secondary" onclick="toggleAssignmentHelper()">📝 Assignment Helper</button>
+                <button class="btn btn-primary" onclick="drawRandomCard()">Draw a Card</button>
             </div>
             
             <div class="journey-tracker">
@@ -567,14 +536,6 @@
                 </div>
             </div>
             
-            <div class="assignment-helper" id="assignmentHelper">
-                <h3>📝 Assignment Helper</h3>
-                <p>Paste your assignment description below, and we'll suggest relevant AI learning strategies:</p>
-                <textarea class="assignment-input" id="assignmentText" placeholder="Paste your assignment prompt or describe what you're working on..."></textarea>
-                <button class="btn" onclick="findRelevantCards()">Find Helpful Strategies</button>
-                <div id="assignmentResults"></div>
-            </div>
-            
             <div class="card-display" id="cardDisplay">
                 <!-- Card content will be inserted here -->
             </div>
@@ -591,7 +552,7 @@
         <div class="chat-modal-content">
             <div class="chat-header">
                 <h3>💬 Chat with AI</h3>
-                <button class="close-chat" onclick="closeChatModal()">&times;</button>
+                <button class="close-chat" onclick="closeChatModal()">×</button>
             </div>
             <div class="chat-context" id="chatContext"></div>
             <div class="chat-messages" id="chatMessages">
@@ -611,6 +572,7 @@
     </div>
     
     <script src="cards-data.js"></script>
+    <script>console.log(cardsData);</script>
     <script>
         let exploredCards = new Set();
         let learnedConcepts = new Set();
@@ -727,8 +689,8 @@
             updateStats();
             saveProgress();
             
-            // Format card number for image filename (pad with zero if needed)
-            const imageNumber = card.number.toString().padStart(2, '0');
+            // Format card number for image filename (add 3 to skip title/direction pages, pad with zero if needed)
+            const imageNumber = (card.number + 3).toString().padStart(2, '0');
             const imagePath = `card images/Analog+Inspiration+[PDF] (1)-${imageNumber}.png`;
             
             cardDisplay.innerHTML = `
@@ -743,7 +705,7 @@
                     <strong>Background:</strong><br>
                     ${currentRole === 'student' ? makeStudentFriendly(card.activity) : card.activity}
                 </div>
-                ${card.quote ? `<div class="card-quote">"${card.quote}"</div>` : ''}
+                ${card.quote ? `<div class="card-quote">\"${card.quote}\"</div>` : ''}
                 
                 ${card.interactionType ? generateInteractionSection(card) : ''}
                 
@@ -783,62 +745,6 @@
                 btn.textContent = originalText;
                 btn.style.background = '';
             }, 2000);
-        }
-        
-        // Toggle assignment helper
-        function toggleAssignmentHelper() {
-            const helper = document.getElementById('assignmentHelper');
-            helper.classList.toggle('show');
-        }
-        
-        // Find relevant cards for assignment
-        function findRelevantCards() {
-            const assignmentText = document.getElementById('assignmentText').value.toLowerCase();
-            const resultsDiv = document.getElementById('assignmentResults');
-            
-            if (!assignmentText.trim()) {
-                resultsDiv.innerHTML = '<p style="color: #ff6b6b; margin-top: 15px;">Please enter your assignment details first!</p>';
-                return;
-            }
-            
-            // Simple keyword matching for demo
-            const relevantCards = cardsData.filter(card => {
-                const cardText = (card.concept + ' ' + card.activity).toLowerCase();
-                return assignmentText.includes('research') && cardText.includes('research') ||
-                       assignmentText.includes('write') && cardText.includes('writing') ||
-                       assignmentText.includes('present') && cardText.includes('presentation') ||
-                       assignmentText.includes('group') && cardText.includes('collaboration') ||
-                       assignmentText.includes('creative') && cardText.includes('creativity') ||
-                       assignmentText.includes('analysis') && cardText.includes('critical');
-            });
-            
-            if (relevantCards.length === 0) {
-                // Show a few popular cards if no matches
-                const popularCards = [cardsData[10], cardsData[25], cardsData[12]]; // Critical-Thinking, Inquiry, Creativity
-                resultsDiv.innerHTML = `
-                    <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 10px;">
-                        <h4>Here are some popular learning strategies to try:</h4>
-                        ${popularCards.map(card => `
-                            <div style="margin: 10px 0; padding: 10px; border-left: 3px solid #4ecdc4;">
-                                <strong>${card.concept}:</strong> ${makeStudentFriendly(card.activity.substring(0, 150))}...
-                                <button class="student-btn" style="margin-left: 10px;" onclick="displayCard(cardsData.find(c => c.number === ${card.number}))">Try This</button>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-            } else {
-                resultsDiv.innerHTML = `
-                    <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 10px;">
-                        <h4>Great matches for your assignment:</h4>
-                        ${relevantCards.slice(0, 3).map(card => `
-                            <div style="margin: 10px 0; padding: 10px; border-left: 3px solid #667eea;">
-                                <strong>${card.concept}:</strong> ${makeStudentFriendly(card.activity.substring(0, 150))}...
-                                <button class="student-btn" style="margin-left: 10px;" onclick="displayCard(cardsData.find(c => c.number === ${card.number}))">Try This</button>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-            }
         }
         
         // Find similar concepts

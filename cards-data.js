@@ -99,7 +99,7 @@ const cardsData = [
         aiPrompt: "You are a collaboration facilitator. Help organize and synthesize the group members' ideas into a cohesive project plan. Identify common themes, highlight unique contributions, and suggest ways to integrate different perspectives. Point out any gaps or areas that need more discussion.",
         inputFields: [
             { label: "What's your group project about?", placeholder: "e.g., Marketing campaign, Science fair project, Research presentation...", type: "text" },
-            { label: "Share your group members' initial ideas (copy/paste from discussions)", placeholder: "Member 1: I think we should...\\nMember 2: My idea is...\\nMember 3: What about...", type: "textarea" }
+            { label: "Share your group members' initial ideas (copy/paste from discussions)", placeholder: "Member 1: I think we should...\nMember 2: My idea is...\nMember 3: What about...", type: "textarea" }
         ],
         buttonText: "🤝 Synthesize Group Ideas"
     },
@@ -192,20 +192,21 @@ const cardsData = [
         ],
         buttonText: "🎭 Practice Important Conversations"
     },
-    {
-        number: 16,
-        concept: "Discernment",
-        activity: "\"What am I trying to avoid by using AI right now?\" Ask yourself this question, and encourage students to do the same. Is it... confusion? perfectionism? boredom? Do I really need to use AI right now? Encourage students to jot down these observations. Even a 30-second pause can lead to more intentional engagement with AI.",
-        quote: "",
-        interactionType: "mindful_reflection",
-        aiPrompt: "You are a mindfulness coach helping students reflect on their AI usage patterns. Based on their responses, help them identify whether they're using AI intentionally or as avoidance. Offer insights about healthy AI engagement and suggest when they might benefit from working without AI assistance.",
-        inputFields: [
-            { label: "What task are you considering using AI for right now?", placeholder: "e.g., Writing an essay, solving math problems, brainstorming ideas...", type: "text" },
-            { label: "What are you trying to avoid by using AI?", placeholder: "e.g., Confusion, making mistakes, spending too much time, perfectionism...", type: "text" },
-            { label: "How might you benefit from trying this without AI first?", placeholder: "What could you learn by struggling through it yourself?", type: "textarea" }
-        ],
-        buttonText: "🧘 Reflect on AI Usage"
-    },
+{
+  number: 16,
+  concept: "Discernment",
+  activity: "What am I trying to avoid by using AI right now? Ask yourself this question, and encourage students to do the same. Is it... confusion? perfectionism? boredom? Do I really need to use AI right now? Encourage students to jot down these observations. Even a 30-second pause can lead to more intentional engagement with AI.",
+  quote: "",
+  interactionType: "mindful_reflection",
+  aiPrompt: "You are a mindfulness coach helping students reflect on their AI usage patterns. Based on their responses, help them identify whether they're using AI intentionally or as avoidance. Offer insights about healthy AI engagement and suggest when they might benefit from working without AI assistance.",
+  inputFields: [
+    { label: "What task are you considering using AI for right now?", placeholder: "e.g., Writing an essay, solving math problems, brainstorming ideas...", type: "text" },
+    { label: "What are you trying to avoid by using AI?", placeholder: "e.g., Confusion, making mistakes, spending too much time, perfectionism...", type: "text" },
+    { label: "How might you benefit from trying this without AI first?", placeholder: "What could you learn by struggling through it yourself?", type: "textarea" }
+  ],
+  buttonText: "🧘 Reflect on AI Usage"
+},
+
     {
         number: 17,
         concept: "Ethics",
