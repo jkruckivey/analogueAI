@@ -99,9 +99,7 @@ const cardsData = [
         aiPrompt: "You are a collaboration facilitator. Help organize and synthesize the group members' ideas into a cohesive project plan. Identify common themes, highlight unique contributions, and suggest ways to integrate different perspectives. Point out any gaps or areas that need more discussion.",
         inputFields: [
             { label: "What's your group project about?", placeholder: "e.g., Marketing campaign, Science fair project, Research presentation...", type: "text" },
-            { label: "Share your group members' initial ideas (copy/paste from discussions)", placeholder: "Member 1: I think we should...
-Member 2: My idea is...
-Member 3: What about...", type: "textarea" }
+            { label: "Share your group members' initial ideas (copy/paste from discussions)", placeholder: "Member 1: I think we should...\\nMember 2: My idea is...\\nMember 3: What about...", type: "textarea" }
         ],
         buttonText: "🤝 Synthesize Group Ideas"
     },
