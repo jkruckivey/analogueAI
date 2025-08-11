@@ -3,67 +3,145 @@ const cardsData = [
         number: 1,
         concept: "Accessibility",
         activity: "Ask AI to explain five ways it can be used by students to create more accessible pathways to learning in your course. Communicate these uses to students on your syllabus and in class so they are aware of these potential benefits.",
-        quote: ""
+        quote: "",
+        interactionType: "accessibility_planning",
+        aiPrompt: "You are an accessibility expert helping students understand how AI can support their learning. Based on the course subject they provide, suggest 5 specific, practical ways AI can help create more accessible learning pathways. Consider different learning styles, disabilities, language barriers, and other challenges students might face. Be specific and actionable.",
+        inputFields: [
+            { label: "What course or subject are you taking?", placeholder: "e.g., Biology 101, Introduction to Psychology, Calculus...", type: "text" },
+            { label: "What specific challenges do you face in learning? (optional)", placeholder: "e.g., Processing text, organizing notes, understanding complex concepts...", type: "textarea" }
+        ],
+        buttonText: "🌟 Discover AI Accessibility Tools"
     },
     {
         number: 2,
         concept: "Agency",
         activity: "Share a folder of readings, concepts, or problems. Ask students to sign up for one and \"teach the class\" their chosen concept. Or better yet, leave your final week of the course syllabus empty and ask students to develop a presentation or learning module based on something they think the course is missing. In either case, encourage them to use AI as a thought partner, helping to explore directions and brainstorm ideas.",
-        quote: ""
+        quote: "",
+        interactionType: "project_brainstorming",
+        aiPrompt: "You are a creative learning partner helping a student develop their own teaching project. Based on their course and interests, brainstorm 4-5 engaging ways they could teach their chosen topic to classmates. Suggest different formats (presentation, activity, demo, game, etc.) and help them think about what would make their topic memorable and interactive for their peers.",
+        inputFields: [
+            { label: "What course are you in?", placeholder: "e.g., Environmental Science, Marketing, Literature...", type: "text" },
+            { label: "What topic would you like to teach your classmates?", placeholder: "e.g., Climate change impacts, Social media algorithms, Symbolism in poetry...", type: "text" },
+            { label: "What makes this topic interesting to you?", placeholder: "Why did you choose this? What excites you about it?", type: "textarea" }
+        ],
+        buttonText: "🎯 Brainstorm Teaching Ideas"
     },
     {
         number: 3,
         concept: "Authenticity",
         activity: "Share your learning outcomes with AI and ask for three distinct authentic assessment ideas that align with those outcomes. Specify that the assessments should emphasize real-world application and mirror the kinds of tasks, scenarios, workflows, events, and deliverables that students may encounter in their professional and personal futures.",
-        quote: ""
+        quote: "",
+        interactionType: "assessment_design",
+        aiPrompt: "You are an educational assessment expert. Based on the course and learning goals provided, design 3 authentic assessment ideas that mirror real-world professional tasks. Each assessment should be practical, engaging, and directly applicable to their future career. Explain how each assessment connects to real professional scenarios.",
+        inputFields: [
+            { label: "What course are you designing an assessment for?", placeholder: "e.g., Marketing Strategy, Organic Chemistry, Creative Writing...", type: "text" },
+            { label: "What are the main learning goals or skills students should demonstrate?", placeholder: "e.g., Analyze market data, Solve complex reactions, Write compelling narratives...", type: "textarea" }
+        ],
+        buttonText: "🎯 Design Real-World Assessments"
     },
     {
         number: 4,
         concept: "Belonging",
         activity: "Ask students to write you a short letter titled: \"What I want you to know about me as a learner.\" Then, have them prompt AI to write a generic version of the same letter and compare the two: \"What's missing from AI's Letter? What is uniquely you?\" Discuss insights as a class, celebrating folks' unique strengths and experiences. Describe together what belonging in your classroom can look like. Bonus: Write students a companion letter titled: \"What I Want You To Know About Me As A Teacher.\"",
-        quote: ""
+        quote: "",
+        interactionType: "reflection_comparison",
+        aiPrompt: "You are helping a student explore their unique identity as a learner. First, write a generic version of their personal learning letter. Then, help them identify what makes their perspective unique and irreplaceable. Focus on celebrating their individual strengths, experiences, and learning style.",
+        inputFields: [
+            { label: "Write a short letter: 'What I want you to know about me as a learner'", placeholder: "Dear Teacher, I want you to know that I learn best when...", type: "textarea" }
+        ],
+        buttonText: "🌟 Discover What Makes You Unique"
     },
     {
         number: 5,
         concept: "Bias",
         activity: "AI Auditors: Ask students to read about AI's encoded biases. Invite them to experiment with tools to expose errors, find inconsistencies, and uncover assumptions, especially as they relate to their discipline. What kinds of vernacular are used in specific contexts? What perspectives are missing from outputs? What do image generators assume with their depictions? Invite students to share their audits and findings with their peers.",
-        quote: "If we do not acknowledge and teach the hidden curriculum of AI, and the ways schools offer fertile ground for its uncritical and at-scale implication, we risk perpetuating the encoded bias and ideologies of oppression which are baked into its design (Warr and Heath 2025)."
+        quote: "If we do not acknowledge and teach the hidden curriculum of AI, and the ways schools offer fertile ground for its uncritical and at-scale implication, we risk perpetuating the encoded bias and ideologies of oppression which are baked into its design (Warr and Heath 2025).",
+        interactionType: "bias_analysis",
+        aiPrompt: "You are helping a student become a critical AI auditor. Based on their topic and field, help them design experiments to uncover AI biases. Suggest specific prompts to test, questions to ask, and perspectives to look for that might be missing. Encourage them to think about whose voices and experiences might be overlooked.",
+        inputFields: [
+            { label: "What field or topic do you want to audit for AI bias?", placeholder: "e.g., Medical diagnosis, Historical events, Career advice...", type: "text" },
+            { label: "What specific assumptions or stereotypes are you curious about?", placeholder: "e.g., Gender roles in careers, Cultural representations, Age-related assumptions...", type: "textarea" }
+        ],
+        buttonText: "🔍 Design Bias Detection Experiments"
     },
     {
         number: 6,
         concept: "Care",
         activity: "Share a few course materials with AI and ask for 5 innovative ways you can build connection and care with and among students in your course.",
-        quote: "To teach in a manner that respects and cares for the souls of our students is essential if we are to provide the necessary conditions where learning can most deeply and intimately begin (hooks 1994)."
+        quote: "To teach in a manner that respects and cares for the souls of our students is essential if we are to provide the necessary conditions where learning can most deeply and intimately begin (hooks 1994).",
+        interactionType: "community_building",
+        aiPrompt: "You are a caring learning community expert. Based on the course context provided, suggest 5 innovative, practical ways to build genuine connection and care among classmates. Focus on activities that help students feel seen, valued, and connected to each other's learning journeys.",
+        inputFields: [
+            { label: "What course are you taking?", placeholder: "e.g., Introduction to Sociology, Advanced Statistics, Art History...", type: "text" },
+            { label: "What's the current classroom dynamic like?", placeholder: "e.g., Quiet, competitive, collaborative, mostly online...", type: "text" }
+        ],
+        buttonText: "🤗 Build Learning Community"
     },
     {
         number: 7,
         concept: "Choice",
         activity: "Upload your syllabus or final project prompt and ask AI to help you brainstorm three easy ways to incorporate student choice into your learning experiences. (or) Give students a concept or objective, and ask them to prompt AI for four different ways they could demonstrate their learning—with ideas featuring various formats and audiences. Ask them to choose one and pursue it for their project.",
-        quote: ""
+        quote: "",
+        interactionType: "learning_options",
+        aiPrompt: "You are a flexible learning expert. Based on the learning objective provided, brainstorm 4-5 different creative ways the student could demonstrate their understanding. Include various formats (visual, written, performance, digital, etc.) and different audiences. Help them see multiple pathways to show their learning.",
+        inputFields: [
+            { label: "What concept or skill do you need to demonstrate?", placeholder: "e.g., Understanding of photosynthesis, Analysis of market trends, Mastery of Spanish conjugations...", type: "text" },
+            { label: "What are your strengths or preferred ways of expressing ideas?", placeholder: "e.g., Visual arts, public speaking, writing, creating videos...", type: "textarea" }
+        ],
+        buttonText: "🎨 Explore Learning Pathways"
     },
     {
         number: 8,
         concept: "Collaboration",
         activity: "For group projects, ask each student to contribute their initial ideas or workflow preferences individually. Then, ask AI to organize and synthesize the full group's input into a working plan. Invite the team to review and discuss. What ideas feel overrepresented or overlooked? What doesn't quite work? What should we keep, question, or revise? Help students practice co-creation with care, starting from the idea that all group members have valuable ideas.",
-        quote: ""
+        quote: "",
+        interactionType: "group_planning",
+        aiPrompt: "You are a collaboration facilitator. Help organize and synthesize the group members' ideas into a cohesive project plan. Identify common themes, highlight unique contributions, and suggest ways to integrate different perspectives. Point out any gaps or areas that need more discussion.",
+        inputFields: [
+            { label: "What's your group project about?", placeholder: "e.g., Marketing campaign, Science fair project, Research presentation...", type: "text" },
+            { label: "Share your group members' initial ideas (copy/paste from discussions)", placeholder: "Member 1: I think we should...
+Member 2: My idea is...
+Member 3: What about...", type: "textarea" }
+        ],
+        buttonText: "🤝 Synthesize Group Ideas"
     },
     {
         number: 9,
         concept: "Communication",
         activity: "Look over one of your assignments. Does it communicate the skills and knowledge students will gain by completing the assignment? how students will be evaluated—and what \"success\" looks like? how AI use might be encouraged or discouraged?",
-        quote: ""
+        quote: "",
+        interactionType: "assignment_clarity",
+        aiPrompt: "You are a communication expert helping improve assignment clarity. Analyze the assignment description and provide feedback on: 1) How clear the learning objectives are, 2) Whether success criteria are well-defined, 3) If instructions are easy to follow, 4) What questions students might have. Suggest specific improvements.",
+        inputFields: [
+            { label: "Paste your assignment description or prompt", placeholder: "Copy and paste the full assignment text here...", type: "textarea" }
+        ],
+        buttonText: "📝 Improve Assignment Clarity"
     },
     {
         number: 10,
         concept: "Community",
         activity: "Ask AI to generate song recommendations for a class-themed playlist, and invite students to add to it. Play it when welcoming students into class each day. Ask AI for funny course-themed food items, and bring in themed snacks to celebrate student presentations. Leave a week or unit on your syllabus empty so that students can help co-create it with you. Ask them to use AI to find concepts, texts, or tasks they'd like to explore on that week. Decide and create together. See the \"Trust\" card in this deck.",
-        quote: "...the work of teachers [is] a kind of artful community organizing, supporting a group of people in identifying their needs and imagining ways of being together that would allow those needs to be met as consistently as possible (Keenan 2021)."
+        quote: "...the work of teachers [is] a kind of artful community organizing, supporting a group of people in identifying their needs and imagining ways of being together that would allow those needs to be met as consistently as possible (Keenan 2021).",
+        interactionType: "community_activities",
+        aiPrompt: "You are a creative community builder. Based on the course provided, suggest 3-4 fun, themed community-building activities that could bring the class together. Include ideas for playlists, snacks, celebrations, or collaborative projects that connect to the course content while building relationships.",
+        inputFields: [
+            { label: "What course or subject?", placeholder: "e.g., Environmental Science, Creative Writing, Psychology...", type: "text" },
+            { label: "What kind of community activities interest you most?", placeholder: "e.g., Music, food, games, collaborative projects...", type: "text" }
+        ],
+        buttonText: "🎉 Build Course Community"
     },
     {
         number: 11,
         concept: "Creativity",
         activity: "Give students more creative room with final projects. Invite them to use AI as a thought partner to generate new ideas, build out their work in diverse formats, and pursue unexpected directions. Celebrate this work by creating public venues where students can meaningfully share their creative work with someone other than just you.",
-        quote: ""
+        quote: "",
+        interactionType: "creative_expansion",
+        aiPrompt: "You are a creativity coach helping a student push their project in bold, unexpected directions. Based on their current idea, brainstorm 4-5 creative formats, unusual angles, or innovative approaches they haven't considered. Help them think outside conventional boundaries while staying connected to their learning goals.",
+        inputFields: [
+            { label: "What's your current project idea?", placeholder: "e.g., Research paper on climate change, marketing campaign analysis...", type: "textarea" },
+            { label: "What creative formats or mediums interest you?", placeholder: "e.g., Video, infographic, podcast, game, art installation...", type: "text" }
+        ],
+        buttonText: "🎨 Expand Creative Possibilities"
     },
     {
         number: 12,
@@ -82,7 +160,13 @@ const cardsData = [
         number: 13,
         concept: "Critique",
         activity: "Ask AI to generate a passable but uninspired response to one of your assignments. During class, share this AI-generated work with students, along with your rubric for the assignment. Ask students to evaluate the AI's work—first individually, then with a partner to calibrate critiques. End with a class debrief to share insights and develop a shared understanding of assignment criteria.",
-        quote: ""
+        quote: "",
+        interactionType: "critique_practice",
+        aiPrompt: "You are helping a student develop critical evaluation skills. First, generate a mediocre response to their assignment prompt. Then, guide them through evaluating it systematically. Help them identify specific strengths, weaknesses, and areas for improvement using constructive critique principles.",
+        inputFields: [
+            { label: "What assignment do you want to practice critiquing?", placeholder: "Copy/paste the assignment prompt or description...", type: "textarea" }
+        ],
+        buttonText: "🔍 Practice Constructive Critique"
     },
     {
         number: 14,
