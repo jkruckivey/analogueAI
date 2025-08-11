@@ -184,13 +184,29 @@ Member 3: What about...", type: "textarea" }
         number: 15,
         concept: "Dialogue",
         activity: "Brainstorm all of the ways students might engage AI as a dialogue partner. Students might ask AI for a Socratic dialogue to deepen their thinking on a complex topic. \"I'm stuck. Here's my attempt... Ask me open-ended, guiding questions about my work to deepen my understanding.\" Students might prepare for difficult conversations or anxiety-inducing interviews by practicing with AI: \"I have an upcoming career fair and am a bit nervous. Act as a recruiter for (company) at their booth. I'll approach you for a brief simulated chat. Afterwards, give me some feedback on my approach, as well as a few suggestions!\" How else might folks engage in dialogue with AI? How might such dialogues impact student confidence and empathy? What ethical issues arise when AI pretends? Ask students to share their reflections with one another.",
-        quote: ""
+        quote: "",
+        interactionType: "practice_dialogue",
+        aiPrompt: "You are a dialogue practice partner. Based on the situation provided, engage in realistic role-play to help the student practice. Stay in character but be encouraging. After the practice, provide constructive feedback on their approach and suggest improvements.",
+        inputFields: [
+            { label: "What situation do you want to practice for?", placeholder: "e.g., Job interview, difficult conversation with professor, presentation...", type: "text" },
+            { label: "Who should I role-play as?", placeholder: "e.g., HR manager, strict professor, potential employer...", type: "text" },
+            { label: "What are you most nervous about?", placeholder: "e.g., Stumbling over words, not knowing enough, being judged...", type: "textarea" }
+        ],
+        buttonText: "🎭 Practice Important Conversations"
     },
     {
         number: 16,
         concept: "Discernment",
         activity: "\"What am I trying to avoid by using AI right now?\" Ask yourself this question, and encourage students to do the same. Is it... confusion? perfectionism? boredom? Do I really need to use AI right now? Encourage students to jot down these observations. Even a 30-second pause can lead to more intentional engagement with AI.",
-        quote: ""
+        quote: "",
+        interactionType: "mindful_reflection",
+        aiPrompt: "You are a mindfulness coach helping students reflect on their AI usage patterns. Based on their responses, help them identify whether they're using AI intentionally or as avoidance. Offer insights about healthy AI engagement and suggest when they might benefit from working without AI assistance.",
+        inputFields: [
+            { label: "What task are you considering using AI for right now?", placeholder: "e.g., Writing an essay, solving math problems, brainstorming ideas...", type: "text" },
+            { label: "What are you trying to avoid by using AI?", placeholder: "e.g., Confusion, making mistakes, spending too much time, perfectionism...", type: "text" },
+            { label: "How might you benefit from trying this without AI first?", placeholder: "What could you learn by struggling through it yourself?", type: "textarea" }
+        ],
+        buttonText: "🧘 Reflect on AI Usage"
     },
     {
         number: 17,
@@ -209,13 +225,27 @@ Member 3: What about...", type: "textarea" }
         number: 18,
         concept: "Experimentation",
         activity: "Use AI to simulate complex processes, systems, or experiments relevant to your course. These might be chemical reactions, cultural trends, structural stresses, market fluctuations, or ecological consequences. Ask students to experiment with these simulations using trial-and-error to analyze potential impacts, alternative outcomes, and AI assumptions. Bring students together to discuss their experiments. What insights does virtual experimentation offer? Where does the simulation fall short of reality, and why is that gap important?",
-        quote: ""
+        quote: "",
+        interactionType: "simulation_experiment",
+        aiPrompt: "You are a simulation expert helping students experiment with complex systems. Based on their topic, create a realistic scenario with multiple variables they can experiment with. Help them test different conditions, analyze outcomes, and understand the limitations of virtual experiments compared to real-world complexity.",
+        inputFields: [
+            { label: "What system or process do you want to experiment with?", placeholder: "e.g., Economic market changes, chemical reactions, ecosystem dynamics...", type: "text" },
+            { label: "What specific variables or conditions are you curious about?", placeholder: "e.g., What happens if temperature increases, if demand drops, if a species is removed...", type: "textarea" }
+        ],
+        buttonText: "🧪 Run Virtual Experiments"
     },
     {
         number: 19,
         concept: "Friction",
         activity: "Try to complete one of your own assignments using AI to completely bypass learning. What changes could you make to the assignment to introduce new complexities or moments of productive friction?",
-        quote: "In the age of AI, we're going to have to decide when we want to use these tools, when they remove productive friction, and even when they may bring new and useful friction to the process (Rosenzweig 2024)."
+        quote: "In the age of AI, we're going to have to decide when we want to use these tools, when they remove productive friction, and even when they may bring new and useful friction to the process (Rosenzweig 2024).",
+        interactionType: "productive_friction",
+        aiPrompt: "You are an educational design expert helping students understand productive friction in learning. First, show them how AI could easily complete their assignment. Then, help them identify what important learning would be lost, and suggest ways to add meaningful challenges that ensure deep understanding even when using AI tools.",
+        inputFields: [
+            { label: "What assignment are you working on?", placeholder: "Copy/paste the assignment prompt or describe it...", type: "textarea" },
+            { label: "How do you think AI could easily bypass the learning?", placeholder: "What would AI miss that you need to understand?", type: "textarea" }
+        ],
+        buttonText: "🛡️ Design Better Learning Challenges"
     },
     {
         number: 20,
@@ -234,7 +264,14 @@ Member 3: What about...", type: "textarea" }
         number: 21,
         concept: "Hope",
         activity: "Near the beginning of the term, ask students to reflect on their hopes, dreams, and goals for the next few years, including what they hope to gain from your course. Ask them to share their writing with AI and prompt it to generate a mantra, an object, and an image that represents those hopes. Invite students to bring these items to the next class section and share their hope collection with each other in small groups. Midway through the term, ask students to reflect on how their mantras, objects, or images are changing.",
-        quote: ""
+        quote: "",
+        interactionType: "hope_visualization",
+        aiPrompt: "You are a hope and inspiration coach. Based on the student's dreams and goals, create: 1) A personal mantra they can repeat daily, 2) A symbolic object that represents their hopes, 3) A detailed description of an image that captures their vision. Make these meaningful and personally resonant.",
+        inputFields: [
+            { label: "What are your hopes and dreams for the next few years?", placeholder: "Share your goals, aspirations, and what you want to achieve...", type: "textarea" },
+            { label: "What do you hope to gain from your current studies?", placeholder: "Skills, knowledge, experiences, connections...", type: "textarea" }
+        ],
+        buttonText: "✨ Create Your Hope Collection"
     },
     {
         number: 22,
@@ -266,7 +303,14 @@ Member 3: What about...", type: "textarea" }
         number: 24,
         concept: "Inclusion",
         activity: "Find the hidden barriers in your course. Ask AI... \"What background knowledge does this assignment assume?\" \"Give me 3 alternative ways to express this idea using culturally diverse examples. Rewrite this assignment to be more inclusive of multilingual and first-gen students, folks with disabilities and financial stress, caregiving responsibilities, or non-traditional educational paths. Help me make my course design and facilitation more inclusive for all.\"",
-        quote: ""
+        quote: "",
+        interactionType: "inclusion_analysis",
+        aiPrompt: "You are an inclusion expert helping identify and remove barriers in learning. Analyze the assignment or content provided and: 1) Identify assumptions about background knowledge, 2) Point out potential barriers for diverse learners, 3) Suggest inclusive alternatives and modifications, 4) Recommend culturally diverse examples.",
+        inputFields: [
+            { label: "Share an assignment or course content to analyze", placeholder: "Copy/paste assignment text, syllabus section, or course material...", type: "textarea" },
+            { label: "What specific inclusion concerns do you have?", placeholder: "e.g., Language barriers, financial constraints, different cultural backgrounds...", type: "text" }
+        ],
+        buttonText: "🌍 Make Learning More Inclusive"
     },
     {
         number: 25,
@@ -285,7 +329,15 @@ Member 3: What about...", type: "textarea" }
         number: 26,
         concept: "Intention",
         activity: "Ask students to read the syllabus and review your course learning outcomes. Then, ask them to set two personal learning goals: one skill-based goal, one curiosity- or interest-driven goal. Prompt them to share the syllabus with AI and ask: \"What specific strategies could help me meet my goals based on the course content?\" Encourage them to revisit their goals mid-semester to adjust, evaluate, and reflect on their progress.",
-        quote: ""
+        quote: "",
+        interactionType: "goal_setting",
+        aiPrompt: "You are a learning strategy coach. Based on the student's course and personal goals, create a specific, actionable plan to help them succeed. Include study strategies, engagement techniques, and ways to stay motivated. Make it personalized to their interests and learning style.",
+        inputFields: [
+            { label: "What course are you taking?", placeholder: "e.g., Biology 101, Marketing Strategy, Creative Writing...", type: "text" },
+            { label: "What skill-based goal do you want to achieve?", placeholder: "e.g., Master statistical analysis, improve public speaking, learn programming...", type: "text" },
+            { label: "What curiosity-driven goal excites you?", placeholder: "e.g., Understand how vaccines work, explore consumer psychology, discover new poets...", type: "text" }
+        ],
+        buttonText: "🎯 Create Your Learning Strategy"
     },
     {
         number: 27,
@@ -303,19 +355,40 @@ Member 3: What about...", type: "textarea" }
         number: 28,
         concept: "Justice",
         activity: "Choose any core concept from your course—a coding language, literary theme, or law of motion. Ask AI to generate an open-ended scenario where that concept is applied in a real-world setting with uneven or unjust outcomes. Ask students to analyze the scenario in class, discuss with peers, and design a response, intervention, or alternative approach that prioritizes justice for all.",
-        quote: ""
+        quote: "",
+        interactionType: "justice_scenario",
+        aiPrompt: "You are a social justice educator. Based on the concept provided, create a realistic scenario where this concept is applied in ways that create unfair outcomes for different groups. Then help the student analyze the injustice and brainstorm interventions that would create more equitable results.",
+        inputFields: [
+            { label: "What course concept do you want to explore?", placeholder: "e.g., Algorithms, supply and demand, DNA testing, urban planning...", type: "text" },
+            { label: "What field or context should the scenario be in?", placeholder: "e.g., Healthcare, education, criminal justice, technology...", type: "text" }
+        ],
+        buttonText: "⚖️ Analyze Justice Issues"
     },
     {
         number: 29,
         concept: "Kinship",
         activity: "Ask students to choose a course topic (or use one from their own project) and work with AI to map out all that it connects to—technologies, communities, environments, and non-human forms of life it impacts or depends on. How might those relationships unfold and ripple over time? What responsibilities do we have as human beings? Invite students or group members to contribute to a shared document that reflects how this knowledge should be engaged with, now and in the future.",
-        quote: "Indigenous epistemologies [underpin] ways of knowing and speaking that acknowledge kinship networks that extend to animal and plant, wind and rock, mountain and ocean... While [AI] developers might assume they are building a product or tool, they are actually building a relationship to which they should attend (Edward Lewis 2020)."
+        quote: "Indigenous epistemologies [underpin] ways of knowing and speaking that acknowledge kinship networks that extend to animal and plant, wind and rock, mountain and ocean... While [AI] developers might assume they are building a product or tool, they are actually building a relationship to which they should attend (Edward Lewis 2020).",
+        interactionType: "interconnection_mapping",
+        aiPrompt: "You are a systems thinker who helps students see interconnections. Based on their topic, map out all the relationships it has with: other technologies, human communities, environmental systems, and non-human life. Help them understand their responsibilities as humans in these networks and how their actions ripple outward.",
+        inputFields: [
+            { label: "What topic or concept do you want to explore?", placeholder: "e.g., Smartphone technology, fast fashion, renewable energy, social media...", type: "text" },
+            { label: "What connections are you already aware of?", placeholder: "What relationships or impacts do you already know about?", type: "textarea" }
+        ],
+        buttonText: "🌎 Map Interconnections"
     },
     {
         number: 30,
         concept: "Love",
         activity: "Before the term begins, Reconnect with what you love about teaching your subject. Maybe it's a student letter you received; maybe it's a sense of wonder about your discipline. In a culture that privileges evaluation over exploration, turns care into \"content,\" passion into \"deliverables,\" it's easy to lose touch with what you love about this work. Ask AI: \"What are three surprising, beautiful, or lesser-known things about my course topic that might spark me or remind me why I chose to teach it?\" Try to re-ignite that connection—your students will surely feel it.",
-        quote: ""
+        quote: "",
+        interactionType: "rediscover_passion",
+        aiPrompt: "You are a passion rekindler helping students rediscover what they love about their field of study. Share 3-4 surprising, beautiful, or lesser-known aspects of their subject that reveal its wonder and humanity. Help them remember why this knowledge matters beyond grades and requirements.",
+        inputFields: [
+            { label: "What subject or field are you studying?", placeholder: "e.g., Mathematics, Literature, Computer Science, Biology...", type: "text" },
+            { label: "What originally drew you to this subject?", placeholder: "What excited you when you first encountered it?", type: "textarea" }
+        ],
+        buttonText: "❤️ Rediscover Your Love of Learning"
     },
     {
         number: 31,
