@@ -199,8 +199,20 @@ app.get('/api/examples/:cardNumber', (req, res) => {
     }
 });
 
+// Simple admin authentication middleware
+function adminAuth(req, res, next) {
+    const authHeader = req.headers.authorization;
+    const adminPassword = process.env.ADMIN_PASSWORD || 'admin123'; // Set this in your environment
+    
+    if (!authHeader || authHeader !== `Bearer ${adminPassword}`) {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
+    
+    next();
+}
+
 // Admin endpoint to get all community responses
-app.get('/api/admin/all-responses', (req, res) => {
+app.get('/api/admin/all-responses', adminAuth, (req, res) => {
     try {
         const examples = loadExamples();
         

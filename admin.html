@@ -307,14 +307,42 @@
         let allResponses = [];
         let filteredResponses = [];
 
+        // Simple password protection
+        function checkAccess() {
+            let password = sessionStorage.getItem('adminPassword');
+            
+            if (!password) {
+                password = prompt('Enter admin password:');
+                if (!password) {
+                    window.location.href = '/';
+                    return false;
+                }
+                sessionStorage.setItem('adminPassword', password);
+            }
+            
+            return true;
+        }
+
         // Load data on page load
         document.addEventListener('DOMContentLoaded', function() {
-            loadResponses();
+            if (checkAccess()) {
+                loadResponses();
+            }
         });
 
         async function loadResponses() {
             try {
-                const response = await fetch('/api/admin/all-responses');
+                const adminPassword = sessionStorage.getItem('adminPassword');
+                const response = await fetch('/api/admin/all-responses', {
+                    headers: {
+                        'Authorization': `Bearer ${adminPassword}`
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Unauthorized or server error');
+                }
+                
                 const data = await response.json();
                 
                 allResponses = data.responses || [];
