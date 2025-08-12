@@ -93,6 +93,11 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+// Serve admin page
+app.get('/admin', (req, res) => {
+    res.sendFile(path.join(__dirname, 'admin.html'));
+});
+
 // AI Chat endpoint
 app.post('/api/chat', async (req, res) => {
     console.log('Chat request received:', req.body);
@@ -190,6 +195,34 @@ app.get('/api/examples/:cardNumber', (req, res) => {
         res.json({ examples: examples });
     } catch (error) {
         console.error('Examples endpoint error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Admin endpoint to get all community responses
+app.get('/api/admin/all-responses', (req, res) => {
+    try {
+        const examples = loadExamples();
+        
+        // Sort by timestamp (newest first) and include more details for admin
+        const adminView = examples
+            .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+            .map(ex => ({
+                id: ex.id,
+                timestamp: ex.timestamp,
+                cardNumber: ex.cardNumber,
+                concept: ex.concept,
+                userInputs: ex.userInputs,
+                aiResponsePreview: ex.aiResponsePreview,
+                approved: ex.approved
+            }));
+        
+        res.json({ 
+            total: adminView.length,
+            responses: adminView 
+        });
+    } catch (error) {
+        console.error('Admin all-responses endpoint error:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
