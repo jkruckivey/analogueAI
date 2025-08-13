@@ -881,23 +881,31 @@
         }
 
         function displayABTestAnalytics(data) {
+            // Map variant IDs to display names
+            const variantDisplayNames = {
+                'scholarly-mentor': '🎓 Scholarly Mentor',
+                'reflective-practitioner': '🤔 Reflective Practitioner',
+                'innovative-educator': '💡 Innovative Educator'
+            };
+            
             // Variant Performance
-            const variantHtml = Object.entries(data.variants).map(([variantId, stats]) => `
+            const variantEntries = Object.entries(data.variants);
+            const variantHtml = variantEntries.length > 0 ? variantEntries.map(([variantId, stats]) => `
                 <div class="analytics-row" style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #eee;">
                     <div>
-                        <strong>${variantId.charAt(0).toUpperCase() + variantId.slice(1)} Prompt</strong>
+                        <strong>${variantDisplayNames[variantId] || variantId}</strong>
                         <div style="font-size: 0.8rem; color: #666;">${stats.assignments} assignments</div>
                     </div>
                     <div style="text-align: right;">
-                        <div style="font-size: 1.2rem; font-weight: bold; color: ${stats.averageRating >= 4 ? '#28a745' : stats.averageRating >= 3 ? '#ffc107' : '#dc3545'}">
-                            ★ ${stats.averageRating.toFixed(1)}
+                        <div style="font-size: 1.2rem; font-weight: bold; color: ${stats.averageRating >= 4 ? '#28a745' : stats.averageRating >= 3 ? '#ffc107' : stats.averageRating > 0 ? '#dc3545' : '#666'}">
+                            ${stats.averageRating > 0 ? `★ ${stats.averageRating.toFixed(1)}` : 'No ratings yet'}
                         </div>
                         <div style="font-size: 0.8rem; color: #666;">${stats.ratings.length} ratings</div>
                     </div>
                 </div>
-            `).join('');
+            `).join('') : '<p>No A/B test data available yet. Try using the card interactions to generate test data.</p>';
 
-            document.getElementById('variantPerformance').innerHTML = variantHtml || '<p>No A/B test data available yet</p>';
+            document.getElementById('variantPerformance').innerHTML = variantHtml;
 
             // Testing Summary
             const summaryHtml = `

@@ -9,10 +9,20 @@ const PORT = process.env.PORT || 3000;
 
 // Simple file-based storage for community examples
 const EXAMPLES_FILE = './community-examples.json';
+const FEEDBACK_FILE = './user-feedback.json';
+const AB_TEST_FILE = './ab-test-data.json';
 
-// Initialize examples file if it doesn't exist
+// Initialize files if they don't exist
 if (!fs.existsSync(EXAMPLES_FILE)) {
     fs.writeFileSync(EXAMPLES_FILE, JSON.stringify([]));
+}
+
+if (!fs.existsSync(FEEDBACK_FILE)) {
+    fs.writeFileSync(FEEDBACK_FILE, JSON.stringify([]));
+}
+
+if (!fs.existsSync(AB_TEST_FILE)) {
+    fs.writeFileSync(AB_TEST_FILE, JSON.stringify({ assignments: [], feedback: [] }));
 }
 
 // Helper functions for community examples
@@ -72,6 +82,74 @@ function getExamplesForCard(cardNumber, limit = 5) {
     } catch (error) {
         console.error('Error getting examples:', error);
         return [];
+    }
+}
+
+// Helper functions for A/B test data
+function loadABTestData() {
+    try {
+        const data = fs.readFileSync(AB_TEST_FILE, 'utf8');
+        return JSON.parse(data);
+    } catch (error) {
+        console.error('Error loading A/B test data:', error);
+        return { assignments: [], feedback: [] };
+    }
+}
+
+function saveABTestAssignment(assignmentData) {
+    try {
+        const data = loadABTestData();
+        data.assignments.push(assignmentData);
+        
+        // Keep only latest 1000 assignments
+        if (data.assignments.length > 1000) {
+            data.assignments.splice(0, data.assignments.length - 1000);
+        }
+        
+        fs.writeFileSync(AB_TEST_FILE, JSON.stringify(data, null, 2));
+        console.log('A/B test assignment saved:', assignmentData.variantId);
+    } catch (error) {
+        console.error('Error saving A/B test assignment:', error);
+    }
+}
+
+function saveFeedbackData(feedbackData) {
+    try {
+        let allFeedback = [];
+        
+        // Load existing feedback
+        if (fs.existsSync(FEEDBACK_FILE)) {
+            const data = fs.readFileSync(FEEDBACK_FILE, 'utf8');
+            allFeedback = JSON.parse(data);
+        }
+        
+        // Add new feedback
+        allFeedback.push(feedbackData);
+        
+        // Keep only latest 1000 feedback items
+        if (allFeedback.length > 1000) {
+            allFeedback.splice(0, allFeedback.length - 1000);
+        }
+        
+        fs.writeFileSync(FEEDBACK_FILE, JSON.stringify(allFeedback, null, 2));
+        
+        // If this is A/B test feedback, also save to A/B test file
+        if (feedbackData.isABTest && feedbackData.promptVariantId) {
+            const abData = loadABTestData();
+            abData.feedback.push({
+                variantId: feedbackData.promptVariantId,
+                rating: feedbackData.rating,
+                comment: feedbackData.comment,
+                cardNumber: feedbackData.cardNumber,
+                sessionId: feedbackData.sessionId,
+                timestamp: feedbackData.timestamp
+            });
+            
+            fs.writeFileSync(AB_TEST_FILE, JSON.stringify(abData, null, 2));
+        }
+        
+    } catch (error) {
+        console.error('Error saving feedback data:', error);
     }
 }
 
@@ -441,27 +519,18 @@ app.post('/api/feedback', (req, res) => {
             feedback.id = Date.now() + Math.random().toString(36).substr(2, 9);
         }
         
-        // Store feedback (you could save to a file or database here)
-        // For now, just log it
-        console.log('User feedback:', {
+        // Save feedback data to file
+        saveFeedbackData(feedback);
+        
+        console.log('User feedback saved:', {
             cardNumber: feedback.cardNumber,
             rating: feedback.rating,
-            comment: feedback.comment,
+            comment: feedback.comment ? feedback.comment.substring(0, 50) + '...' : 'No comment',
             interactionType: feedback.interactionType,
             promptVariantId: feedback.promptVariantId,
             isABTest: feedback.isABTest,
             timestamp: feedback.timestamp
         });
-        
-        // If this is A/B test feedback, log it separately for analytics
-        if (feedback.isABTest && feedback.promptVariantId) {
-            console.log('A/B Test Result:', {
-                variantId: feedback.promptVariantId,
-                rating: feedback.rating,
-                cardNumber: feedback.cardNumber,
-                sessionId: feedback.sessionId
-            });
-        }
         
         res.json({ success: true, message: 'Feedback received successfully' });
         
@@ -475,6 +544,10 @@ app.post('/api/feedback', (req, res) => {
 app.post('/api/ab-test/assignment', (req, res) => {
     try {
         const assignment = req.body;
+        
+        // Save assignment data
+        saveABTestAssignment(assignment);
+        
         console.log('A/B Test Assignment:', {
             cardNumber: assignment.cardNumber,
             interactionType: assignment.interactionType,
@@ -494,20 +567,70 @@ app.post('/api/ab-test/assignment', (req, res) => {
 // A/B Test Analytics endpoint (for admins)
 app.get('/api/admin/ab-test/analytics', adminAuth, (req, res) => {
     try {
-        // This would normally query a database
-        // For now, return a sample analytics structure
+        const abData = loadABTestData();
+        
+        // Initialize variant data structure
+        const variantNames = ['scholarly-mentor', 'reflective-practitioner', 'innovative-educator'];
+        const variants = {};
+        
+        variantNames.forEach(variantId => {
+            variants[variantId] = {
+                assignments: 0,
+                ratings: [],
+                averageRating: 0
+            };
+        });
+        
+        // Process assignments
+        abData.assignments.forEach(assignment => {
+            if (variants[assignment.variantId]) {
+                variants[assignment.variantId].assignments++;
+            }
+        });
+        
+        // Process feedback ratings
+        abData.feedback.forEach(feedback => {
+            if (variants[feedback.variantId] && feedback.rating) {
+                variants[feedback.variantId].ratings.push(feedback.rating);
+            }
+        });
+        
+        // Calculate average ratings
+        Object.keys(variants).forEach(variantId => {
+            const ratings = variants[variantId].ratings;
+            if (ratings.length > 0) {
+                const sum = ratings.reduce((a, b) => a + b, 0);
+                variants[variantId].averageRating = sum / ratings.length;
+            }
+        });
+        
+        // Build summary
+        const totalAssignments = abData.assignments.length;
+        const totalFeedback = abData.feedback.length;
+        const averageRatingByVariant = {};
+        
+        Object.keys(variants).forEach(variantId => {
+            if (variants[variantId].ratings.length > 0) {
+                averageRatingByVariant[variantId] = variants[variantId].averageRating;
+            }
+        });
+        
         const analytics = {
             summary: {
-                totalAssignments: 0,
-                totalFeedback: 0,
-                averageRatingByVariant: {}
+                totalAssignments,
+                totalFeedback,
+                averageRatingByVariant
             },
-            variants: {
-                'default': { assignments: 0, ratings: [], averageRating: 0 },
-                'socratic': { assignments: 0, ratings: [], averageRating: 0 },
-                'creative': { assignments: 0, ratings: [], averageRating: 0 }
-            }
+            variants
         };
+        
+        console.log('A/B Test Analytics requested:', {
+            totalAssignments,
+            totalFeedback,
+            variantCounts: Object.fromEntries(
+                Object.entries(variants).map(([k, v]) => [k, v.assignments])
+            )
+        });
         
         res.json(analytics);
         
@@ -517,6 +640,49 @@ app.get('/api/admin/ab-test/analytics', adminAuth, (req, res) => {
     }
 });
 
+// Debug endpoint to generate sample A/B test data (remove in production)
+app.post('/api/debug/generate-sample-data', (req, res) => {
+    try {
+        const variants = ['scholarly-mentor', 'reflective-practitioner', 'innovative-educator'];
+        const sessionIds = ['session1', 'session2', 'session3', 'session4', 'session5'];
+        
+        // Generate sample assignments
+        for (let i = 0; i < 15; i++) {
+            const assignment = {
+                cardNumber: Math.floor(Math.random() * 50) + 1,
+                interactionType: 'card-interaction',
+                variantId: variants[Math.floor(Math.random() * variants.length)],
+                sessionId: sessionIds[Math.floor(Math.random() * sessionIds.length)],
+                timestamp: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000).toISOString()
+            };
+            saveABTestAssignment(assignment);
+        }
+        
+        // Generate sample feedback
+        for (let i = 0; i < 10; i++) {
+            const feedback = {
+                cardNumber: Math.floor(Math.random() * 50) + 1,
+                interactionType: 'card-interaction',
+                rating: Math.floor(Math.random() * 5) + 1,
+                comment: 'Sample feedback comment',
+                timestamp: new Date(Date.now() - Math.random() * 7 * 24 * 60 * 60 * 1000).toISOString(),
+                sessionId: sessionIds[Math.floor(Math.random() * sessionIds.length)],
+                promptVariantId: variants[Math.floor(Math.random() * variants.length)],
+                isABTest: true
+            };
+            saveFeedbackData(feedback);
+        }
+        
+        console.log('Sample A/B test data generated');
+        res.json({ success: true, message: 'Sample data generated' });
+        
+    } catch (error) {
+        console.error('Error generating sample data:', error);
+        res.status(500).json({ error: 'Failed to generate sample data' });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
+    console.log('A/B Test Analytics will be available at /admin once you generate some test data');
 });
