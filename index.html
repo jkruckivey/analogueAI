@@ -864,6 +864,34 @@
             border-left: 4px solid #3b82f6;
         }
 
+        /* Default concept banner for general cases */
+        .concept-banner:not(.ethics):not(.creativity):not(.critical) {
+            background: linear-gradient(135deg, #034638 0%, #582C83 100%);
+            color: white;
+            border-left: 4px solid #ffffff;
+        }
+
+        /* Activity instructions banner styling */
+        .activity-instructions, .guidance-text {
+            background: linear-gradient(135deg, #034638 0%, #582C83 100%);
+            color: white !important;
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        /* Ensure any highlighted guidance text has white text on dark background */
+        .response-content .highlight,
+        .response-content .instruction-block,
+        .response-content .activity-block {
+            background: linear-gradient(135deg, #034638 0%, #582C83 100%);
+            color: white !important;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin: 12px 0;
+        }
+
         .response-actions {
             padding: 16px 20px;
             background: #f8f9fa;
@@ -871,6 +899,140 @@
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
+        }
+
+        /* Chat Interface Styling */
+        .chat-interface {
+            background: #ffffff;
+            border-top: 1px solid #e8f5f3;
+            padding: 0;
+        }
+
+        .chat-toggle {
+            padding: 12px 20px;
+            background: #f8f9fa;
+            border: none;
+            border-bottom: 1px solid #e8f5f3;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            font-weight: 500;
+            color: #034638;
+            transition: background-color 0.2s ease;
+        }
+
+        .chat-toggle:hover {
+            background: #e8f5f3;
+        }
+
+        .chat-toggle.active {
+            background: #034638;
+            color: white;
+        }
+
+        .chat-container {
+            display: none;
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .chat-container.active {
+            display: block;
+        }
+
+        .chat-messages {
+            max-height: 250px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #e8f5f3;
+            border-radius: 8px;
+            background: #fafcfb;
+        }
+
+        .chat-message {
+            margin-bottom: 15px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            max-width: 85%;
+        }
+
+        .chat-message.user {
+            background: linear-gradient(135deg, #034638 0%, #582C83 100%);
+            color: white;
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .chat-message.ai {
+            background: #e8f5f3;
+            color: #2d3748;
+            margin-right: auto;
+        }
+
+        .chat-message .sender {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-bottom: 4px;
+        }
+
+        .chat-message .content {
+            line-height: 1.4;
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 8px;
+            align-items: flex-end;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 10px 12px;
+            border: 1px solid #e8f5f3;
+            border-radius: 8px;
+            resize: vertical;
+            min-height: 40px;
+            max-height: 100px;
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: #034638;
+            box-shadow: 0 0 0 2px rgba(3, 70, 56, 0.1);
+        }
+
+        .chat-send-btn {
+            background: linear-gradient(135deg, #034638 0%, #582C83 100%);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            min-width: 70px;
+            transition: all 0.2s ease;
+        }
+
+        .chat-send-btn:hover:not(:disabled) {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(3, 70, 56, 0.2);
+        }
+
+        .chat-send-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .chat-status {
+            font-size: 0.8rem;
+            color: #666;
+            padding: 8px 12px;
+            text-align: center;
+            font-style: italic;
         }
 
         .action-btn.secondary {
@@ -2400,6 +2562,24 @@
                                 📄 Export Guidance
                             </button>
                         </div>
+                        <div class="chat-interface" id="chatInterface-${cardNumber}">
+                            <button class="chat-toggle" onclick="toggleChat(${cardNumber}, '${card.concept}')">
+                                💬 Continue Conversation - Ask questions, get clarifications, or explore further
+                            </button>
+                            <div class="chat-container" id="chatContainer-${cardNumber}">
+                                <div class="chat-messages" id="chatMessages-${cardNumber}">
+                                    <div class="chat-message ai">
+                                        <div class="sender">AI Assistant</div>
+                                        <div class="content">Feel free to ask any follow-up questions about ${card.concept} in your higher education context. I can help clarify concepts, provide specific examples, or discuss implementation strategies.</div>
+                                    </div>
+                                </div>
+                                <div class="chat-input-container">
+                                    <textarea class="chat-input" id="chatInput-${cardNumber}" placeholder="Ask a follow-up question about ${card.concept}..." rows="1"></textarea>
+                                    <button class="chat-send-btn" onclick="sendChatMessage(${cardNumber}, '${card.concept}')">Send</button>
+                                </div>
+                                <div class="chat-status" id="chatStatus-${cardNumber}"></div>
+                            </div>
+                        </div>
                     </div>
                     ${generateFeedbackSection(cardNumber, 'card-interaction', feedbackId)}
                 `;
@@ -2711,6 +2891,9 @@ Please help me think through how to apply this concept thoughtfully in my academ
                 formattedResponse = `<div class="concept-banner creativity">🎨 Creative Applications for ${concept}</div>${formattedResponse}`;
             } else if (concept.toLowerCase().includes('critical')) {
                 formattedResponse = `<div class="concept-banner critical">🧠 Critical Analysis for ${concept}</div>${formattedResponse}`;
+            } else {
+                // Default banner for all other concepts
+                formattedResponse = `<div class="concept-banner">📚 Guidance for ${concept} in Higher Education</div>${formattedResponse}`;
             }
             
             return formattedResponse;
@@ -2799,6 +2982,161 @@ This guidance was generated to help you thoughtfully integrate AI into your high
             a.click();
             window.URL.revokeObjectURL(url);
         }
+
+        // Chat Interface Functions
+        let chatContexts = new Map(); // Store conversation context for each card
+
+        function toggleChat(cardNumber, concept) {
+            const chatContainer = document.getElementById(`chatContainer-${cardNumber}`);
+            const chatToggle = document.querySelector(`#chatInterface-${cardNumber} .chat-toggle`);
+            
+            if (chatContainer.classList.contains('active')) {
+                chatContainer.classList.remove('active');
+                chatToggle.classList.remove('active');
+                chatToggle.textContent = '💬 Continue Conversation - Ask questions, get clarifications, or explore further';
+            } else {
+                chatContainer.classList.add('active');
+                chatToggle.classList.add('active');
+                chatToggle.textContent = '💬 Hide Conversation';
+                
+                // Initialize chat context if it doesn't exist
+                if (!chatContexts.has(cardNumber)) {
+                    const card = cardsData.find(c => c.number === cardNumber);
+                    chatContexts.set(cardNumber, {
+                        cardNumber,
+                        concept,
+                        activity: card ? card.activity : '',
+                        messages: []
+                    });
+                }
+                
+                // Focus on input
+                setTimeout(() => {
+                    const chatInput = document.getElementById(`chatInput-${cardNumber}`);
+                    if (chatInput) chatInput.focus();
+                }, 100);
+            }
+        }
+
+        function sendChatMessage(cardNumber, concept) {
+            const chatInput = document.getElementById(`chatInput-${cardNumber}`);
+            const message = chatInput.value.trim();
+            
+            if (!message) return;
+            
+            // Clear input and disable send button
+            chatInput.value = '';
+            const sendBtn = chatInput.parentElement.querySelector('.chat-send-btn');
+            sendBtn.disabled = true;
+            sendBtn.textContent = 'Sending...';
+            
+            // Add user message to chat
+            addChatMessage(cardNumber, 'user', message);
+            
+            // Send message to AI with context
+            handleChatMessage(cardNumber, concept, message)
+                .finally(() => {
+                    sendBtn.disabled = false;
+                    sendBtn.textContent = 'Send';
+                    chatInput.focus();
+                });
+        }
+
+        function addChatMessage(cardNumber, sender, content) {
+            const messagesContainer = document.getElementById(`chatMessages-${cardNumber}`);
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${sender}`;
+            
+            messageDiv.innerHTML = `
+                <div class="sender">${sender === 'user' ? 'You' : 'AI Assistant'}</div>
+                <div class="content">${content}</div>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        async function handleChatMessage(cardNumber, concept, userMessage) {
+            const statusDiv = document.getElementById(`chatStatus-${cardNumber}`);
+            statusDiv.textContent = 'AI is thinking...';
+            
+            try {
+                // Get chat context
+                const context = chatContexts.get(cardNumber) || {};
+                context.messages = context.messages || [];
+                
+                // Add user message to context
+                context.messages.push({ role: 'user', content: userMessage });
+                
+                // Build contextual prompt for continued conversation
+                const card = cardsData.find(c => c.number === cardNumber);
+                const contextualPrompt = `You are continuing a conversation about "${concept}" in higher education. 
+
+Initial Context:
+- Card concept: ${concept}
+- Learning activity: ${card ? card.activity : 'Not specified'}
+
+Previous conversation context: ${context.messages.slice(-4).map(m => `${m.role}: ${m.content}`).join('\n')}
+
+The user has asked: "${userMessage}"
+
+Please provide a helpful, contextual response that builds on our previous discussion. Be conversational, specific to higher education, and provide actionable insights. Keep responses concise but meaningful.`;
+
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: userMessage,
+                        cardContext: {
+                            cardNumber: cardNumber,
+                            concept: concept,
+                            activity: card ? card.activity : ''
+                        },
+                        instructions: 'This is a follow-up conversation. Provide contextual, conversational responses.',
+                        customPrompt: contextualPrompt
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to get AI response');
+                }
+
+                const data = await response.json();
+                
+                // Add AI response to chat and context
+                addChatMessage(cardNumber, 'ai', data.response);
+                context.messages.push({ role: 'assistant', content: data.response });
+                
+                // Keep context manageable (last 10 messages)
+                if (context.messages.length > 10) {
+                    context.messages = context.messages.slice(-10);
+                }
+                
+                chatContexts.set(cardNumber, context);
+                statusDiv.textContent = '';
+
+            } catch (error) {
+                console.error('Chat error:', error);
+                addChatMessage(cardNumber, 'ai', 'Sorry, I encountered an error. Please try again.');
+                statusDiv.textContent = '';
+            }
+        }
+
+        // Enable Enter key to send messages
+        document.addEventListener('keydown', function(e) {
+            if (e.target.classList.contains('chat-input')) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    const cardNumber = e.target.id.match(/\d+/)[0];
+                    const card = cardsData.find(c => c.number == cardNumber);
+                    if (card) {
+                        sendChatMessage(cardNumber, card.concept);
+                    }
+                }
+            }
+        });
 
         function logABTestAssignment(cardNumber, interactionType, variantId) {
             const assignmentData = {
