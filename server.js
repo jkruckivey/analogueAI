@@ -36,7 +36,11 @@ function saveExample(cardNumber, concept, userInputs, aiResponse) {
             concept: concept,
             userInputs: userInputs,
             aiResponsePreview: aiResponse ? aiResponse.substring(0, 100) + '...' : '',
-            approved: true // For now, auto-approve. Later could add moderation
+            approved: process.env.AUTO_APPROVE === 'true' || false, // Default to requiring approval
+            flagged: false,
+            qualityScore: 0,
+            helpfulnessVotes: 0,
+            reportedCount: 0
         };
         
         examples.push(newExample);
@@ -226,15 +230,183 @@ app.get('/api/admin/all-responses', adminAuth, (req, res) => {
                 concept: ex.concept,
                 userInputs: ex.userInputs,
                 aiResponsePreview: ex.aiResponsePreview,
-                approved: ex.approved
+                approved: ex.approved || false,
+                flagged: ex.flagged || false,
+                qualityScore: ex.qualityScore || 0,
+                helpfulnessVotes: ex.helpfulnessVotes || 0,
+                reportedCount: ex.reportedCount || 0
             }));
         
-        res.json({ 
+        // Get stats for dashboard
+        const stats = {
             total: adminView.length,
+            approved: adminView.filter(r => r.approved).length,
+            pending: adminView.filter(r => !r.approved && !r.flagged).length,
+            flagged: adminView.filter(r => r.flagged).length,
+            uniqueCards: new Set(adminView.map(r => r.cardNumber)).size
+        };
+        
+        res.json({ 
+            stats: stats,
             responses: adminView 
         });
     } catch (error) {
         console.error('Admin all-responses endpoint error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Admin endpoint to moderate responses (approve, reject, flag)
+app.post('/api/admin/moderate/:responseId', adminAuth, (req, res) => {
+    try {
+        const responseId = req.params.responseId;
+        const { action } = req.body; // 'approve', 'reject', 'flag', 'unflag'
+        
+        const examples = loadExamples();
+        const responseIndex = examples.findIndex(ex => ex.id === responseId);
+        
+        if (responseIndex === -1) {
+            return res.status(404).json({ error: 'Response not found' });
+        }
+        
+        switch (action) {
+            case 'approve':
+                examples[responseIndex].approved = true;
+                examples[responseIndex].flagged = false;
+                break;
+            case 'reject':
+                examples[responseIndex].approved = false;
+                examples[responseIndex].flagged = true;
+                break;
+            case 'flag':
+                examples[responseIndex].flagged = true;
+                break;
+            case 'unflag':
+                examples[responseIndex].flagged = false;
+                break;
+            default:
+                return res.status(400).json({ error: 'Invalid action' });
+        }
+        
+        fs.writeFileSync(EXAMPLES_FILE, JSON.stringify(examples, null, 2));
+        console.log(`Response ${responseId} ${action}ed by admin`);
+        
+        res.json({ success: true, message: `Response ${action}ed successfully` });
+    } catch (error) {
+        console.error('Moderate endpoint error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Admin endpoint for bulk actions
+app.post('/api/admin/bulk-moderate', adminAuth, (req, res) => {
+    try {
+        const { responseIds, action } = req.body;
+        
+        if (!Array.isArray(responseIds) || responseIds.length === 0) {
+            return res.status(400).json({ error: 'Invalid response IDs' });
+        }
+        
+        const examples = loadExamples();
+        let updatedCount = 0;
+        
+        responseIds.forEach(responseId => {
+            const responseIndex = examples.findIndex(ex => ex.id === responseId);
+            if (responseIndex !== -1) {
+                switch (action) {
+                    case 'approve':
+                        examples[responseIndex].approved = true;
+                        examples[responseIndex].flagged = false;
+                        updatedCount++;
+                        break;
+                    case 'reject':
+                        examples[responseIndex].approved = false;
+                        examples[responseIndex].flagged = true;
+                        updatedCount++;
+                        break;
+                }
+            }
+        });
+        
+        fs.writeFileSync(EXAMPLES_FILE, JSON.stringify(examples, null, 2));
+        console.log(`Bulk ${action}: ${updatedCount} responses updated`);
+        
+        res.json({ success: true, message: `${updatedCount} responses ${action}ed successfully` });
+    } catch (error) {
+        console.error('Bulk moderate endpoint error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// Admin analytics endpoint
+app.get('/api/admin/analytics', adminAuth, (req, res) => {
+    try {
+        const examples = loadExamples();
+        
+        // Card popularity analysis
+        const cardUsage = {};
+        examples.forEach(ex => {
+            if (!cardUsage[ex.cardNumber]) {
+                cardUsage[ex.cardNumber] = {
+                    cardNumber: ex.cardNumber,
+                    concept: ex.concept,
+                    totalResponses: 0,
+                    approvedResponses: 0,
+                    averageInputLength: 0
+                };
+            }
+            cardUsage[ex.cardNumber].totalResponses++;
+            if (ex.approved) cardUsage[ex.cardNumber].approvedResponses++;
+            
+            // Calculate average input length
+            const inputText = Object.values(ex.userInputs || {}).join(' ');
+            cardUsage[ex.cardNumber].averageInputLength = 
+                (cardUsage[ex.cardNumber].averageInputLength + inputText.length) / cardUsage[ex.cardNumber].totalResponses;
+        });
+        
+        const popularCards = Object.values(cardUsage)
+            .sort((a, b) => b.totalResponses - a.totalResponses)
+            .slice(0, 10);
+        
+        // Time-based analytics
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const thisWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+        const thisMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        
+        const timeAnalytics = {
+            today: examples.filter(ex => new Date(ex.timestamp) >= today).length,
+            thisWeek: examples.filter(ex => new Date(ex.timestamp) >= thisWeek).length,
+            thisMonth: examples.filter(ex => new Date(ex.timestamp) >= thisMonth).length,
+            hourlyPattern: Array(24).fill(0)
+        };
+        
+        // Hourly usage pattern
+        examples.forEach(ex => {
+            const hour = new Date(ex.timestamp).getHours();
+            timeAnalytics.hourlyPattern[hour]++;
+        });
+        
+        // Response quality metrics
+        const qualityMetrics = {
+            averageInputLength: examples.length > 0 ? 
+                examples.reduce((sum, ex) => {
+                    const inputText = Object.values(ex.userInputs || {}).join(' ');
+                    return sum + inputText.length;
+                }, 0) / examples.length : 0,
+            approvalRate: examples.length > 0 ? 
+                (examples.filter(ex => ex.approved).length / examples.length) * 100 : 0,
+            flaggedRate: examples.length > 0 ?
+                (examples.filter(ex => ex.flagged).length / examples.length) * 100 : 0
+        };
+        
+        res.json({
+            popularCards: popularCards,
+            timeAnalytics: timeAnalytics,
+            qualityMetrics: qualityMetrics
+        });
+    } catch (error) {
+        console.error('Analytics endpoint error:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
@@ -253,6 +425,96 @@ app.get('/api/health', (req, res) => {
 app.post('/api/test', (req, res) => {
     console.log('Test endpoint hit:', req.body);
     res.json({ message: 'Test successful', received: req.body });
+});
+
+// Feedback endpoint
+app.post('/api/feedback', (req, res) => {
+    try {
+        const feedback = req.body;
+        console.log('Feedback received:', feedback);
+        
+        // Add timestamp and ID if not present
+        if (!feedback.timestamp) {
+            feedback.timestamp = new Date().toISOString();
+        }
+        if (!feedback.id) {
+            feedback.id = Date.now() + Math.random().toString(36).substr(2, 9);
+        }
+        
+        // Store feedback (you could save to a file or database here)
+        // For now, just log it
+        console.log('User feedback:', {
+            cardNumber: feedback.cardNumber,
+            rating: feedback.rating,
+            comment: feedback.comment,
+            interactionType: feedback.interactionType,
+            promptVariantId: feedback.promptVariantId,
+            isABTest: feedback.isABTest,
+            timestamp: feedback.timestamp
+        });
+        
+        // If this is A/B test feedback, log it separately for analytics
+        if (feedback.isABTest && feedback.promptVariantId) {
+            console.log('A/B Test Result:', {
+                variantId: feedback.promptVariantId,
+                rating: feedback.rating,
+                cardNumber: feedback.cardNumber,
+                sessionId: feedback.sessionId
+            });
+        }
+        
+        res.json({ success: true, message: 'Feedback received successfully' });
+        
+    } catch (error) {
+        console.error('Feedback endpoint error:', error);
+        res.status(500).json({ error: 'Failed to process feedback' });
+    }
+});
+
+// A/B Test Assignment endpoint
+app.post('/api/ab-test/assignment', (req, res) => {
+    try {
+        const assignment = req.body;
+        console.log('A/B Test Assignment:', {
+            cardNumber: assignment.cardNumber,
+            interactionType: assignment.interactionType,
+            variantId: assignment.variantId,
+            sessionId: assignment.sessionId,
+            timestamp: assignment.timestamp
+        });
+        
+        res.json({ success: true, message: 'A/B test assignment logged' });
+        
+    } catch (error) {
+        console.error('A/B test assignment error:', error);
+        res.status(500).json({ error: 'Failed to log A/B test assignment' });
+    }
+});
+
+// A/B Test Analytics endpoint (for admins)
+app.get('/api/admin/ab-test/analytics', adminAuth, (req, res) => {
+    try {
+        // This would normally query a database
+        // For now, return a sample analytics structure
+        const analytics = {
+            summary: {
+                totalAssignments: 0,
+                totalFeedback: 0,
+                averageRatingByVariant: {}
+            },
+            variants: {
+                'default': { assignments: 0, ratings: [], averageRating: 0 },
+                'socratic': { assignments: 0, ratings: [], averageRating: 0 },
+                'creative': { assignments: 0, ratings: [], averageRating: 0 }
+            }
+        };
+        
+        res.json(analytics);
+        
+    } catch (error) {
+        console.error('A/B test analytics error:', error);
+        res.status(500).json({ error: 'Failed to get A/B test analytics' });
+    }
 });
 
 app.listen(PORT, () => {

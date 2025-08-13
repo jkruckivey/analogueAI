@@ -12,24 +12,29 @@
         }
         
         body {
-            font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: white;
-            color: #2d3748;
-            padding: 0;
+            font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+            background: linear-gradient(135deg, #f8fafb 0%, #f1f5f9 100%);
+            color: #63666A;
+            padding: 20px 0;
             margin: 0;
+            min-height: 100vh;
         }
         
         .container {
             max-width: 800px;
             margin: 0 auto;
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 90vh;
+            border: 1px solid rgba(255,255,255,0.18);
         }
         
         .header {
-            background: #2d3748;
+            background: linear-gradient(135deg, #034638 0%, #582C83 100%);
             color: white;
             padding: 24px 0;
             border-bottom: 1px solid #e2e8f0;
@@ -37,17 +42,21 @@
         }
         
         .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
         }
         
         .header p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             opacity: 0.9;
+            font-weight: 400;
         }
         
         .main-content {
-            padding: 40px;
+            padding: 32px;
+            flex: 1;
         }
         
         .action-buttons {
@@ -71,24 +80,32 @@
         }
 
         .btn-primary {
-            background: #2d3748;
+            background: linear-gradient(135deg, #034638 0%, #582C83 100%);
             color: white;
-            border-color: #2d3748;
+            border-color: #034638;
         }
 
         .btn-primary:hover {
             background: white;
-            color: #2d3748;
-            border-color: #2d3748;
+            color: #034638;
+            border-color: #034638;
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:focus {
+            outline: 3px solid #034638;
+            outline-offset: 2px;
         }
         
         .card-display {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 30px;
-            margin: 30px 0;
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            margin: 24px 0;
             display: none;
             animation: fadeInUp 0.6s ease-out;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.06);
         }
         
         .card-display.show {
@@ -108,12 +125,14 @@
         
         .card-number {
             display: inline-block;
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #034638 0%, #582C83 100%);
             color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: bold;
-            margin-bottom: 15px;
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
         }
         
         .card-concept {
@@ -144,8 +163,8 @@
         
         .student-btn {
             background: white;
-            color: #667eea;
-            border: 2px solid #667eea;
+            color: #034638;
+            border: 2px solid #034638;
             padding: 10px 20px;
             border-radius: 25px;
             font-weight: 600;
@@ -154,17 +173,19 @@
         }
         
         .student-btn:hover {
-            background: #667eea;
+            background: linear-gradient(135deg, #034638 0%, #582C83 100%);
             color: white;
             transform: translateY(-2px);
         }
         
         .journey-tracker {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 25px;
-            margin: 30px 0;
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
             text-align: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.06);
         }
         
         .journey-stats {
@@ -180,7 +201,7 @@
         .stat-number {
             font-size: 2rem;
             font-weight: bold;
-            color: #667eea;
+            color: #034638;
         }
         
         .stat-label {
@@ -237,7 +258,7 @@
         }
         
         .chat-header {
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #034638 0%, #582C83 100%);
             color: white;
             padding: 20px;
             display: flex;
@@ -289,7 +310,7 @@
         }
         
         .user-message {
-            background: #667eea;
+            background: linear-gradient(135deg, #034638 0%, #582C83 100%);
             color: white;
             margin-left: 20%;
             margin-right: 0;
@@ -330,11 +351,11 @@
         }
         
         #chatInput:focus {
-            border-color: #667eea;
+            border-color: #034638;
         }
         
         #sendButton {
-            background: #667eea;
+            background: linear-gradient(135deg, #034638 0%, #582C83 100%);
             color: white;
             border: none;
             padding: 12px 20px;
@@ -345,7 +366,7 @@
         }
         
         #sendButton:hover {
-            background: #5a67d8;
+            background: #034638;
             transform: translateY(-1px);
         }
         
@@ -375,134 +396,237 @@
 
         /* Card Interaction Styles */
         .card-interaction {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 20px 0;
-            border-left: 4px solid #667eea;
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 16px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-interaction::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, #034638 0%, #582C83 100%);
         }
 
         .card-interaction h4 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
+            color: #034638;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .interaction-field {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .interaction-field label {
             display: block;
-            font-weight: 500;
-            color: #555;
-            margin-bottom: 5px;
-            font-size: 0.9rem;
+            font-weight: 600;
+            color: #034638;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
         }
 
         .interaction-field input,
         .interaction-field textarea {
             width: 100%;
-            padding: 10px 12px;
+            padding: 14px 16px;
             border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 0.9rem;
+            border-radius: 12px;
+            font-size: 0.95rem;
             font-family: inherit;
-            transition: border-color 0.3s ease;
+            transition: all 0.3s ease;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
         .interaction-field input:focus,
         .interaction-field textarea:focus {
-            outline: none;
-            border-color: #667eea;
+            outline: 3px solid #034638;
+            outline-offset: 2px;
+            border-color: #034638;
+            box-shadow: 0 0 0 3px rgba(3, 70, 56, 0.1);
+            transform: translateY(-1px);
         }
 
         .interaction-btn {
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #034638 0%, #582C83 100%);
             color: white;
             border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
+            padding: 16px 28px;
+            border-radius: 12px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             width: 100%;
-            margin-top: 10px;
+            margin-top: 20px;
+            box-shadow: 0 4px 12px rgba(3, 70, 56, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .interaction-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .interaction-btn:hover::before {
+            left: 100%;
         }
 
         .interaction-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 8px 25px rgba(3, 70, 56, 0.35);
+        }
+
+        .interaction-btn:focus {
+            outline: 3px solid #ffffff;
+            outline-offset: 2px;
+        }
+
+        .interaction-btn:active {
+            transform: translateY(0px);
         }
 
         .interaction-btn:disabled {
             background: #cbd5e0;
             cursor: not-allowed;
             transform: none;
+            box-shadow: none;
         }
 
         .interaction-result {
-            background: white;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 15px;
-            border: 1px solid #e2e8f0;
-            animation: fadeInUp 0.5s ease-out;
+            background: linear-gradient(145deg, #ffffff 0%, #f8fffe 100%);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 24px;
+            border: 1px solid #e8f5f3;
+            box-shadow: 0 4px 20px rgba(3, 70, 56, 0.08);
+            animation: fadeInUp 0.6s ease-out;
+            position: relative;
+        }
+
+        .interaction-result::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #034638 0%, #582C83 100%);
+            border-radius: 16px 16px 0 0;
         }
 
         .interaction-result h5 {
-            color: #667eea;
-            margin-bottom: 10px;
-            font-size: 1rem;
+            color: #034638;
+            margin-bottom: 16px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .interaction-result p {
-            margin-bottom: 8px;
-            line-height: 1.5;
-            color: #444;
+            margin-bottom: 12px;
+            line-height: 1.6;
+            color: #2d3748;
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #f8f9fa;
+            border-top: 1px solid #e2e8f0;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+
+        .footer p {
+            margin: 0;
         }
 
         /* Community Inspiration Styles */
         .community-inspiration {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             text-align: center;
+            padding: 16px;
+            background: linear-gradient(145deg, #f0f8ff 0%, #e8f4fd 100%);
+            border-radius: 12px;
+            border: 1px solid #e0f0ff;
         }
 
         .examples-btn {
-            background: #f8f9fa;
-            color: #667eea;
-            border: 1px solid #e2e8f0;
-            padding: 8px 16px;
-            border-radius: 20px;
+            background: white;
+            color: #034638;
+            border: 2px solid #034638;
+            padding: 10px 20px;
+            border-radius: 25px;
             font-size: 0.9rem;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(3, 70, 56, 0.1);
         }
 
         .examples-btn:hover {
-            background: #667eea;
+            background: linear-gradient(135deg, #034638 0%, #582C83 100%);
             color: white;
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(3, 70, 56, 0.2);
+        }
+
+        .examples-btn:focus {
+            outline: 3px solid #034638;
+            outline-offset: 2px;
         }
 
         .examples-display {
             background: white;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 10px;
-            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 15px;
+            border: 1px solid #e8f5f3;
             text-align: left;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
         .example-item {
-            background: #f8f9fa;
-            padding: 10px;
-            margin: 8px 0;
-            border-radius: 6px;
-            border-left: 3px solid #667eea;
+            background: linear-gradient(145deg, #ffffff 0%, #f8fffe 100%);
+            padding: 14px 16px;
+            margin: 12px 0;
+            border-radius: 10px;
+            border-left: 4px solid #034638;
             font-size: 0.9rem;
-            line-height: 1.4;
+            line-height: 1.5;
+            box-shadow: 0 1px 4px rgba(3, 70, 56, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .example-item:hover {
+            transform: translateX(4px);
+            box-shadow: 0 2px 8px rgba(3, 70, 56, 0.12);
         }
 
         .example-item:last-child {
@@ -511,9 +635,794 @@
 
         .examples-header {
             font-weight: 600;
-            color: #333;
-            margin-bottom: 10px;
+            color: #034638;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Screen reader only class */
+        .sr-only {
+            position: absolute !important;
+            width: 1px !important;
+            height: 1px !important;
+            padding: 0 !important;
+            margin: -1px !important;
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            white-space: nowrap !important;
+            border: 0 !important;
+        }
+
+        /* Feedback Rating System */
+        .feedback-section {
+            background: linear-gradient(145deg, #f8fffe 0%, #f0f8ff 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid #e8f5f3;
+            box-shadow: 0 2px 8px rgba(3, 70, 56, 0.06);
+        }
+
+        .feedback-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            color: #034638;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .star-rating {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 12px;
+        }
+
+        .star {
+            font-size: 1.4rem;
+            color: #e2e8f0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .star:hover,
+        .star.active {
+            color: #fbbf24;
+            transform: scale(1.1);
+        }
+
+        .star:hover ~ .star {
+            color: #e2e8f0;
+        }
+
+        .feedback-comment {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e8f5f3;
+            border-radius: 8px;
             font-size: 0.9rem;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 60px;
+            transition: border-color 0.3s ease;
+        }
+
+        .feedback-comment:focus {
+            outline: none;
+            border-color: #034638;
+            box-shadow: 0 0 0 3px rgba(3, 70, 56, 0.1);
+        }
+
+        .feedback-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            gap: 12px;
+        }
+
+        .feedback-btn {
+            background: linear-gradient(135deg, #034638 0%, #582C83 100%);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(3, 70, 56, 0.15);
+        }
+
+        .feedback-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(3, 70, 56, 0.2);
+        }
+
+        .feedback-btn:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .feedback-skip {
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 0.8rem;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .feedback-skip:hover {
+            background: #f1f5f9;
+            color: #034638;
+        }
+
+        .feedback-thanks {
+            text-align: center;
+            color: #034638;
+            font-weight: 500;
+            padding: 16px;
+            background: rgba(3, 70, 56, 0.05);
+            border-radius: 8px;
+            animation: fadeInUp 0.4s ease-out;
+        }
+
+        /* Skip link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: #034638;
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 1000;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        /* Card Carousel Styles */
+        .card-carousel {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fffe 100%);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 1px solid #e8f5f3;
+            box-shadow: 0 8px 32px rgba(3, 70, 56, 0.1);
+        }
+
+        .carousel-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .carousel-header h3 {
+            color: #034638;
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .carousel-header p {
+            color: #63666A;
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .carousel-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .carousel-track-container {
+            flex: 1;
+            overflow: hidden;
+            border-radius: 16px;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.4s ease-in-out;
+            will-change: transform;
+        }
+
+        .carousel-card {
+            min-width: 100%;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .carousel-card:hover {
+            transform: scale(1.02);
+        }
+
+        .carousel-card-inner {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 4px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .carousel-card:hover .carousel-card-inner {
+            border-bottom-color: #034638;
+        }
+
+        .carousel-card-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #034638 0%, #582C83 100%);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .carousel-card-concept {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #034638;
+            margin-bottom: 12px;
+        }
+
+        .carousel-card-activity {
+            font-size: 0.9rem;
+            color: #63666A;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .carousel-nav {
+            background: linear-gradient(135deg, #034638 0%, #582C83 100%);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(3, 70, 56, 0.2);
+        }
+
+        .carousel-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(3, 70, 56, 0.3);
+        }
+
+        .carousel-nav:focus {
+            outline: 3px solid #ffffff;
+            outline-offset: 2px;
+        }
+
+        .carousel-nav:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .carousel-dot:hover,
+        .carousel-dot.active {
+            background: #034638;
+            transform: scale(1.2);
+        }
+
+        .carousel-dot:focus {
+            outline: 2px solid #034638;
+            outline-offset: 2px;
+        }
+
+        /* Welcome Section */
+        .welcome-section {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fffe 100%);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 0 0 20px 0;
+            border: 1px solid #e8f5f3;
+            box-shadow: 0 4px 16px rgba(3, 70, 56, 0.06);
+            text-align: center;
+        }
+
+        .welcome-content h2 {
+            color: #034638;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .welcome-description {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #2d3748;
+            margin-bottom: 8px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .welcome-subtitle {
+            font-size: 0.9rem;
+            line-height: 1.4;
+            color: #63666A;
+            margin: 0;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Action Options */
+        .action-options {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .action-option {
+            background: linear-gradient(135deg, #034638 0%, #582C83 100%);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 18px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(3, 70, 56, 0.15);
+            letter-spacing: 0.3px;
+        }
+
+        .action-option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(3, 70, 56, 0.3);
+        }
+
+        .action-option:focus {
+            outline: 3px solid #ffffff;
+            outline-offset: 2px;
+        }
+
+        /* Card Hand Layout */
+        .card-hand {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fffe 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 1px solid #e8f5f3;
+            box-shadow: 0 8px 32px rgba(3, 70, 56, 0.1);
+        }
+
+        .hand-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .hand-header h3 {
+            color: #034638;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .hand-header p {
+            color: #63666A;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .shuffle-btn {
+            background: linear-gradient(135deg, #034638 0%, #582C83 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(3, 70, 56, 0.2);
+        }
+
+        .shuffle-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(3, 70, 56, 0.3);
+        }
+
+        .shuffle-btn:focus {
+            outline: 3px solid #ffffff;
+            outline-offset: 2px;
+        }
+
+        .hand-container {
+            perspective: 1000px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: -20px;
+            min-height: 300px;
+            position: relative;
+        }
+
+        .hand-card {
+            width: 150px;
+            height: 210px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-origin: bottom center;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            border: 2px solid #e8f5f3;
+            overflow: hidden;
+        }
+
+        .hand-card:hover {
+            transform: translateY(-40px) scale(1.05);
+            z-index: 100 !important;
+            box-shadow: 0 20px 60px rgba(3, 70, 56, 0.2);
+            border-color: #034638;
+        }
+
+        .hand-card-header {
+            background: linear-gradient(135deg, #034638 0%, #582C83 100%);
+            color: white;
+            padding: 12px;
+            border-radius: 10px 10px 0 0;
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+
+        /* Card dealing animation */
+        @keyframes dealCard {
+            from {
+                opacity: 0;
+                transform: translateX(0px) translateY(-100px) rotate(0deg) scale(0.8);
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .intro-header {
+            padding: 25px 30px 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .intro-header h3 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .intro-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .intro-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .intro-content {
+            padding: 0 30px 30px 30px;
+        }
+
+        .intro-content p {
+            margin: 0 0 20px 0;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            opacity: 0.95;
+        }
+
+        .intro-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .intro-option {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .intro-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+        }
+
+        .intro-icon {
+            font-size: 1.8rem;
+            width: 50px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .intro-option strong {
+            font-size: 1rem;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .intro-option span {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            line-height: 1.3;
+        }
+
+        .intro-tip {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 0.95rem !important;
+            line-height: 1.4;
+            border-left: 4px solid rgba(255, 255, 255, 0.4);
+        }
+
+        /* Card Selection Interface */
+        .card-selector {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+            border: 1px solid rgba(0,0,0,0.06);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+
+        .selector-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .selector-tab {
+            background: white;
+            border: 2px solid #e2e8f0;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .selector-tab.active,
+        .selector-tab:hover {
+            background: linear-gradient(135deg, #034638 0%, #582C83 100%);
+            color: white;
+            border-color: #034638;
+            transform: translateY(-1px);
+        }
+
+        .selector-content {
+            display: none;
+        }
+
+        .selector-content.active {
+            display: block;
+        }
+
+        /* Theme Grid */
+        .themes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .theme-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #e2e8f0;
+        }
+
+        .theme-card:hover,
+        .theme-card:focus {
+            border-color: #034638;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(3, 70, 56, 0.2);
+        }
+
+        .theme-card:focus {
+            outline: 3px solid #034638;
+            outline-offset: 2px;
+        }
+
+        .theme-card h4 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .theme-card p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* Search Input */
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #034638;
+        }
+
+        /* Cards List */
+        .cards-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .card-item {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #e2e8f0;
+        }
+
+        .card-item:hover,
+        .card-item:focus {
+            border-color: #034638;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(3, 70, 56, 0.2);
+        }
+
+        .card-item:focus {
+            outline: 3px solid #034638;
+            outline-offset: 2px;
+        }
+
+        .card-item-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #034638 0%, #582C83 100%);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .card-item-concept {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .card-item-activity {
+            font-size: 0.8rem;
+            color: #666;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Theme Cards List */
+        .theme-cards-list {
+            margin-top: 20px;
+        }
+
+        .theme-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .theme-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .back-btn {
+            background: #f8f9fa;
+            border: 1px solid #e2e8f0;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #e2e8f0;
         }
 
         @media (max-width: 600px) {
@@ -523,6 +1432,11 @@
             
             .main-content {
                 padding: 20px;
+            }
+            
+            .container {
+                margin: 10px;
+                border-radius: 12px;
             }
             
             .action-buttons {
@@ -546,21 +1460,295 @@
             .ai-message {
                 margin-right: 10%;
             }
+            
+            /* Card Selection Mobile Styles */
+            .themes-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cards-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .selector-tabs {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            
+            .selector-tab {
+                flex: 1;
+                min-width: auto;
+                font-size: 0.8rem;
+                padding: 8px 12px;
+            }
+            
+            /* Intro Mobile Styles */
+            .intro-header {
+                padding: 20px 20px 10px 20px;
+            }
+            
+            .intro-header h3 {
+                font-size: 1.3rem;
+            }
+            
+            .intro-content {
+                padding: 0 20px 25px 20px;
+            }
+            
+            .intro-option {
+                gap: 12px;
+                padding: 12px;
+            }
+            
+            .intro-icon {
+                font-size: 1.5rem;
+                width: 40px;
+            }
+            
+            /* Try it Now Mobile Styles */
+            .card-interaction {
+                padding: 18px;
+                margin: 20px 0;
+            }
+            
+            .card-interaction h4 {
+                font-size: 1.1rem;
+            }
+            
+            .interaction-field input,
+            .interaction-field textarea {
+                padding: 12px 14px;
+            }
+            
+            .interaction-btn {
+                padding: 14px 20px;
+            }
+            
+            .interaction-result {
+                padding: 18px;
+            }
+            
+            .community-inspiration {
+                padding: 12px;
+            }
+            
+            /* Carousel Mobile Styles */
+            .card-carousel {
+                padding: 15px;
+                margin: 15px 0;
+            }
+            
+            .carousel-header h3 {
+                font-size: 1.1rem;
+            }
+            
+            .carousel-header p {
+                font-size: 0.85rem;
+            }
+            
+            .carousel-container {
+                gap: 10px;
+            }
+            
+            .carousel-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .carousel-card-inner {
+                padding: 15px;
+            }
+            
+            .carousel-card-concept {
+                font-size: 1.2rem;
+            }
+            
+            .carousel-indicators {
+                margin-top: 15px;
+                gap: 6px;
+            }
+            
+            .carousel-dot {
+                width: 8px;
+                height: 8px;
+            }
+            
+            /* Welcome and Action Mobile Styles */
+            .welcome-section {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            
+            .welcome-content h2 {
+                font-size: 1.6rem;
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .welcome-description {
+                font-size: 1rem;
+            }
+            
+            .action-options {
+                flex-direction: row;
+                gap: 10px;
+                margin: 15px 0;
+            }
+            
+            .action-option {
+                padding: 10px 16px;
+                font-size: 0.8rem;
+            }
+            
+            /* Card Hand Mobile Styles */
+            .card-hand {
+                padding: 20px;
+            }
+            
+            .hand-header h3 {
+                font-size: 1.2rem;
+            }
+            
+            .hand-container {
+                min-height: 250px;
+            }
+            
+            .hand-card {
+                width: 120px;
+                height: 170px;
+            }
+            
+            .hand-card:hover {
+                transform: translateY(-30px) scale(1.03);
+                z-index: 100 !important;
+            }
+            
+            .hand-card-header {
+                padding: 8px;
+                font-size: 0.7rem;
+            }
         }
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <div class="container">
         <div class="header">
             <h1>🚀 AI Learning Inspiration</h1>
             <p>Discover new ways to enhance your learning with AI</p>
+            <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 10px;">
+                Based on <strong>"Analog Inspiration"</strong> card deck by Carter Moulton<br>
+                <a href="https://analoginspiration.ai" target="_blank" style="color: #a0c4ff; text-decoration: none;">analoginspiration.ai</a>
+            </p>
         </div>
         
-        <div class="main-content">
-            <div class="action-buttons">
-                <button class="btn btn-primary" onclick="drawRandomCard()">Draw a Card</button>
+        <main class="main-content" id="main-content">
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+                <div class="welcome-content">
+                    <h2>🚀 AI Learning Inspiration</h2>
+                    <p class="welcome-description">
+                        Explore thoughtful ways to integrate AI into your learning journey. This interactive collection, 
+                        inspired by Carter Moulton's "Analog Inspiration" card deck, offers <strong>50 practical activities</strong> 
+                        designed to center human values and creativity when using AI in education.
+                    </p>
+                    <p class="welcome-subtitle">
+                        Each card provides guided activities that encourage reflection, celebrate student agency, 
+                        and help you explore AI's potentials and limitations in a meaningful way.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Action Options -->
+            <section class="action-options" role="group" aria-label="Ways to explore learning cards">
+                <button class="action-option" onclick="drawRandomCard()" aria-describedby="random-help">
+                    🎲 Draw a Card
+                </button>
+                
+                <button class="action-option" onclick="toggleCardSelector()" aria-describedby="browse-help">
+                    🔍 Browse Cards
+                </button>
+                
+                <button class="action-option" onclick="toggleCardHand()" aria-describedby="preview-help">
+                    🃏 Preview Cards
+                </button>
+                
+                <div id="random-help" class="sr-only">Select a random learning card for inspiration</div>
+                <div id="browse-help" class="sr-only">Browse cards by theme or search by concept</div>
+                <div id="preview-help" class="sr-only">Preview multiple cards at once in a card hand layout</div>
+            </section>
+
+            <!-- Card Hand Preview -->
+            <section class="card-hand" id="cardHand" style="display: none;">
+                <div class="hand-header">
+                    <h3>✋ Choose Your Inspiration</h3>
+                    <p>Click any card to explore it, or shuffle for a new hand</p>
+                    <button class="shuffle-btn" onclick="shuffleCardHand()">🔄 Shuffle Cards</button>
+                </div>
+                
+                <div class="hand-container" id="handContainer">
+                    <!-- Card hand will be inserted here -->
+                </div>
+            </section>
+            
+            <!-- Card Selection Interface -->
+            <div class="card-selector" id="cardSelector" style="display: none;" role="region" aria-label="Card browsing interface">
+                <div class="selector-tabs" role="tablist" aria-label="Card browsing methods">
+                    <button class="selector-tab active" onclick="showSelectorTab('themes')" role="tab" aria-selected="true" aria-controls="themesSelector">📚 By Theme</button>
+                    <button class="selector-tab" onclick="showSelectorTab('search')" role="tab" aria-selected="false" aria-controls="searchSelector">🔎 Search</button>
+                    <button class="selector-tab" onclick="showSelectorTab('all')" role="tab" aria-selected="false" aria-controls="allSelector">📋 All Cards</button>
+                </div>
+                
+                <!-- Theme-based Selection -->
+                <div id="themesSelector" class="selector-content active" role="tabpanel" aria-labelledby="themes-tab">
+                    <div class="themes-grid" role="group" aria-label="Learning themes">
+                        <div class="theme-card" onclick="showThemeCards('learning')" role="button" tabindex="0" aria-label="Learning and Growth theme - includes Accessibility, Growth Mindset, Motivation, and Process cards">
+                            <h4>🌱 Learning & Growth</h4>
+                            <p>Accessibility, Growth Mindset, Motivation, Process...</p>
+                        </div>
+                        <div class="theme-card" onclick="showThemeCards('communication')" role="button" tabindex="0" aria-label="Communication and Relationships theme - includes Belonging, Care, Community, Voice, and Trust cards">
+                            <h4>🤝 Communication & Relationships</h4>
+                            <p>Belonging, Care, Community, Voice, Trust...</p>
+                        </div>
+                        <div class="theme-card" onclick="showThemeCards('creativity')" role="button" tabindex="0" aria-label="Creativity and Play theme - includes Play, Imagination, Storytelling, Wonder, and Joy cards">
+                            <h4>🎨 Creativity & Play</h4>
+                            <p>Play, Imagination, Storytelling, Wonder, Joy...</p>
+                        </div>
+                        <div class="theme-card" onclick="showThemeCards('thinking')" role="button" tabindex="0" aria-label="Critical Thinking theme - includes Ethics, Justice, Perspective, Inquiry, and Bias cards">
+                            <h4>🧠 Critical Thinking</h4>
+                            <p>Ethics, Justice, Perspective, Inquiry, Bias...</p>
+                        </div>
+                        <div class="theme-card" onclick="showThemeCards('assessment')" role="button" tabindex="0" aria-label="Assessment and Choice theme - includes Authenticity, Choice, Variety, and Transparency cards">
+                            <h4>📝 Assessment & Choice</h4>
+                            <p>Authenticity, Choice, Variety, Transparency...</p>
+                        </div>
+                        <div class="theme-card" onclick="showThemeCards('innovation')" role="button" tabindex="0" aria-label="Innovation and Future theme - includes Risk-Taking, Experimentation, Hope, and Insight cards">
+                            <h4>🚀 Innovation & Future</h4>
+                            <p>Risk-Taking, Experimentation, Hope, Insight...</p>
+                        </div>
+                    </div>
+                    <div id="themeCards" class="theme-cards-list" style="display: none;" aria-live="polite"></div>
+                </div>
+                
+                <!-- Search-based Selection -->
+                <div id="searchSelector" class="selector-content" style="display: none;" role="tabpanel" aria-labelledby="search-tab">
+                    <label for="cardSearch" class="sr-only">Search learning cards by concept name or description</label>
+                    <input type="text" id="cardSearch" placeholder="Search cards by concept..." class="search-input" oninput="searchCards()" aria-describedby="search-instructions">
+                    <div id="search-instructions" class="sr-only">Type to search through 50 learning cards by concept name or activity description</div>
+                    <div id="searchResults" class="cards-list" aria-live="polite" aria-label="Search results"></div>
+                </div>
+                
+                <!-- All Cards Selection -->
+                <div id="allSelector" class="selector-content" style="display: none;">
+                    <div id="allCards" class="cards-list"></div>
+                </div>
             </div>
             
+            
+            <div class="card-display" id="cardDisplay">
+                <!-- Card content will be inserted here -->
+            </div>
             
             <div class="journey-tracker">
                 <h3>Your Learning Journey</h3>
@@ -580,14 +1768,15 @@
                 </div>
             </div>
             
-            <div class="card-display" id="cardDisplay">
-                <!-- Card content will be inserted here -->
-            </div>
-            
             <div class="loading" id="loading" style="display: none;">
                 <div class="spinner"></div>
                 <p>Finding inspiration...</p>
             </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; 2025 Ivey Business School at Western University</p>
         </div>
     </div>
 
@@ -652,35 +1841,6 @@
             document.getElementById('activitiesTried').textContent = activitiesTried;
         }
         
-        // Draw a random card
-        function drawRandomCard() {
-            const loading = document.getElementById('loading');
-            const cardDisplay = document.getElementById('cardDisplay');
-            
-            loading.style.display = 'block';
-            cardDisplay.classList.remove('show');
-            
-            setTimeout(() => {
-                try {
-                    if (!cardsData || cardsData.length === 0) {
-                        throw new Error('Cards data not loaded');
-                    }
-                    const randomCard = cardsData[Math.floor(Math.random() * cardsData.length)];
-                    displayCard(randomCard);
-                } catch (error) {
-                    console.error('Error drawing card:', error);
-                    cardDisplay.innerHTML = `
-                        <div style="text-align: center; padding: 20px; color: #ff6b6b;">
-                            <h3>Oops! Something went wrong</h3>
-                            <p>Unable to load the inspiration cards. Please refresh the page and try again.</p>
-                            <button class="btn" onclick="location.reload()">Refresh Page</button>
-                        </div>
-                    `;
-                    cardDisplay.classList.add('show');
-                }
-                loading.style.display = 'none';
-            }, 1000);
-        }
         
         // Get the correct image filename for a card using the new naming pattern
         function getCorrectImageName(card) {
@@ -1008,6 +2168,9 @@
             resultDiv.innerHTML = '<div class="spinner" style="width: 20px; height: 20px; margin: 10px auto;"></div>';
 
             try {
+                // Get the A/B test prompt variant for this interaction
+                const promptVariant = getPromptVariant(cardNumber, 'card-interaction');
+                
                 // Build the prompt with user inputs
                 let userMessage = Object.values(inputs).join('\n\n');
                 
@@ -1021,8 +2184,13 @@
                             activity: card.activity,
                             cardNumber: card.number
                         },
-                        customPrompt: card.aiPrompt,
-                        userInputs: inputs
+                        customPrompt: promptVariant.prompt, // Use A/B test variant
+                        userInputs: inputs,
+                        // Include A/B test metadata
+                        abTestData: {
+                            variantId: promptVariant.id,
+                            variantName: promptVariant.name
+                        }
                     })
                 });
 
@@ -1030,11 +2198,18 @@
                 
                 const data = await response.json();
                 
-                // Display result
+                // Display result with feedback section
+                const feedbackId = `feedback-${cardNumber}-card-interaction-${Date.now()}`;
                 resultDiv.innerHTML = `
                     <h5>🎯 AI Response:</h5>
                     <div>${data.response.replace(/\n/g, '<br>')}</div>
+                    ${generateFeedbackSection(cardNumber, 'card-interaction', feedbackId)}
                 `;
+
+                // Initialize feedback section after DOM update
+                setTimeout(() => {
+                    initializeFeedbackSection(feedbackId);
+                }, 100);
 
             } catch (error) {
                 console.error('Interaction error:', error);
@@ -1047,6 +2222,270 @@
                 // Reset button
                 button.disabled = false;
                 button.textContent = card.buttonText;
+            }
+        }
+
+        // Feedback System Functions
+        function generateFeedbackSection(cardNumber, interactionType, feedbackId = null) {
+            const id = feedbackId || `feedback-${cardNumber}-${interactionType}-${Date.now()}`;
+            return `
+                <div class="feedback-section" id="${id}">
+                    <div class="feedback-header">
+                        💭 How helpful was this response?
+                    </div>
+                    <div class="star-rating" data-rating="0">
+                        <span class="star" data-value="1">⭐</span>
+                        <span class="star" data-value="2">⭐</span>
+                        <span class="star" data-value="3">⭐</span>
+                        <span class="star" data-value="4">⭐</span>
+                        <span class="star" data-value="5">⭐</span>
+                    </div>
+                    <textarea class="feedback-comment" placeholder="Any additional thoughts? (optional)" rows="3"></textarea>
+                    <div class="feedback-actions">
+                        <button class="feedback-btn" onclick="submitFeedback('${id}', ${cardNumber}, '${interactionType}')">
+                            Submit Feedback
+                        </button>
+                        <button class="feedback-skip" onclick="skipFeedback('${id}')">
+                            Skip
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function initializeFeedbackSection(feedbackId) {
+            const section = document.getElementById(feedbackId);
+            if (!section) return;
+
+            const stars = section.querySelectorAll('.star');
+            const rating = section.querySelector('.star-rating');
+
+            stars.forEach((star, index) => {
+                star.addEventListener('click', () => {
+                    const value = index + 1;
+                    rating.dataset.rating = value;
+                    
+                    stars.forEach((s, i) => {
+                        s.classList.toggle('active', i < value);
+                    });
+                });
+
+                star.addEventListener('mouseenter', () => {
+                    stars.forEach((s, i) => {
+                        s.style.color = i <= index ? '#fbbf24' : '#e2e8f0';
+                    });
+                });
+            });
+
+            rating.addEventListener('mouseleave', () => {
+                const currentRating = parseInt(rating.dataset.rating);
+                stars.forEach((s, i) => {
+                    s.style.color = i < currentRating ? '#fbbf24' : '#e2e8f0';
+                });
+            });
+        }
+
+        async function submitFeedback(feedbackId, cardNumber, interactionType) {
+            const section = document.getElementById(feedbackId);
+            const rating = parseInt(section.querySelector('.star-rating').dataset.rating);
+            const comment = section.querySelector('.feedback-comment').value.trim();
+
+            if (rating === 0) {
+                alert('Please select a rating before submitting.');
+                return;
+            }
+
+            const feedbackData = {
+                cardNumber,
+                interactionType,
+                rating,
+                comment,
+                timestamp: new Date().toISOString(),
+                sessionId: getOrCreateSessionId()
+            };
+
+            try {
+                // Store locally and optionally send to server
+                storeFeedbackLocally(feedbackData);
+                
+                // Optionally send to server
+                await sendFeedbackToServer(feedbackData);
+
+                // Show thank you message
+                section.innerHTML = `
+                    <div class="feedback-thanks">
+                        ✅ Thank you for your feedback! This helps us improve the AI responses.
+                    </div>
+                `;
+
+            } catch (error) {
+                console.error('Error submitting feedback:', error);
+                // Still show thanks even if server fails
+                section.innerHTML = `
+                    <div class="feedback-thanks">
+                        ✅ Thank you for your feedback! (Saved locally)
+                    </div>
+                `;
+            }
+        }
+
+        function skipFeedback(feedbackId) {
+            const section = document.getElementById(feedbackId);
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(-10px)';
+            
+            setTimeout(() => {
+                section.remove();
+            }, 300);
+        }
+
+        function getOrCreateSessionId() {
+            let sessionId = sessionStorage.getItem('userSessionId');
+            if (!sessionId) {
+                sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                sessionStorage.setItem('userSessionId', sessionId);
+            }
+            return sessionId;
+        }
+
+        function storeFeedbackLocally(feedbackData) {
+            const existingFeedback = JSON.parse(localStorage.getItem('userFeedback') || '[]');
+            existingFeedback.push(feedbackData);
+            
+            // Keep only last 100 feedback items
+            if (existingFeedback.length > 100) {
+                existingFeedback.splice(0, existingFeedback.length - 100);
+            }
+            
+            localStorage.setItem('userFeedback', JSON.stringify(existingFeedback));
+        }
+
+        async function sendFeedbackToServer(feedbackData) {
+            const response = await fetch('/api/feedback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(feedbackData)
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to send feedback to server');
+            }
+
+            return response.json();
+        }
+
+        // A/B Testing System for AI Prompts
+        const promptVariants = {
+            // Default prompts for each card interaction type
+            'card-interaction': [
+                {
+                    id: 'default',
+                    name: 'Original Prompt',
+                    prompt: 'You are a dialogue practice partner. Based on the situation provided, engage in realistic role-play to help the student practice. Stay in character but be encouraging. After the practice, provide constructive feedback on their approach and suggest improvements.'
+                },
+                {
+                    id: 'socratic',
+                    name: 'Socratic Method',
+                    prompt: 'You are a Socratic learning facilitator. Instead of giving direct answers, ask thoughtful questions that guide the student to discover insights themselves. Based on their input, ask 2-3 probing questions that help them think more deeply about the concept.'
+                },
+                {
+                    id: 'creative',
+                    name: 'Creative Approach', 
+                    prompt: 'You are a creative learning coach. Take the student\'s input and help them explore it through storytelling, analogies, or imaginative scenarios. Make the learning experience engaging and memorable while ensuring educational value.'
+                }
+            ]
+        };
+
+        function getPromptVariant(cardNumber, interactionType) {
+            const variants = promptVariants[interactionType] || promptVariants['card-interaction'];
+            
+            // Check if this user has an assigned variant for this card
+            const assignmentKey = `ab-test-${cardNumber}-${interactionType}`;
+            let assignedVariant = sessionStorage.getItem(assignmentKey);
+            
+            if (!assignedVariant) {
+                // Randomly assign a variant (A/B/C testing)
+                const randomIndex = Math.floor(Math.random() * variants.length);
+                assignedVariant = variants[randomIndex].id;
+                sessionStorage.setItem(assignmentKey, assignedVariant);
+                
+                // Log the assignment for analytics
+                logABTestAssignment(cardNumber, interactionType, assignedVariant);
+            }
+            
+            return variants.find(v => v.id === assignedVariant) || variants[0];
+        }
+
+        function logABTestAssignment(cardNumber, interactionType, variantId) {
+            const assignmentData = {
+                cardNumber,
+                interactionType, 
+                variantId,
+                sessionId: getOrCreateSessionId(),
+                timestamp: new Date().toISOString()
+            };
+            
+            // Store locally
+            const assignments = JSON.parse(localStorage.getItem('abTestAssignments') || '[]');
+            assignments.push(assignmentData);
+            localStorage.setItem('abTestAssignments', JSON.stringify(assignments));
+            
+            // Send to server
+            fetch('/api/ab-test/assignment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(assignmentData)
+            }).catch(error => console.log('A/B test assignment logging failed:', error));
+        }
+
+        // Enhanced feedback submission to include A/B test data
+        async function submitFeedback(feedbackId, cardNumber, interactionType) {
+            const section = document.getElementById(feedbackId);
+            const rating = parseInt(section.querySelector('.star-rating').dataset.rating);
+            const comment = section.querySelector('.feedback-comment').value.trim();
+
+            if (rating === 0) {
+                alert('Please select a rating before submitting.');
+                return;
+            }
+
+            // Get the variant used for this interaction
+            const assignmentKey = `ab-test-${cardNumber}-${interactionType}`;
+            const variantId = sessionStorage.getItem(assignmentKey);
+
+            const feedbackData = {
+                cardNumber,
+                interactionType,
+                rating,
+                comment,
+                timestamp: new Date().toISOString(),
+                sessionId: getOrCreateSessionId(),
+                // A/B testing data
+                promptVariantId: variantId,
+                isABTest: true
+            };
+
+            try {
+                // Store locally and send to server
+                storeFeedbackLocally(feedbackData);
+                await sendFeedbackToServer(feedbackData);
+
+                // Show thank you message
+                section.innerHTML = `
+                    <div class="feedback-thanks">
+                        ✅ Thank you for your feedback! This helps us improve the AI responses.
+                    </div>
+                `;
+
+            } catch (error) {
+                console.error('Error submitting feedback:', error);
+                section.innerHTML = `
+                    <div class="feedback-thanks">
+                        ✅ Thank you for your feedback! (Saved locally)
+                    </div>
+                `;
             }
         }
 
@@ -1085,15 +2524,503 @@
             }
         });
 
+        // Card Selection Functionality
+        const cardThemes = {
+            learning: {
+                title: '🌱 Learning & Growth',
+                concepts: ['Accessibility', 'Agency', 'Growth Mindset', 'Self-Regulation', 'Perseverance', 'Motivation', 'Process', 'Reflection', 'Intention', 'Discernment']
+            },
+            communication: {
+                title: '🤝 Communication & Relationships',
+                concepts: ['Belonging', 'Care', 'Communication', 'Community', 'Relationships', 'Voice', 'Trust', 'Dialogue', 'Transparency']
+            },
+            creativity: {
+                title: '🎨 Creativity & Play',
+                concepts: ['Creativity', 'Play', 'Humor', 'Imagination', 'Storytelling', 'Wonder', 'Joy']
+            },
+            thinking: {
+                title: '🧠 Critical Thinking',
+                concepts: ['Critical-Thinking', 'Critique', 'Bias', 'Ethics', 'Justice', 'Perspective', 'Inquiry', 'Interpretation']
+            },
+            assessment: {
+                title: '📝 Assessment & Choice',
+                concepts: ['Authenticity', 'Choice', 'Variety', 'Friction']
+            },
+            innovation: {
+                title: '🚀 Innovation & Future',
+                concepts: ['Experimentation', 'Risk-Taking', 'Hope', 'Insight', 'Kinship', 'Love', 'Inclusion', 'Connections', 'Curiosity', 'Mystery']
+            }
+        };
+
+        function toggleCardSelector() {
+            const selector = document.getElementById('cardSelector');
+            if (selector.style.display === 'none') {
+                selector.style.display = 'block';
+                populateAllCards();
+            } else {
+                selector.style.display = 'none';
+            }
+        }
+
+        function showSelectorTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.selector-tab').forEach(tab => {
+                tab.classList.remove('active');
+                tab.setAttribute('aria-selected', 'false');
+                tab.setAttribute('tabindex', '-1');
+            });
+            
+            const activeTab = event.target;
+            activeTab.classList.add('active');
+            activeTab.setAttribute('aria-selected', 'true');
+            activeTab.setAttribute('tabindex', '0');
+
+            // Show content
+            document.querySelectorAll('.selector-content').forEach(content => {
+                content.classList.remove('active');
+                content.style.display = 'none';
+            });
+            
+            const targetContent = document.getElementById(tabName + 'Selector');
+            targetContent.classList.add('active');
+            targetContent.style.display = 'block';
+
+            // Load content if needed
+            if (tabName === 'all') {
+                populateAllCards();
+            } else if (tabName === 'search') {
+                populateSearchCards();
+                // Focus search input when search tab is activated
+                setTimeout(() => document.getElementById('cardSearch')?.focus(), 100);
+            }
+        }
+
+        function showThemeCards(themeKey) {
+            const theme = cardThemes[themeKey];
+            const themeCards = cardsData.filter(card => theme.concepts.includes(card.concept));
+            
+            const themeCardsContainer = document.getElementById('themeCards');
+            const themesGrid = document.querySelector('.themes-grid');
+            
+            // Hide themes grid and show theme cards
+            themesGrid.style.display = 'none';
+            themeCardsContainer.style.display = 'block';
+            
+            // Build theme cards HTML
+            let themeCardsHtml = `
+                <div class="theme-header">
+                    <div class="theme-title">${theme.title}</div>
+                    <button class="back-btn" onclick="backToThemes()">← Back to Themes</button>
+                </div>
+                <div class="cards-list">
+                    ${themeCards.map(card => createCardItemHtml(card)).join('')}
+                </div>
+            `;
+            
+            themeCardsContainer.innerHTML = themeCardsHtml;
+        }
+
+        function backToThemes() {
+            const themeCardsContainer = document.getElementById('themeCards');
+            const themesGrid = document.querySelector('.themes-grid');
+            
+            themeCardsContainer.style.display = 'none';
+            themesGrid.style.display = 'grid';
+        }
+
+        function createCardItemHtml(card) {
+            return `
+                <div class="card-item" onclick="selectCard(${card.number})" role="button" tabindex="0" 
+                     aria-label="Select card ${card.number}: ${card.concept} - ${card.activity.substring(0, 100)}...">
+                    <div class="card-item-number">Card #${card.number}</div>
+                    <div class="card-item-concept">${card.concept}</div>
+                    <div class="card-item-activity">${card.activity}</div>
+                </div>
+            `;
+        }
+
+        function populateAllCards() {
+            const allCardsContainer = document.getElementById('allCards');
+            const cardsHtml = cardsData.map(card => createCardItemHtml(card)).join('');
+            allCardsContainer.innerHTML = cardsHtml;
+        }
+
+        function populateSearchCards() {
+            const searchResults = document.getElementById('searchResults');
+            searchResults.innerHTML = '';
+        }
+
+        function searchCards() {
+            const searchTerm = document.getElementById('cardSearch').value.toLowerCase();
+            const searchResults = document.getElementById('searchResults');
+            
+            if (!searchTerm.trim()) {
+                searchResults.innerHTML = '<p style="text-align: center; color: #666; padding: 40px;">Type to search cards...</p>';
+                return;
+            }
+            
+            const filteredCards = cardsData.filter(card => 
+                card.concept.toLowerCase().includes(searchTerm) ||
+                card.activity.toLowerCase().includes(searchTerm)
+            );
+            
+            if (filteredCards.length === 0) {
+                searchResults.innerHTML = '<p style="text-align: center; color: #666; padding: 40px;">No cards found matching your search.</p>';
+                return;
+            }
+            
+            const cardsHtml = filteredCards.map(card => createCardItemHtml(card)).join('');
+            searchResults.innerHTML = cardsHtml;
+        }
+
+        function selectCard(cardNumber) {
+            const selectedCard = cardsData.find(card => card.number === cardNumber);
+            if (selectedCard) {
+                // Hide the card selector
+                document.getElementById('cardSelector').style.display = 'none';
+                
+                // Display the selected card
+                displayCard(selectedCard);
+            }
+        }
+
+        // Introduction functionality
+        function hideIntro() {
+            const introCard = document.getElementById('introCard');
+            if (!introCard) return; // Element doesn't exist, skip
+            
+            introCard.style.opacity = '0';
+            introCard.style.transform = 'translateY(-20px)';
+            
+            setTimeout(() => {
+                introCard.style.display = 'none';
+                // Save preference to localStorage
+                localStorage.setItem('aiLearningIntroSeen', 'true');
+            }, 300);
+        }
+
+        function showIntroIfNeeded() {
+            const introSeen = localStorage.getItem('aiLearningIntroSeen');
+            const introCard = document.getElementById('introCard');
+            
+            if (!introCard) return; // Element doesn't exist, skip
+            
+            if (!introSeen) {
+                // First-time visitor - show intro
+                introCard.style.display = 'block';
+                introCard.style.opacity = '1';
+                introCard.style.transform = 'translateY(0)';
+            } else {
+                // Returning visitor - hide intro by default
+                introCard.style.display = 'none';
+            }
+        }
+
+        // Auto-hide intro when user draws a card or browses
+        function drawRandomCard() {
+            hideIntro();
+            
+            const loading = document.getElementById('loading');
+            const cardDisplay = document.getElementById('cardDisplay');
+            
+            loading.style.display = 'block';
+            cardDisplay.classList.remove('show');
+            
+            setTimeout(() => {
+                try {
+                    if (!cardsData || cardsData.length === 0) {
+                        throw new Error('Cards data not loaded');
+                    }
+                    const randomCard = cardsData[Math.floor(Math.random() * cardsData.length)];
+                    displayCard(randomCard);
+                } catch (error) {
+                    console.error('Error drawing card:', error);
+                    cardDisplay.innerHTML = `
+                        <div style="text-align: center; padding: 20px; color: #ff6b6b;">
+                            <h3>Oops! Something went wrong</h3>
+                            <p>Unable to load the inspiration cards. Please refresh the page and try again.</p>
+                            <button class="btn" onclick="location.reload()">Refresh Page</button>
+                        </div>
+                    `;
+                    cardDisplay.classList.add('show');
+                }
+                loading.style.display = 'none';
+            }, 1000);
+        }
+
+        function toggleCardSelector() {
+            hideIntro();
+            
+            const selector = document.getElementById('cardSelector');
+            if (selector.style.display === 'none') {
+                selector.style.display = 'block';
+                populateAllCards();
+            } else {
+                selector.style.display = 'none';
+            }
+        }
+
+        // Add keyboard navigation support
+        document.addEventListener('keydown', function(event) {
+            // Handle Enter and Space for theme cards, card items, and carousel cards
+            if (event.target.classList.contains('theme-card') || 
+                event.target.classList.contains('card-item') ||
+                event.target.classList.contains('carousel-card')) {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    event.target.click();
+                }
+            }
+            
+            // Handle arrow keys for carousel navigation
+            if (event.target.closest('.card-carousel')) {
+                if (event.key === 'ArrowLeft') {
+                    event.preventDefault();
+                    prevCard();
+                } else if (event.key === 'ArrowRight') {
+                    event.preventDefault();
+                    nextCard();
+                }
+            }
+            
+            // Handle tab navigation
+            if (event.target.classList.contains('selector-tab')) {
+                let tabs = Array.from(document.querySelectorAll('.selector-tab'));
+                let currentIndex = tabs.indexOf(event.target);
+                
+                if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+                    event.preventDefault();
+                    let nextIndex = (currentIndex + 1) % tabs.length;
+                    tabs[nextIndex].focus();
+                } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+                    event.preventDefault();
+                    let prevIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+                    tabs[prevIndex].focus();
+                } else if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    event.target.click();
+                }
+            }
+        });
+
+        // Carousel functionality
+        let currentCarouselIndex = 0;
+        let carouselCards = [];
+
+        function initializeCarousel() {
+            if (!cardsData || cardsData.length === 0) return;
+            
+            // Shuffle cards for variety
+            carouselCards = [...cardsData].sort(() => Math.random() - 0.5);
+            
+            const track = document.getElementById('carouselTrack');
+            const indicators = document.getElementById('carouselIndicators');
+            
+            // Create carousel cards (show first 10 for performance)
+            const carouselHtml = carouselCards.slice(0, 10).map(card => `
+                <div class="carousel-card" onclick="selectCarouselCard(${card.number})" role="button" tabindex="0" 
+                     aria-label="Preview card ${card.number}: ${card.concept}">
+                    <div class="carousel-card-inner">
+                        <div class="carousel-card-number">Card #${card.number}</div>
+                        <div class="carousel-card-concept">${card.concept}</div>
+                        <div class="carousel-card-activity">${card.activity}</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            track.innerHTML = carouselHtml;
+            
+            // Create indicators
+            const indicatorHtml = carouselCards.slice(0, 10).map((_, index) => `
+                <button class="carousel-dot ${index === 0 ? 'active' : ''}" 
+                        onclick="goToCarouselSlide(${index})" 
+                        aria-label="Go to card ${index + 1}"></button>
+            `).join('');
+            
+            indicators.innerHTML = indicatorHtml;
+            
+            updateCarouselPosition();
+        }
+
+        function updateCarouselPosition() {
+            const track = document.getElementById('carouselTrack');
+            const translateX = -currentCarouselIndex * 100;
+            track.style.transform = `translateX(${translateX}%)`;
+            
+            // Update indicators
+            document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentCarouselIndex);
+            });
+            
+            // Update nav button states
+            const prevBtn = document.querySelector('.carousel-prev');
+            const nextBtn = document.querySelector('.carousel-next');
+            
+            prevBtn.disabled = currentCarouselIndex === 0;
+            nextBtn.disabled = currentCarouselIndex >= 9; // 10 cards (0-9)
+        }
+
+        function prevCard() {
+            if (currentCarouselIndex > 0) {
+                currentCarouselIndex--;
+                updateCarouselPosition();
+            }
+        }
+
+        function nextCard() {
+            if (currentCarouselIndex < 9) {
+                currentCarouselIndex++;
+                updateCarouselPosition();
+            }
+        }
+
+        function goToCarouselSlide(index) {
+            currentCarouselIndex = index;
+            updateCarouselPosition();
+        }
+
+        function selectCarouselCard(cardNumber) {
+            const selectedCard = cardsData.find(card => card.number === cardNumber);
+            if (selectedCard) {
+                displayCard(selectedCard);
+            }
+        }
+
+        // Card Hand functionality
+        let currentHandCards = [];
+
+        function toggleCardHand() {
+            const cardHand = document.getElementById('cardHand');
+            const cardSelector = document.getElementById('cardSelector');
+            
+            // Hide other sections
+            cardSelector.style.display = 'none';
+            
+            if (cardHand.style.display === 'none') {
+                cardHand.style.display = 'block';
+                initializeCardHand();
+            } else {
+                cardHand.style.display = 'none';
+            }
+        }
+
+        function initializeCardHand() {
+            if (!cardsData || cardsData.length === 0) return;
+            shuffleCardHand();
+        }
+
+        function shuffleCardHand() {
+            // Get 5 random cards
+            const shuffledCards = [...cardsData].sort(() => Math.random() - 0.5).slice(0, 5);
+            currentHandCards = shuffledCards;
+            
+            const handContainer = document.getElementById('handContainer');
+            
+            // Create card hand with fanned layout
+            const handHtml = shuffledCards.map((card, index) => {
+                const rotation = (index - 2) * 15; // -30, -15, 0, 15, 30 degrees
+                const translateX = (index - 2) * 40; // Spread cards horizontally
+                const translateY = Math.abs(index - 2) * 10; // Slight vertical offset
+                
+                // Get the correct image filename using the same function as displayCard
+                const imageFileName = getCorrectImageName(card);
+                const imagePath = `card images/${imageFileName}`;
+                
+                return `
+                    <div class="hand-card" 
+                         onclick="selectHandCard(${card.number})" 
+                         role="button" 
+                         tabindex="0"
+                         aria-label="Select card ${card.number}: ${card.concept}"
+                         style="transform: translateX(${translateX}px) translateY(${translateY}px) rotate(${rotation}deg); z-index: ${5 - Math.abs(index - 2)};">
+                        <div class="hand-card-header">
+                            Card #${card.number}
+                        </div>
+                        <div class="hand-card-image-container" style="flex: 1; display: flex; align-items: center; justify-content: center; margin: 6px 0;">
+                            <img src="${imagePath}" 
+                                 alt="Card ${card.number} - ${card.concept}" 
+                                 style="max-width: 100%; max-height: 100px; object-fit: contain; border-radius: 4px;"
+                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            <div style="display: none; text-align: center; color: #666; font-size: 0.7rem; padding: 8px;">
+                                <div style="font-weight: 600; margin-bottom: 3px;">${card.concept}</div>
+                                <div style="line-height: 1.2;">${card.activity.substring(0, 60)}...</div>
+                            </div>
+                        </div>
+                        <div class="hand-card-footer" style="padding: 8px; text-align: center; background: rgba(3, 70, 56, 0.05); border-radius: 0 0 10px 10px; margin: 0 -15px -15px -15px;">
+                            <div style="font-size: 0.8rem; font-weight: 600; color: #034638;">${card.concept}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            handContainer.innerHTML = handHtml;
+            
+            // Add stagger animation
+            setTimeout(() => {
+                document.querySelectorAll('.hand-card').forEach((card, index) => {
+                    card.style.animation = `dealCard 0.6s ease-out ${index * 0.1}s both`;
+                });
+            }, 100);
+        }
+
+        function selectHandCard(cardNumber) {
+            const selectedCard = cardsData.find(card => card.number === cardNumber);
+            if (selectedCard) {
+                // Hide card hand
+                document.getElementById('cardHand').style.display = 'none';
+                displayCard(selectedCard);
+            }
+        }
+
+        // Add touch/swipe support for mobile
+        let startX = 0;
+        let currentX = 0;
+        let isDragging = false;
+
+        function addCarouselTouchSupport() {
+            const trackContainer = document.querySelector('.carousel-track-container');
+            
+            trackContainer.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                isDragging = true;
+            });
+            
+            trackContainer.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                currentX = e.touches[0].clientX;
+                e.preventDefault();
+            });
+            
+            trackContainer.addEventListener('touchend', () => {
+                if (!isDragging) return;
+                isDragging = false;
+                
+                const diffX = startX - currentX;
+                
+                if (Math.abs(diffX) > 50) {
+                    if (diffX > 0) {
+                        nextCard();
+                    } else {
+                        prevCard();
+                    }
+                }
+            });
+        }
+
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
             loadProgress();
+            showIntroIfNeeded();
             
             // Verify cards data is loaded
             if (!cardsData || cardsData.length === 0) {
                 console.error('Cards data not properly loaded!');
                 return;
             }
+            
+            // Initialize carousel
+            initializeCarousel();
+            addCarouselTouchSupport();
         });
     </script>
 </body>
