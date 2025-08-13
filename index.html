@@ -777,6 +777,184 @@
             animation: fadeInUp 0.4s ease-out;
         }
 
+        /* Enhanced AI Response Styling for Higher Education */
+        .ai-response-container {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fffe 100%);
+            border-radius: 12px;
+            border: 1px solid #e8f5f3;
+            box-shadow: 0 4px 20px rgba(3, 70, 56, 0.08);
+            overflow: hidden;
+        }
+
+        .response-header {
+            background: linear-gradient(135deg, #034638 0%, #582C83 100%);
+            color: white;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .response-header h5 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .response-meta {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .variant-indicator {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+        }
+
+        .response-content {
+            padding: 24px;
+            line-height: 1.6;
+            color: #2d3748;
+        }
+
+        .response-content strong {
+            color: #034638;
+            font-weight: 600;
+        }
+
+        .list-number {
+            color: #582C83;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .reflection-question {
+            font-style: italic;
+            color: #4a5568;
+            background: rgba(88, 44, 131, 0.05);
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        .concept-banner {
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .concept-banner.ethics {
+            background: linear-gradient(145deg, #fee2e2 0%, #fef7f7 100%);
+            color: #991b1b;
+            border-left: 4px solid #dc2626;
+        }
+
+        .concept-banner.creativity {
+            background: linear-gradient(145deg, #fef3c7 0%, #fffbeb 100%);
+            color: #92400e;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .concept-banner.critical {
+            background: linear-gradient(145deg, #dbeafe 0%, #f0f9ff 100%);
+            color: #1e40af;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .response-actions {
+            padding: 16px 20px;
+            background: #f8f9fa;
+            border-top: 1px solid #e8f5f3;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn.secondary {
+            background: white;
+            color: #034638;
+            border: 1px solid #034638;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn.secondary:hover {
+            background: #034638;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        /* Follow-up Modal */
+        .follow-up-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .follow-up-content {
+            background: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .follow-up-header {
+            background: linear-gradient(135deg, #034638 0%, #582C83 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .follow-up-header h4 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .close-follow-up {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background 0.2s ease;
+        }
+
+        .close-follow-up:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .follow-up-body {
+            padding: 24px;
+            line-height: 1.6;
+        }
+
+        .follow-up-actions {
+            padding: 16px 24px;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+        }
+
         /* Skip link */
         .skip-link {
             position: absolute;
@@ -2171,20 +2349,21 @@
                 // Get the A/B test prompt variant for this interaction
                 const promptVariant = getPromptVariant(cardNumber, 'card-interaction');
                 
-                // Build the prompt with user inputs
-                let userMessage = Object.values(inputs).join('\n\n');
+                // Build enhanced context for higher ed
+                const contextualPrompt = buildContextualPrompt(card, inputs, promptVariant);
                 
                 const response = await fetch('/api/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        message: userMessage,
+                        message: contextualPrompt.userMessage,
                         cardContext: { 
                             concept: card.concept, 
                             activity: card.activity,
-                            cardNumber: card.number
+                            cardNumber: card.number,
+                            learningObjective: card.learningObjective || extractLearningObjective(card)
                         },
-                        customPrompt: promptVariant.prompt, // Use A/B test variant
+                        customPrompt: contextualPrompt.systemPrompt,
                         userInputs: inputs,
                         // Include A/B test metadata
                         abTestData: {
@@ -2198,11 +2377,30 @@
                 
                 const data = await response.json();
                 
-                // Display result with feedback section
+                // Display enhanced result with better formatting
                 const feedbackId = `feedback-${cardNumber}-card-interaction-${Date.now()}`;
+                const formattedResponse = formatAIResponseForHigherEd(data.response, card.concept);
+                
                 resultDiv.innerHTML = `
-                    <h5>🎯 AI Response:</h5>
-                    <div>${data.response.replace(/\n/g, '<br>')}</div>
+                    <div class="ai-response-container">
+                        <div class="response-header">
+                            <h5>💡 AI Guidance: ${card.concept} in Higher Education</h5>
+                            <div class="response-meta">
+                                <span class="variant-indicator">Approach: ${promptVariant.name}</span>
+                            </div>
+                        </div>
+                        <div class="response-content">
+                            ${formattedResponse}
+                        </div>
+                        <div class="response-actions">
+                            <button class="action-btn secondary" onclick="generateFollowUpSuggestions(${cardNumber}, '${card.concept}')">
+                                🔄 Get Follow-up Suggestions
+                            </button>
+                            <button class="action-btn secondary" onclick="exportGuidanceAsText(${cardNumber})">
+                                📄 Export Guidance
+                            </button>
+                        </div>
+                    </div>
                     ${generateFeedbackSection(cardNumber, 'card-interaction', feedbackId)}
                 `;
 
@@ -2376,24 +2574,24 @@
             return response.json();
         }
 
-        // A/B Testing System for AI Prompts
+        // A/B Testing System for AI Prompts - Higher Education Focus
         const promptVariants = {
-            // Default prompts for each card interaction type
+            // Higher ed-specific prompts for each card interaction type
             'card-interaction': [
                 {
-                    id: 'default',
-                    name: 'Original Prompt',
-                    prompt: 'You are a dialogue practice partner. Based on the situation provided, engage in realistic role-play to help the student practice. Stay in character but be encouraging. After the practice, provide constructive feedback on their approach and suggest improvements.'
+                    id: 'scholarly-mentor',
+                    name: 'Scholarly Mentor',
+                    prompt: 'You are an experienced higher education professional and thoughtful AI integration specialist. Your audience consists of faculty, academic staff, and graduate students exploring how to meaningfully incorporate AI into their teaching, research, and professional practice. Provide nuanced, evidence-informed guidance that acknowledges both the opportunities and limitations of AI in academic contexts. Reference pedagogical principles, cite relevant educational frameworks when helpful, and always emphasize human agency, critical thinking, and academic integrity. Keep responses practical and actionable while maintaining scholarly depth.'
                 },
                 {
-                    id: 'socratic',
-                    name: 'Socratic Method',
-                    prompt: 'You are a Socratic learning facilitator. Instead of giving direct answers, ask thoughtful questions that guide the student to discover insights themselves. Based on their input, ask 2-3 probing questions that help them think more deeply about the concept.'
+                    id: 'reflective-practitioner', 
+                    name: 'Reflective Practitioner',
+                    prompt: 'You are a reflective practitioner in higher education who helps colleagues think deeply about AI integration in academic settings. Your role is to facilitate self-discovery through thoughtful questioning and guided reflection. Ask 2-3 probing questions that help faculty and staff examine their assumptions, consider multiple perspectives, and develop their own informed approaches to AI use. Ground your questions in adult learning theory and encourage critical examination of both benefits and ethical considerations in higher education contexts.'
                 },
                 {
-                    id: 'creative',
-                    name: 'Creative Approach', 
-                    prompt: 'You are a creative learning coach. Take the student\'s input and help them explore it through storytelling, analogies, or imaginative scenarios. Make the learning experience engaging and memorable while ensuring educational value.'
+                    id: 'innovative-educator',
+                    name: 'Innovative Educator',
+                    prompt: 'You are an innovative educator and educational technologist working in higher education. Help faculty, staff, and graduate students explore creative and evidence-based approaches to AI integration that enhance learning, research, and professional development. Use concrete examples from higher education, reference successful case studies when relevant, and suggest practical next steps. Always emphasize pedagogical soundness, student-centered design, and the importance of maintaining academic rigor while fostering innovation.'
                 }
             ]
         };
@@ -2416,6 +2614,190 @@
             }
             
             return variants.find(v => v.id === assignedVariant) || variants[0];
+        }
+
+        // Enhanced context building for higher education
+        function buildContextualPrompt(card, inputs, promptVariant) {
+            const learningObjective = extractLearningObjective(card);
+            const inputLabels = card.inputFields ? card.inputFields.map(f => f.label) : [];
+            
+            // Build contextual system prompt
+            const contextualSystemPrompt = `${promptVariant.prompt}
+
+SPECIFIC CONTEXT:
+- Learning Concept: "${card.concept}"
+- Card Activity: "${card.activity}"
+- Learning Objective: ${learningObjective}
+- Higher Ed Context: This interaction is designed to help faculty, staff, or graduate students thoughtfully integrate AI into academic practice.
+
+RESPONSE GUIDELINES:
+- Acknowledge the user's specific context and inputs
+- Connect responses to higher education best practices
+- Provide concrete, actionable next steps
+- Consider academic integrity, pedagogical soundness, and institutional considerations
+- Use appropriate academic tone while remaining accessible
+- Include 2-3 specific suggestions or questions for further exploration`;
+
+            // Build structured user message
+            const inputPairs = Object.entries(inputs).map(([key, value], index) => {
+                const label = inputLabels[index] || `Input ${index + 1}`;
+                return `${label}: ${value}`;
+            }).join('\n\n');
+
+            const structuredUserMessage = `I'm exploring the concept of "${card.concept}" in my higher education context.
+
+My situation:
+${inputPairs}
+
+Please help me think through how to apply this concept thoughtfully in my academic setting.`;
+
+            return {
+                systemPrompt: contextualSystemPrompt,
+                userMessage: structuredUserMessage
+            };
+        }
+
+        function extractLearningObjective(card) {
+            // Extract or infer learning objectives based on card concept and activity
+            const concept = card.concept.toLowerCase();
+            
+            const objectiveMapping = {
+                'motivation': 'Help learners connect course content to their personal interests and career goals',
+                'dialogue': 'Practice meaningful conversations and develop communication skills through AI interaction',
+                'critical-thinking': 'Develop analytical skills and question assumptions when working with AI',
+                'creativity': 'Foster innovative thinking and creative problem-solving with AI assistance',
+                'ethics': 'Examine ethical implications and develop responsible AI use practices',
+                'accessibility': 'Ensure inclusive and equitable access to AI-enhanced learning',
+                'agency': 'Maintain learner autonomy and decision-making in AI-supported environments',
+                'reflection': 'Encourage metacognitive thinking about learning processes and AI integration',
+                'community': 'Build connections and collaborative learning through shared AI experiences',
+                'transparency': 'Develop clear communication about AI use and decision-making processes'
+            };
+
+            // Find matching objective or create a general one
+            for (const [key, objective] of Object.entries(objectiveMapping)) {
+                if (concept.includes(key)) {
+                    return objective;
+                }
+            }
+
+            return `Thoughtfully integrate AI to enhance ${card.concept.toLowerCase()} in higher education settings`;
+        }
+
+        // Enhanced response formatting for higher education
+        function formatAIResponseForHigherEd(response, concept) {
+            // Split response into structured sections
+            let formattedResponse = response.replace(/\n/g, '<br>');
+            
+            // Add visual structure for common patterns
+            formattedResponse = formattedResponse
+                // Bold key concepts
+                .replace(/(Key considerations?:?)/gi, '<strong>$1</strong>')
+                .replace(/(Next steps?:?)/gi, '<strong>$1</strong>')
+                .replace(/(Recommendations?:?)/gi, '<strong>$1</strong>')
+                .replace(/(Suggestions?:?)/gi, '<strong>$1</strong>')
+                .replace(/(Questions? to consider:?)/gi, '<strong>$1</strong>')
+                
+                // Style numbered lists
+                .replace(/(\d+\.\s)/g, '<span class="list-number">$1</span>')
+                
+                // Highlight questions with special formatting
+                .replace(/(\?[^<]*)/g, '<span class="reflection-question">$1</span>');
+            
+            // Add concept-specific formatting
+            if (concept.toLowerCase().includes('ethics')) {
+                formattedResponse = `<div class="concept-banner ethics">🛡️ Ethical Considerations for ${concept}</div>${formattedResponse}`;
+            } else if (concept.toLowerCase().includes('creativity')) {
+                formattedResponse = `<div class="concept-banner creativity">🎨 Creative Applications for ${concept}</div>${formattedResponse}`;
+            } else if (concept.toLowerCase().includes('critical')) {
+                formattedResponse = `<div class="concept-banner critical">🧠 Critical Analysis for ${concept}</div>${formattedResponse}`;
+            }
+            
+            return formattedResponse;
+        }
+
+        // Follow-up suggestions generator
+        async function generateFollowUpSuggestions(cardNumber, concept) {
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = '🔄 Generating...';
+            button.disabled = true;
+            
+            try {
+                const followUpPrompt = `Provide 3 specific, actionable follow-up suggestions for a higher education professional who has just explored "${concept}" in their academic context. Each suggestion should be practical, implementable within 1-2 weeks, and appropriate for faculty, staff, or graduate students. Format as a concise bulleted list.`;
+                
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: followUpPrompt,
+                        cardContext: { concept: concept, cardNumber: cardNumber },
+                        customPrompt: 'You are a practical higher education consultant. Provide specific, actionable next steps.'
+                    })
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    showFollowUpModal(data.response, concept);
+                }
+                
+            } catch (error) {
+                console.error('Follow-up error:', error);
+            } finally {
+                button.textContent = originalText;
+                button.disabled = false;
+            }
+        }
+
+        function showFollowUpModal(suggestions, concept) {
+            const modal = document.createElement('div');
+            modal.className = 'follow-up-modal';
+            modal.innerHTML = `
+                <div class="follow-up-content">
+                    <div class="follow-up-header">
+                        <h4>🚀 Next Steps for ${concept}</h4>
+                        <button class="close-follow-up" onclick="this.closest('.follow-up-modal').remove()">×</button>
+                    </div>
+                    <div class="follow-up-body">
+                        ${suggestions.replace(/\n/g, '<br>')}
+                    </div>
+                    <div class="follow-up-actions">
+                        <button class="btn btn-primary" onclick="this.closest('.follow-up-modal').remove()">Got it!</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        function exportGuidanceAsText(cardNumber) {
+            const responseContainer = document.querySelector('.ai-response-container .response-content');
+            if (!responseContainer) return;
+            
+            const concept = currentDisplayedCard ? currentDisplayedCard.concept : 'AI Learning';
+            const guidance = responseContainer.innerText;
+            
+            const exportText = `# AI Learning Guidance: ${concept}
+Generated from analogueAI Learning Cards
+
+## Your AI Guidance:
+${guidance}
+
+## Source:
+Card #${cardNumber} - ${concept}
+Generated on: ${new Date().toLocaleDateString()}
+
+---
+This guidance was generated to help you thoughtfully integrate AI into your higher education practice.
+`;
+
+            // Create download
+            const blob = new Blob([exportText], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `ai-guidance-${concept.toLowerCase().replace(/\s+/g, '-')}.txt`;
+            a.click();
+            window.URL.revokeObjectURL(url);
         }
 
         function logABTestAssignment(cardNumber, interactionType, variantId) {
