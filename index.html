@@ -14,14 +14,14 @@
         body {
             font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
             background: linear-gradient(135deg, #f8fafb 0%, #f1f5f9 100%);
-            color: #63666A;
+            color: #212529;
             padding: 20px 0;
             margin: 0;
             min-height: 100vh;
         }
         
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
             background: white;
             border-radius: 16px;
@@ -93,19 +93,82 @@
         }
 
         .btn-primary:focus {
-            outline: 3px solid #034638;
+            outline: 3px solid #0056b3;
             outline-offset: 2px;
+        }
+
+        /* Universal focus styles for accessibility */
+        button:focus,
+        input:focus,
+        textarea:focus,
+        select:focus,
+        [tabindex]:focus {
+            outline: 2px solid #0056b3;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 2px rgba(0, 86, 179, 0.2);
+        }
+
+        .action-option:focus,
+        .selector-tab:focus,
+        .card-item:focus,
+        .theme-card:focus {
+            outline: 2px solid #0056b3;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 2px rgba(0, 86, 179, 0.2);
+        }
+
+        /* Screen reader only content */
+        .sr-only {
+            position: absolute !important;
+            width: 1px !important;
+            height: 1px !important;
+            padding: 0 !important;
+            margin: -1px !important;
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            white-space: nowrap !important;
+            border: 0 !important;
         }
         
         .card-display {
             background: white;
             border-radius: 12px;
-            padding: 32px;
-            margin: 24px 0;
+            padding: 28px;
+            margin: 20px 0;
             display: none;
             animation: fadeInUp 0.6s ease-out;
             box-shadow: 0 2px 12px rgba(0,0,0,0.04);
             border: 1px solid rgba(0,0,0,0.06);
+        }
+
+        .card-content {
+            display: flex;
+            gap: 32px;
+            align-items: flex-start;
+        }
+
+        .card-image-section {
+            flex: 0 0 280px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .card-text-section {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .card-image-container {
+            width: 100%;
+        }
+
+        .card-image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         
         .card-display.show {
@@ -136,11 +199,10 @@
         }
         
         .card-concept {
-            font-size: 2rem;
+            font-size: 1.6rem;
             font-weight: bold;
             color: #333;
-            margin-bottom: 20px;
-            text-align: center;
+            margin-bottom: 16px;
         }
         
         
@@ -1330,7 +1392,7 @@
         .welcome-subtitle {
             font-size: 0.9rem;
             line-height: 1.4;
-            color: #63666A;
+            color: #495057;
             margin: 0;
             max-width: 500px;
             margin-left: auto;
@@ -1779,6 +1841,18 @@
                 border-radius: 12px;
             }
             
+            .card-content {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .card-image-section {
+                flex: none;
+                width: 100%;
+                max-width: 250px;
+                margin: 0 auto;
+            }
+
             .action-buttons {
                 flex-direction: column;
                 align-items: center;
@@ -1983,7 +2057,7 @@
             </p>
         </div>
         
-        <main class="main-content" id="main-content">
+        <main class="main-content" id="main-content" role="main" aria-label="AI Learning Cards Application">
             <!-- Welcome Section -->
             <section class="welcome-section">
                 <div class="welcome-content">
@@ -2086,7 +2160,7 @@
             </div>
             
             
-            <div class="card-display" id="cardDisplay">
+            <div class="card-display" id="cardDisplay" role="article" aria-live="polite" aria-label="Selected learning card">
                 <!-- Card content will be inserted here -->
             </div>
             
@@ -2121,23 +2195,24 @@
     </div>
 
     <!-- AI Chat Modal -->
-    <div class="chat-modal" id="chatModal" style="display: none;">
+    <div class="chat-modal" id="chatModal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="chat-title">
         <div class="chat-modal-content">
             <div class="chat-header">
-                <h3>💬 Chat with AI</h3>
-                <button class="close-chat" onclick="closeChatModal()">×</button>
+                <h3 id="chat-title">💬 Chat with AI</h3>
+                <button class="close-chat" onclick="closeChatModal()" aria-label="Close chat dialog">×</button>
             </div>
-            <div class="chat-context" id="chatContext"></div>
-            <div class="chat-messages" id="chatMessages">
-                <div class="ai-message">
+            <div class="chat-context" id="chatContext" role="region" aria-label="Chat context information"></div>
+            <div class="chat-messages" id="chatMessages" role="log" aria-live="polite" aria-label="Chat conversation">
+                <div class="ai-message" role="article" aria-label="AI message">
                     Hi! I'm here to help you explore this learning concept. What questions do you have, or would you like to discuss how to apply this idea?
                 </div>
             </div>
             <div class="chat-input-container">
-                <input type="text" id="chatInput" placeholder="Type your message..." onkeypress="handleChatKeyPress(event)">
-                <button id="sendButton" onclick="sendChatMessage()">Send</button>
+                <label for="chatInput" class="sr-only">Type your message to AI</label>
+                <input type="text" id="chatInput" placeholder="Type your message..." onkeypress="handleChatKeyPress(event)" aria-describedby="send-button">
+                <button id="sendButton" onclick="sendChatMessage()" aria-label="Send message">Send</button>
             </div>
-            <div class="chat-loading" id="chatLoading" style="display: none;">
+            <div class="chat-loading" id="chatLoading" style="display: none;" role="status" aria-live="polite">
                 <div class="spinner-small"></div>
                 <span>AI is thinking...</span>
             </div>
@@ -2257,21 +2332,28 @@
             const imagePath = `card images/${imageFileName}`;
             
             cardDisplay.innerHTML = `
-                <div class="card-number">Card #${card.number}</div>
-                <div class="card-image-container" style="text-align: center; margin: 20px 0;">
-                    <img src="${imagePath}" alt="Card ${card.number} - ${card.concept}" 
-                         style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);"
-                         onerror="this.style.display='none'">
-                </div>
-                <div class="card-concept">${card.concept}</div>
-                ${card.quote ? `<div class="card-quote">\"${card.quote}\"</div>` : ''}
-                
-                ${card.interactionType ? generateInteractionSection(card) : ''}
-                
-                <div class="student-actions">
-                    <button class="student-btn" onclick="markAsTried()">✓ I tried this!</button>
-                    <button class="student-btn" onclick="drawRandomCard()">🔄 Get another idea</button>
-                    <button class="student-btn" onclick="findSimilar('${card.concept}')">🔗 Find similar</button>
+                <div class="card-content">
+                    <div class="card-image-section">
+                        <div class="card-number">Card #${card.number}</div>
+                        <div class="card-image-container">
+                            <img src="${imagePath}" alt="Card ${card.number} - ${card.concept}" 
+                                 onerror="this.style.display='none'">
+                        </div>
+                    </div>
+                    
+                    <div class="card-text-section">
+                        <div class="card-concept">${card.concept}</div>
+                        ${card.quote ? `<div class="card-quote">\"${card.quote}\"</div>` : ''}
+                        
+                        ${card.interactionType ? generateInteractionSection(card) : ''}
+                        
+                            <div class="student-actions">
+                                <button class="student-btn" onclick="markAsTried()">✓ I tried this!</button>
+                                <button class="student-btn" onclick="drawRandomCard()">🔄 Get another idea</button>
+                                <button class="student-btn" onclick="findSimilar('${card.concept}')">🔗 Find similar</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             `;
             
